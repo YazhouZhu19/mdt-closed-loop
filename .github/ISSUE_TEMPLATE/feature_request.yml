@@ -1,0 +1,42 @@
+name: Feature request
+description: Propose a research-prototype improvement.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What research or engineering problem should be solved?
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed behavior
+      description: Describe the API, algorithm, or workflow change.
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and alternatives
+      description: Cite validation plans, tradeoffs, and alternatives. Do not include private study material.
+
+  - type: textarea
+    id: safety
+    attributes:
+      label: Safety, privacy, and research impact
+      description: Explain effects on confidence fallback, actuation, data, outcomes, or research arms.
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: scope
+    attributes:
+      label: Scope confirmation
+      options:
+        - label: I understand this repository is not a clinical system and the request does not claim clinical efficacy.
+          required: true

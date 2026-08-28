@@ -1,0 +1,4 @@
+# Runtime dependencies mirrored from pyproject.toml.
+# Prefer `python -m pip install -e .` when working from this repository.
+numpy>=1.26
+scipy>=1.11
