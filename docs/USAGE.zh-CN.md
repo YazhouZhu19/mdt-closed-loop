@@ -136,7 +136,7 @@ record_path = treatment.finish(
 
 | 分臂 | 目标轨迹 | 实时生理反馈控制音乐 | 说明 |
 |---|---|---|---|
-| `FULL_LOOP` | ISO | 是 | 完整闭环 |
+| `FULL_LOOP` | 响应驱动的自适应 ISO | 是 | 完整闭环；低可靠度冻结轨迹 |
 | `DIRECT` | 固定直接目标 | 是 | 直接引导闭环 |
 | `ISO` | ISO | 不做连续反馈 | 开环计划轨迹 |
 | `SHAM` | 预注册轨迹 | 否 | 只随音频边界推进 |
@@ -173,7 +173,9 @@ sham = Session(
 - 非生理范围或异位 RR 会被剔除。
 - 接触阻抗异常会标记为 `LOST`。
 - 运动、特征覆盖不足或样本剔除会降低置信度。
-- `LOST` 或低置信度会退出实时反馈并撤销排队命令。
+- Kalman 后验方差作为独立的不确定性随测量间隔累积。
+- 中等不确定性会连续降低 PI 输出和积分速度。
+- `LOST`、低置信度或超过硬不确定性阈值会退出实时反馈并撤销排队命令。
 
 设备集成层应捕获输入异常、单独记录设备事件，不得用伪造数据重试。
 
@@ -208,8 +210,8 @@ treatment.abort("device_disconnected")
 `SessionRecorder` 输出一个 JSON 文件，包含：
 
 - `session_id`、`user_id` 和研究分臂；
-- `physio`：特征、质量、状态、置信度和 Z 分数；
-- `music`：实际参数、目标、估计、误差和控制原因；
+- `physio`：特征、质量、状态、置信度、后验不确定性和 Z 分数；
+- `music`：实际参数、目标、估计、误差、控制输出/降额系数、轨迹阶段/速度和控制原因；
 - `subjective`：前后测问卷与量表事件。
 
 写入过程先生成同目录 `.json.tmp`，完成后原子替换。它可以避免半写 JSON，但不提供加密、身份认证、保留策略或审计日志。
@@ -242,4 +244,4 @@ from mdt_core.config import Config, ControlConfig
 cfg = Config(control=ControlConfig(kp=0.35, ki=0.03))
 ```
 
-任何用于研究的参数变更都应版本化、预注册并独立验证。
+`ControlConfig` 的 `uncertainty_soft_limit` 和 `uncertainty_hard_limit` 定义降额区间；`PlannerConfig` 的 `adaptive_*` 字段定义自适应 ISO 的速度和跟踪误差阈值。任何用于研究的参数变更都应版本化、预注册并独立验证。

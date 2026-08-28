@@ -99,9 +99,16 @@ class Session:
         self._last_fast_t: float | None = None
         self._last_slow_t: float | None = None
         self._last_music_t: float | None = None
-        self._last_state = State(t=0.0, arousal=0.5, confidence=0.0)
+        self._last_state = State(
+            t=0.0,
+            arousal=0.5,
+            confidence=0.0,
+            uncertainty=1.0,
+        )
         self._last_target = 0.5
         self._last_reason = "not_started"
+        self._last_control = 0.0
+        self._last_control_scale = 0.0
         self._open_loop_target: float | None = None
         self._output_path: Path | None = None
         self._baseline_value_count_at_start = baseline.accumulated_value_count
@@ -141,23 +148,25 @@ class Session:
 
     def _select_control(
         self, target: float, state: State, dt: float
-    ) -> tuple[float, str]:
+    ) -> tuple[float, str, float]:
         if self.is_calibration:
             self.grammar.cancel_pending()
-            return 0.0, "calibration_open_loop"
+            return 0.0, "calibration_open_loop", 0.0
         if self.arm is Arm.SHAM and not self.is_calibration:
             self.grammar.cancel_pending()
-            return 0.0, "sham_pre_registered"
+            return 0.0, "sham_pre_registered", 0.0
         if ArmAssigner.is_open_loop_iso(self.arm):
             previous = (
                 target if self._open_loop_target is None else self._open_loop_target
             )
             self._open_loop_target = target
-            return target - previous, "open_loop_iso_trajectory"
+            return target - previous, "open_loop_iso_trajectory", 1.0
         if state.confidence < self.cfg.state.min_confidence:
+            self.controller.suspend()
             self.grammar.cancel_pending()
-            return 0.0, "open_loop_low_confidence"
-        return self.controller.step(target, state, dt)
+            return 0.0, "open_loop_low_confidence", 0.0
+        output, reason = self.controller.step(target, state, dt)
+        return output, reason, self.controller.last_scale
 
     def _process_features(
         self,
@@ -172,8 +181,19 @@ class Session:
             self.planner.set_anchor(state.arousal)
             self._anchored = True
 
-        target = self.planner.target(feats.t)
-        control, reason = self._select_control(target, state, dt)
+        adaptive_full_loop = (
+            self.cfg.planner.adaptive_iso and self.arm is Arm.FULL_LOOP
+        )
+        if adaptive_full_loop:
+            reliability = (
+                self.controller.reliability(state)
+                if state.confidence >= self.cfg.state.min_confidence
+                else 0.0
+            )
+            target = self.planner.adaptive_target(feats.t, state, reliability)
+        else:
+            target = self.planner.target(feats.t)
+        control, reason, control_scale = self._select_control(target, state, dt)
         self.grammar.request(control, feats.t)
         params, changed = self.grammar.commit(
             feats.t,
@@ -200,11 +220,18 @@ class Session:
                 estimated_arousal=state.arousal,
                 error=target - state.arousal,
                 reason=reason,
+                state_uncertainty=state.uncertainty,
+                control_output=control,
+                control_scale=control_scale,
+                trajectory_phase=self.planner.phase,
+                trajectory_speed=self.planner.speed_factor,
             )
         )
         self._last_state = state
         self._last_target = target
         self._last_reason = reason
+        self._last_control = control
+        self._last_control_scale = control_scale
         return state, params
 
     def fast_tick(
@@ -338,6 +365,11 @@ class Session:
                         if self.arm is Arm.SHAM
                         else "music_boundary_commit"
                     ),
+                    state_uncertainty=self._last_state.uncertainty,
+                    control_output=self._last_control,
+                    control_scale=self._last_control_scale,
+                    trajectory_phase=self.planner.phase,
+                    trajectory_speed=self.planner.speed_factor,
                 )
             )
         self._last_music_t = t

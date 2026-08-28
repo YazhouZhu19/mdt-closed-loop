@@ -90,7 +90,7 @@ x_new  = x_prev + K * (measurement - x_prev)
 P_new  = (1 - K) * P_pred
 ```
 
-`process_scale` is derived from the actual update interval relative to the configured slow-step reference. Noisy input doubles measurement variance. Confidence combines feature coverage with the quality class.
+`process_scale` is derived from the actual update interval relative to the configured slow-step reference. Prediction runs even when a measurement is missing, so posterior variance grows rather than preserving stale certainty. Noisy input doubles measurement variance. Confidence combines feature coverage with the quality class; posterior variance is emitted separately as `State.uncertainty`.
 
 The estimator outputs arousal only. EDA and HRV do not reliably determine emotional valence; valence must come from a validated subjective instrument.
 
@@ -104,6 +104,16 @@ The initial reliable state becomes the anchor. The default trajectory:
 - descends linearly for 900 seconds;
 - remains at the configured floor for the rest of the session.
 
+`FULL_LOOP` uses a stateful adaptive form. After the matching phase, reference
+progress is multiplied by a speed factor derived from tracking lag and the same
+state reliability used by the controller. On-track response can accelerate the
+descent, lagging response slows it, and an unreliable estimate freezes progress.
+The target is monotonic: an anchor already below the sleep-oriented floor is
+held rather than raised.
+
+The `ISO` open-loop research arm intentionally retains the fixed wall-clock
+trajectory so the adaptive live policy is not leaked into its comparator.
+
 ### DIRECT strategy
 
 The target remains at the configured direct value throughout the session.
@@ -114,16 +124,20 @@ Both trajectories return a normalized arousal target in `[0, 1]`.
 
 ```text
 e(k) = a_target(k) - a_estimated(k)
+q(k) = confidence(k) * uncertainty_scale(P(k))
 
-if |e(k)| < deadband:
+if q(k) == 0:
+    I(k) = leak * I(k-1)
+    u(k) = 0
+elif |e(k)| < deadband:
     I(k) = leak * I(k-1)
     u(k) = 0
 else:
-    I(k) = clamp(I(k-1) + e(k) * dt, -I_max, I_max)
-    u(k) = clamp(Kp * e(k) + Ki * I(k), -u_max, u_max)
+    I(k) = clamp(I(k-1) + q(k) * e(k) * dt, -I_max, I_max)
+    u(k) = clamp(q(k) * (Kp * e(k) + Ki * I(k)), -u_max, u_max)
 ```
 
-There is no derivative term because physiological measurements are noisy and an unfiltered derivative would amplify high-frequency artifacts. A low-confidence state bypasses PI control and cancels pending actuation.
+The uncertainty scale is one below the soft posterior-variance threshold, decreases linearly to zero, and remains zero above the hard threshold. This both reduces proportional actuation and prevents integral wind-up while the system is derated. There is no derivative term because physiological measurements are noisy and an unfiltered derivative would amplify high-frequency artifacts. A low-confidence or high-uncertainty state bypasses PI control and cancels pending actuation.
 
 ## 7. L3.5: music grammar
 
@@ -173,7 +187,7 @@ Sensor and music events share monotonic session time. Processing an older event 
 ```mermaid
 flowchart TD
     ARM{Assigned arm}
-    ARM -->|FULL_LOOP| FI[ISO target + live PI]
+    ARM -->|FULL_LOOP| FI[Adaptive ISO target + uncertainty-aware live PI]
     ARM -->|DIRECT| FD[Direct target + live PI]
     ARM -->|ISO| OI[ISO planned open-loop changes]
     ARM -->|SHAM| SH[Pre-registered trajectory]
@@ -204,6 +218,10 @@ stateDiagram-v2
 ## 11. Data recording
 
 Physiology/state, music/control, and subjective tracks use the same session-time domain. JSON persistence uses a temporary sibling file followed by an atomic replace.
+
+Physiology rows include observation confidence and posterior uncertainty. Music
+rows include control output, reliability scale, trajectory phase, and adaptive
+speed so a study can reconstruct why each command was produced.
 
 This mechanism protects file completeness only. Production health-data storage also requires pseudonymization, encryption in transit and at rest, access control, audit logs, retention/deletion policy, consent records, and jurisdiction-specific privacy review.
 

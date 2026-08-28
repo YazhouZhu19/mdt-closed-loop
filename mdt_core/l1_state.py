@@ -93,8 +93,16 @@ class ArousalEstimator:
     def update(self, feats: Features, process_scale: float = 1.0) -> State:
         if not math.isfinite(process_scale) or process_scale <= 0:
             raise ValueError("process_scale must be finite and > 0")
+        # Prediction always runs, including gaps.  Otherwise a long period with
+        # no usable measurement would incorrectly preserve stale certainty.
+        self._p += self.cfg.kalman_q * process_scale
         if not self.baseline.is_ready or feats.quality is SignalQuality.LOST:
-            return State(t=feats.t, arousal=self._x, confidence=0.0)
+            return State(
+                t=feats.t,
+                arousal=self._x,
+                confidence=0.0,
+                uncertainty=self._p,
+            )
 
         zs: dict[str, float] = {}
         for k, v in feats.as_dict().items():
@@ -106,7 +114,13 @@ class ArousalEstimator:
         eda_z = [zs[k] for k in EDA_KEYS if k in zs]
         hrv_z = [zs[k] for k in HRV_KEYS if k in zs]
         if not eda_z and not hrv_z:
-            return State(t=feats.t, arousal=self._x, confidence=0.0, z_scores=zs)
+            return State(
+                t=feats.t,
+                arousal=self._x,
+                confidence=0.0,
+                z_scores=zs,
+                uncertainty=self._p,
+            )
 
         parts, weights = [], []
         if eda_z:
@@ -119,11 +133,16 @@ class ArousalEstimator:
         measurement = _squash(fused_z, self.cfg.max_abs_z)
 
         r = self.cfg.kalman_r * (2.0 if feats.quality is SignalQuality.NOISY else 1.0)
-        self._p += self.cfg.kalman_q * process_scale
         k_gain = self._p / (self._p + r)
         self._x += k_gain * (measurement - self._x)
         self._p *= 1.0 - k_gain
 
         coverage = len(zs) / (len(EDA_KEYS) + len(HRV_KEYS))
         confidence = coverage * (0.5 if feats.quality is SignalQuality.NOISY else 1.0)
-        return State(t=feats.t, arousal=self._x, confidence=confidence, z_scores=zs)
+        return State(
+            t=feats.t,
+            arousal=self._x,
+            confidence=confidence,
+            z_scores=zs,
+            uncertainty=self._p,
+        )

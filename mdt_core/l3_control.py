@@ -17,6 +17,31 @@ class PIController:
         self.cfg = cfg
         self._integral = 0.0
         self._last_output = 0.0
+        self._last_scale = 0.0
+
+    @property
+    def last_scale(self) -> float:
+        """Reliability multiplier applied to the latest control decision."""
+        return self._last_scale
+
+    def reliability(self, state: State) -> float:
+        """Combine observation confidence and posterior state uncertainty."""
+        if (
+            not math.isfinite(state.confidence)
+            or not 0.0 <= state.confidence <= 1.0
+        ):
+            raise ValueError("state.confidence must be finite and in [0, 1]")
+        if not math.isfinite(state.uncertainty) or state.uncertainty < 0:
+            raise ValueError("state.uncertainty must be finite and >= 0")
+        soft = self.cfg.uncertainty_soft_limit
+        hard = self.cfg.uncertainty_hard_limit
+        if state.uncertainty <= soft:
+            uncertainty_scale = 1.0
+        elif state.uncertainty >= hard:
+            uncertainty_scale = 0.0
+        else:
+            uncertainty_scale = (hard - state.uncertainty) / (hard - soft)
+        return state.confidence * uncertainty_scale
 
     def step(self, target: float, state: State, dt: float) -> tuple[float, str]:
         if not math.isfinite(target) or not 0.0 <= target <= 1.0:
@@ -25,9 +50,17 @@ class PIController:
             raise ValueError("state.arousal must be finite and in [0, 1]")
         if not math.isfinite(dt) or dt <= 0:
             raise ValueError("dt must be finite and > 0")
-        if state.confidence < 1e-6:
+        scale = self.reliability(state)
+        self._last_scale = scale
+        if scale < 1e-6:
+            self._integral *= self.cfg.deadband_integral_leak
             self._last_output = 0.0
-            return 0.0, "open_loop_no_confidence"
+            reason = (
+                "open_loop_high_uncertainty"
+                if state.uncertainty >= self.cfg.uncertainty_hard_limit
+                else "open_loop_no_confidence"
+            )
+            return 0.0, reason
 
         error = target - state.arousal
         if abs(error) < self.cfg.deadband:
@@ -35,18 +68,28 @@ class PIController:
             self._last_output = 0.0
             return 0.0, "deadband"
 
-        self._integral += error * dt
+        # Accumulate only the fraction of error that can safely be acted upon;
+        # this prevents hidden integral wind-up while control is derated.
+        self._integral += error * dt * scale
         clamp = self.cfg.integral_clamp
         self._integral = max(-clamp, min(clamp, self._integral))
 
-        output = self.cfg.kp * error + self.cfg.ki * self._integral
+        output = scale * (self.cfg.kp * error + self.cfg.ki * self._integral)
         output = max(-self.cfg.output_clamp, min(self.cfg.output_clamp, output))
         self._last_output = output
-        return output, "closed_loop"
+        reason = "closed_loop" if scale >= 1.0 - 1e-9 else "closed_loop_derated"
+        return output, reason
 
     def reset(self) -> None:
         self._integral = 0.0
         self._last_output = 0.0
+        self._last_scale = 0.0
+
+    def suspend(self) -> None:
+        """Safely hold control while shedding integral memory."""
+        self._integral *= self.cfg.deadband_integral_leak
+        self._last_output = 0.0
+        self._last_scale = 0.0
 
 
 class MusicGrammar:

@@ -135,7 +135,7 @@ Do not infer bar or phrase boundaries with floating-point modulo. Call `music_bo
 
 | Arm | Target trajectory | Live physiology controls music? | Notes |
 |---|---|---|---|
-| `FULL_LOOP` | ISO | yes | complete closed loop |
+| `FULL_LOOP` | response-adaptive ISO | yes | complete loop; freezes on unreliable state |
 | `DIRECT` | fixed direct target | yes | closed-loop direct guidance |
 | `ISO` | ISO | no continuous feedback | open-loop planned trajectory |
 | `SHAM` | pre-registered | no | playback advances only on audio boundaries |
@@ -172,7 +172,9 @@ The list is copied when `ShamEngine` is created. Actual SHAM parameters, rather 
 - Implausible or ectopic RR intervals are rejected.
 - Bad contact impedance marks the signal `LOST`.
 - Motion, partial coverage, or filtered samples lower confidence.
-- `LOST` or low-confidence state estimates disable live feedback and cancel queued changes.
+- Kalman posterior variance is exposed separately and grows across measurement gaps.
+- Moderate uncertainty continuously derates PI output and integral accumulation.
+- `LOST`, low confidence, or posterior uncertainty above the hard limit disables live feedback and cancels queued changes.
 
 Integrations should catch validation errors at the device boundary, record the device event separately, and avoid retrying with fabricated values.
 
@@ -207,8 +209,8 @@ treatment.abort("device_disconnected")
 `SessionRecorder` writes one JSON object containing:
 
 - `session_id`, `user_id`, and research `arm`;
-- `physio`: timestamped features, quality, state, confidence, and Z scores;
-- `music`: actual parameters, target, estimate, error, and control reason;
+- `physio`: timestamped features, quality, state, confidence, posterior uncertainty, and Z scores;
+- `music`: actual parameters, target, estimate, error, control output/scale, trajectory phase/speed, and reason;
 - `subjective`: pre/post surveys and instrument events.
 
 Files are written to a sibling `.json.tmp` and atomically replaced at completion. Atomic replacement prevents partial JSON, but it does not provide encryption, authentication, retention policy, or audit logging.
@@ -241,4 +243,4 @@ from mdt_core.config import Config, ControlConfig
 cfg = Config(control=ControlConfig(kp=0.35, ki=0.03))
 ```
 
-Any parameter change used in a study should be versioned, preregistered, and validated independently.
+`ControlConfig.uncertainty_soft_limit` and `uncertainty_hard_limit` define the derating range. The `PlannerConfig.adaptive_*` fields define adaptive ISO speed and tracking-error thresholds. Any parameter change used in a study should be versioned, preregistered, and validated independently.

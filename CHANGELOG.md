@@ -4,6 +4,24 @@ All notable changes to this project will be documented in this file. The format 
 
 ## [Unreleased]
 
+### Added
+
+- Kalman posterior uncertainty in state output and synchronized records.
+- Response-adaptive ISO planning for the `FULL_LOOP` research arm.
+- Control/trajectory audit fields in session music records.
+- Eleven isolated synthetic tests for uncertainty-aware control and adaptive planning.
+
+### Changed
+
+- PI output and integral accumulation are continuously derated by state reliability.
+- Missing measurements now increase estimator uncertainty instead of preserving stale certainty.
+- Sleep-oriented ISO trajectories hold an anchor already below the configured floor.
+
+### Safety
+
+- Control stops above the hard posterior-uncertainty limit and leaks stored integral.
+- Adaptive ISO progress freezes when state reliability is below its configured threshold.
+
 ### Planned
 
 - Select and add a project license.

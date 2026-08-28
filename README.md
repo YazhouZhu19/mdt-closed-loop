@@ -11,9 +11,9 @@ An event-driven research prototype for closed-loop music digital therapeutics (M
 
 - Multi-rate sensing: a 2-second EDA update path and a 15-second EDA/HRV update path.
 - Signal validation, missing-value handling, RR-range filtering, EDA decomposition, and time/frequency HRV features.
-- Per-person baseline normalization, weighted multimodal fusion, and one-dimensional Kalman smoothing.
-- ISO and DIRECT target trajectories.
-- PI control with a deadband, integral leak, anti-windup, and output clamping.
+- Per-person baseline normalization, weighted multimodal fusion, one-dimensional Kalman smoothing, and posterior uncertainty output.
+- A response-adaptive ISO trajectory for `FULL_LOOP`, with the fixed open-loop ISO trajectory preserved as a research comparator.
+- Uncertainty-derated PI control with a deadband, integral leak, anti-windup, and output clamping.
 - A music-grammar safety layer with tempo limits, rate limits, reversible stem layers, and explicit bar/phrase-boundary commits.
 - Session lifecycle, monotonic event clocks, calibration isolation, atomic JSON records, dose tracking, ISI outcomes, futility rules, and safety escalation hooks.
 - Four research arms: `FULL_LOOP`, `SHAM`, `DIRECT`, and `ISO`.
@@ -44,11 +44,12 @@ The controller is:
 
 ```text
 e(k) = target_arousal(k) - estimated_arousal(k)
-I(k) = clamp(I(k-1) + e(k) * dt)
-u(k) = clamp(Kp * e(k) + Ki * I(k))
+q(k) = confidence(k) * uncertainty_scale(P(k))
+I(k) = clamp(I(k-1) + q(k) * e(k) * dt)
+u(k) = clamp(q(k) * (Kp * e(k) + Ki * I(k)))
 ```
 
-Inside the deadband, the output is zero and the integral is leaked. When confidence is insufficient, live control is disabled and pending commands are cancelled. The music grammar then maps `u(k)` to bounded musical parameters and waits for an explicit event from the audio clock before applying a change.
+`q(k)` combines feature coverage/signal quality with Kalman posterior variance. Control is continuously derated as reliability falls; live feedback is stopped when confidence is insufficient or posterior uncertainty crosses the hard limit. The adaptive ISO reference advances faster when tracking is good, slows when the participant lags, and freezes on unreliable state estimates. The music grammar then maps `u(k)` to bounded musical parameters and waits for an explicit audio-clock event before applying a change.
 
 ## Quick start
 
@@ -116,6 +117,7 @@ demo.py           End-to-end synthetic demonstration
 - `MubertEngine` is an adapter skeleton. Only `NullEngine` and `ShamEngine` are executable in this repository.
 - No sensor driver, audio device, WebRTC path, or vendor end-to-end latency has been tested.
 - Signal-processing methods and controller parameters have not been validated against clinical datasets.
+- Adaptive-trajectory and uncertainty thresholds have synthetic software tests only and are not clinical parameters.
 - The JSON recorder is not encrypted and includes a user identifier; it is unsuitable for production health data.
 - Hard real-time scheduling, watchdogs, reconnection, cybersecurity controls, risk management, and medical-device verification are outside the current implementation.
 - `SafetyMonitor.escalate_hook` must be connected to a staffed human-review workflow before any supervised study use.

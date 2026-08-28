@@ -67,8 +67,9 @@ def run_session(
         if i % 5 == 0:
             print(
                 f"  t={int(t):>5}s  真实={a:.2f}  估计={state.arousal:.2f}  "
-                f"conf={state.confidence:.2f}  bpm={params.tempo:.1f}  "
-                f"层={bin(params.layer_mask)[2:]:>4}"
+                f"conf={state.confidence:.2f}  var={state.uncertainty:.3f}  "
+                f"目标={s.recorder.music[-1]['target']:.2f}  "
+                f"bpm={params.tempo:.1f}  层={bin(params.layer_mask)[2:]:>4}"
             )
     isi = None if calibration else 18.0 - (program.completed_sessions + 1) * 0.7
     path = s.finish(post_survey={"calm": 4}, isi_score=isi)

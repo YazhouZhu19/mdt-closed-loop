@@ -31,7 +31,7 @@ python demo.py
 | Check | Result |
 |---|---|
 | Python syntax compilation | passed |
-| Unit and integration tests | 36/36 passed |
+| Unit and integration tests | 47/47 passed |
 | Warnings treated as errors | passed |
 | Ruff static/lint check | passed |
 | mypy local-source check | 15 source files, no issues |
@@ -65,6 +65,10 @@ The test suite covers:
 - extreme Z-score numerical stability;
 - Kalman process-scale validation;
 - multimodal confidence;
+- posterior uncertainty growth during signal loss;
+- uncertainty-based PI derating and hard-limit hold behavior;
+- adaptive ISO acceleration, slowdown, reliability freeze, and monotonic floor behavior;
+- adaptive trajectory/control telemetry in isolated end-to-end records;
 - PI deadband and invalid timing;
 - reversible layer changes and clock jitter;
 - cancellation of stale pending commands;

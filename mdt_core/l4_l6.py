@@ -39,6 +39,7 @@ class SessionRecorder:
                 **feats.as_dict(),
                 "arousal": state.arousal,
                 "confidence": state.confidence,
+                "uncertainty": state.uncertainty,
                 "z": state.z_scores,
             }
         )
@@ -55,6 +56,11 @@ class SessionRecorder:
                 "estimated": rec.estimated_arousal,
                 "error": rec.error,
                 "reason": rec.reason,
+                "state_uncertainty": rec.state_uncertainty,
+                "control_output": rec.control_output,
+                "control_scale": rec.control_scale,
+                "trajectory_phase": rec.trajectory_phase,
+                "trajectory_speed": rec.trajectory_speed,
             }
         )
 

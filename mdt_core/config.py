@@ -99,6 +99,12 @@ class PlannerConfig:
     descent_duration_s: float = 900.0
     floor_arousal: float = 0.15
     direct_target: float = 0.20
+    adaptive_iso: bool = True
+    adaptive_min_speed: float = 0.35
+    adaptive_max_speed: float = 1.50
+    adaptive_on_track_error: float = 0.06
+    adaptive_lag_error: float = 0.15
+    adaptive_min_reliability: float = 0.35
     dose_bands: tuple = ((3, 10, "small"), (10, 24, "medium"), (16, 51, "large"))
 
     def __post_init__(self) -> None:
@@ -110,6 +116,20 @@ class PlannerConfig:
             _positive(name, float(getattr(self, name)))
         _unit_interval("floor_arousal", self.floor_arousal)
         _unit_interval("direct_target", self.direct_target)
+        if not isinstance(self.adaptive_iso, bool):
+            raise TypeError("adaptive_iso must be bool")
+        for name in (
+            "adaptive_min_speed",
+            "adaptive_max_speed",
+            "adaptive_on_track_error",
+            "adaptive_lag_error",
+        ):
+            _positive(name, float(getattr(self, name)))
+        _unit_interval("adaptive_min_reliability", self.adaptive_min_reliability)
+        if self.adaptive_min_speed > self.adaptive_max_speed:
+            raise ValueError("adaptive speed limits must be increasing")
+        if self.adaptive_on_track_error >= self.adaptive_lag_error:
+            raise ValueError("adaptive error thresholds must be increasing")
         if not self.dose_bands:
             raise ValueError("dose_bands must not be empty")
         for lo, hi, name in self.dose_bands:
@@ -130,6 +150,8 @@ class ControlConfig:
     integral_clamp: float = 2.0
     output_clamp: float = 1.0
     deadband_integral_leak: float = 0.95
+    uncertainty_soft_limit: float = 0.25
+    uncertainty_hard_limit: float = 0.75
 
     def __post_init__(self) -> None:
         if (
@@ -141,6 +163,12 @@ class ControlConfig:
         for name in ("deadband", "integral_clamp", "output_clamp"):
             _positive(name, float(getattr(self, name)))
         _unit_interval("deadband_integral_leak", self.deadband_integral_leak)
+        for name in ("uncertainty_soft_limit", "uncertainty_hard_limit"):
+            value = getattr(self, name)
+            if not math.isfinite(value) or value < 0:
+                raise ValueError(f"{name} must be finite and >= 0")
+        if self.uncertainty_soft_limit >= self.uncertainty_hard_limit:
+            raise ValueError("uncertainty limits must be strictly increasing")
         if self.deadband > 1:
             raise ValueError("deadband cannot exceed the normalized arousal range")
 

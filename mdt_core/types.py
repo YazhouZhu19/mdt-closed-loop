@@ -68,12 +68,19 @@ class Features:
 
 @dataclass
 class State:
-    """L1 输出：唤醒度估计与置信度。不含效价，效价只从自评获取。"""
+    """L1 output: arousal, observation confidence, and posterior uncertainty.
+
+    ``confidence`` describes input coverage/quality. ``uncertainty`` is the
+    Kalman posterior variance.  They are deliberately separate: a complete
+    sensor window can still leave the latent state uncertain after a gap.
+    Valence is not inferred from EDA/HRV and must come from self-report.
+    """
 
     t: float
     arousal: float
     confidence: float
     z_scores: dict[str, float] = field(default_factory=dict)
+    uncertainty: float = 0.0
 
 
 @dataclass
@@ -125,3 +132,8 @@ class ControlRecord:
     estimated_arousal: float
     error: float
     reason: str
+    state_uncertainty: float = 0.0
+    control_output: float = 0.0
+    control_scale: float = 0.0
+    trajectory_phase: str = "unknown"
+    trajectory_speed: float = 0.0
