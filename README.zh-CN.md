@@ -100,6 +100,8 @@ python -W error -m unittest discover -s tests -v
 
 ## 详细文档
 
+- [中文技术报告：项目特点及同类方案比较](docs/TECHNICAL_REPORT.zh-CN.md)
+- [英文技术报告](docs/TECHNICAL_REPORT.md)
 - [中文使用与集成说明](docs/USAGE.zh-CN.md)
 - [英文使用与集成说明](docs/USAGE.md)
 - [系统架构与核心算法](docs/ARCHITECTURE.md)

@@ -104,6 +104,8 @@ demo.py           End-to-end synthetic demonstration
 
 ## Documentation
 
+- [Technical report and comparison](docs/TECHNICAL_REPORT.md)
+- [Chinese technical report](docs/TECHNICAL_REPORT.zh-CN.md)
 - [Detailed usage and integration guide](docs/USAGE.md)
 - [System architecture and core algorithms](docs/ARCHITECTURE.md)
 - [Validation scope and reproducibility](docs/VALIDATION.md)
