@@ -22,17 +22,14 @@ Choose visibility deliberately:
 - **Private** while the study protocol, intellectual property, authorship, and third-party integrations are still under review.
 - **Public** only after the license, privacy review, and all publication rights are confirmed.
 
-## 2. Choose a license
+## 2. Verify the license
 
-No open-source license is included because licensing is a legal authorization that the code owner must select.
-
-Common options:
-
-- **Apache License 2.0**: permissive and includes an explicit patent license and patent-termination terms.
-- **MIT License**: short, permissive, and widely used, but has less explicit patent language.
-- **Proprietary/no license**: others may view public source but do not receive broad permission to copy, modify, or redistribute it.
-
-Confirm ownership, employer/institution rights, co-author approval, and any patent strategy before adding a license. GitHub can generate the selected standard text when creating or editing `LICENSE`.
+The project is distributed under the Apache License 2.0. Confirm that the root
+`LICENSE` file is present in every source distribution and that the package
+metadata identifies the same license. Before accepting material from another
+source, verify ownership, employer/institution rights, contributor authority,
+and license compatibility. Record any required third-party attribution in a
+`NOTICE` file.
 
 ## 3. Review identity and privacy
 
@@ -100,7 +97,7 @@ Inspect `git status` before committing. Do not use `git add` from the parent MDT
 - Enable branch protection when collaborators are added.
 - Require all `CI` matrix checks before merge.
 - Enable Dependabot alerts and secret scanning if available.
-- Add the selected `LICENSE`.
+- Confirm GitHub recognizes the root `LICENSE` as Apache-2.0.
 - Create a `v0.1.0` release only after CI passes.
 
 ## 7. Final public-release review
@@ -112,4 +109,4 @@ Inspect `git status` before committing. Do not use `git add` from the parent MDT
 - `MubertEngine` is still described as unimplemented.
 - Synthetic validation is not presented as clinical efficacy.
 - Security contact details in `SECURITY.md` have been customized.
-- A license has been selected or the absence of redistribution permission is intentional.
+- The Apache-2.0 `LICENSE` file and package metadata are present and consistent.

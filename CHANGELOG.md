@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- Apache License 2.0 and corresponding package/documentation metadata.
 - Kalman posterior uncertainty in state output and synchronized records.
 - Response-adaptive ISO planning for the `FULL_LOOP` research arm.
 - Control/trajectory audit fields in session music records.
@@ -24,7 +25,6 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Planned
 
-- Select and add a project license.
 - Implement and validate a real music-engine adapter.
 - Validate signal processing against reference software and device recordings under an approved protocol.
 - Add measured end-to-end latency and fault-recovery tests.

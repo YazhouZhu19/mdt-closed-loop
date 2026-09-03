@@ -128,4 +128,8 @@ The project is therefore suitable for algorithm review, offline simulation, and 
 
 ## License
 
-No open-source license has been selected yet. Before publishing the repository, choose and add a `LICENSE` file. Apache-2.0 is often appropriate when an explicit patent grant is desired; MIT is shorter and more permissive. See the [release checklist](docs/RELEASE_CHECKLIST.md).
+Licensed under the [Apache License 2.0](LICENSE). The license permits use,
+modification, and redistribution subject to its terms and includes an explicit
+patent license. It does not imply medical-device approval, clinical efficacy,
+or fitness for patient care; the research and safety limitations above remain
+applicable.

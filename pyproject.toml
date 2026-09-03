@@ -7,11 +7,13 @@ name = "mdt-core"
 version = "0.1.0"
 description = "A research prototype for closed-loop music digital therapeutics"
 readme = "README.md"
+license = {file = "LICENSE"}
 requires-python = ">=3.10"
 keywords = ["digital-therapeutics", "closed-loop-control", "music", "EDA", "HRV"]
 classifiers = [
   "Development Status :: 3 - Alpha",
   "Intended Audience :: Science/Research",
+  "License :: OSI Approved :: Apache Software License",
   "Programming Language :: Python :: 3",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",

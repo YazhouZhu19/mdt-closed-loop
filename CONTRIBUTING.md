@@ -72,4 +72,8 @@ Keep unrelated formatting or refactoring out of focused fixes. Maintainers may r
 
 ## Licensing
 
-The repository owner has not yet selected an open-source license. Contributions should not be accepted from third parties until a license and contribution policy are established. This file is process guidance, not permission to use or redistribute the code.
+This project is licensed under the Apache License 2.0. Unless explicitly stated
+otherwise, an intentionally submitted contribution is provided under the same
+license in accordance with Section 5 of the license. Contributors must have the
+right to submit their work and must identify third-party material and its
+applicable license.

@@ -125,4 +125,6 @@ python -W error -m unittest discover -s tests -v
 
 ## 许可证
 
-项目尚未选择开源许可证。公开发布前必须添加 `LICENSE`：若希望包含明确专利授权，通常可考虑 Apache-2.0；若偏好简短宽松条款，可考虑 MIT。具体步骤见[发布清单](docs/RELEASE_CHECKLIST.md)。
+本项目采用 [Apache License 2.0](LICENSE)。在遵守许可证条款的前提下，
+允许使用、修改和再分发，并包含明确的专利授权。开源许可不代表医疗器械批准、
+临床疗效或适用于患者诊疗；上述研究与安全限制仍然适用。
