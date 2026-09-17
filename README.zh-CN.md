@@ -18,8 +18,15 @@
 - 会话状态机、单调事件时钟、校准隔离、原子化 JSON 记录、剂量管理、ISI 结局、无效停治和安全升级接口。
 - `FULL_LOOP`、`SHAM`、`DIRECT`、`ISO` 四种研究分臂。
 - 确定性、隔离的合成测试及端到端合成演示。
+- 默认关闭的学习模块：校准发射模型、轨迹老虎机、3-A 增益调度、偏好映射，配套确定性仲裁、冻结守卫和版本审计。见[学习型模块改造与使用](docs/LEARNING_MODULES.zh-CN.md)。
 
 ## 闭环过程
+
+学习型扩展采用以下结构。完整说明见[修改后的模型描述](docs/LEARNING_MODEL.zh-CN.md)，接入方法见[学习模块指南](docs/LEARNING_MODULES.zh-CN.md)。
+
+![学习型闭环模型结构图](docs/figures/learning-architecture.png)
+
+学习开关关闭时保留以下基线流程：
 
 ```mermaid
 flowchart LR
@@ -56,7 +63,7 @@ u(k) = clamp(q(k) * (Kp * e(k) + Ki * I(k)))
 要求 Python 3.10 或更高版本。
 
 ```bash
-git clone <你的仓库地址>
+git clone https://github.com/YazhouZhu19/mdt-closed-loop.git
 cd mdt-closed-loop
 python -m venv .venv
 source .venv/bin/activate
@@ -93,6 +100,10 @@ python -W error -m unittest discover -s tests -v
 | `mdt_core/l1_state.py` | 个体基线与唤醒度状态估计 |
 | `mdt_core/l2_planner.py` | 治疗目标轨迹与剂量区间 |
 | `mdt_core/l3_control.py` | PI 控制器与音乐语法约束 |
+| `mdt_core/policy.py`、`arbiter.py` | 策略协议、限时推理、确定性仲裁 |
+| `mdt_core/agents/` | 离线拟合、校准、版本化的学习模型 |
+| `mdt_core/l35_mapping.py`、`l35_guard.py` | 可学映射与冻结安全守卫 |
+| `mdt_core/learning.py`、`trial.py` | 学习编排、试验期版本固定与审计 |
 | `mdt_core/l4_l6.py` | 记录、结局、安全与研究分臂 |
 | `mdt_core/engine.py` | 音乐引擎接口、离线引擎、SHAM 引擎 |
 | `mdt_core/session.py` | 多速率编排与会话生命周期 |
@@ -105,6 +116,8 @@ python -W error -m unittest discover -s tests -v
 - [中文使用与集成说明](docs/USAGE.zh-CN.md)
 - [英文使用与集成说明](docs/USAGE.md)
 - [系统架构与核心算法](docs/ARCHITECTURE.md)
+- [学习型模型描述与论文风格结构图](docs/LEARNING_MODEL.zh-CN.md)
+- [学习型模块配置、训练与使用](docs/LEARNING_MODULES.zh-CN.md)
 - [验证范围与复现方法](docs/VALIDATION.md)
 - [贡献指南](CONTRIBUTING.md)
 - [行为准则](CODE_OF_CONDUCT.md)
@@ -112,6 +125,8 @@ python -W error -m unittest discover -s tests -v
 - [GitHub 发布清单](docs/RELEASE_CHECKLIST.md)
 
 ## 当前边界
+
+- 学习模块默认关闭，没有内置临床训练数据或有效性验证过的策略权重。
 
 - `MubertEngine` 仍是适配骨架；仓库内实际可执行的是 `NullEngine` 和 `ShamEngine`。
 - 尚未验证真实传感器、声卡、WebRTC 或供应商链路的端到端时延。

@@ -214,6 +214,63 @@ class ProgramConfig:
 
 
 @dataclass(frozen=True)
+class LearningConfig:
+    """Opt-in research policies; no model is loaded by default.
+
+    Executable policies must be pinned by module name and content hash for the
+    entire trial period, and expose held-out calibration evidence.
+    """
+
+    mode: str = "disabled"
+    enable_l1: bool = False
+    enable_l2: bool = False
+    enable_l3: bool = False
+    enable_taste: bool = False
+    trial_id: str = ""
+    policy_versions: tuple[tuple[str, str], ...] = ()
+    inference_timeout_ms: float = 50.0
+    reliability_exit: float = 0.35
+    reliability_enter: float = 0.50
+    reliability_full: float = 0.85
+    confidence_min: float = 0.50
+    disagreement_limit: float = 0.30
+    disagreement_confidence: float = 0.80
+    restricted_delta: float = 0.10
+
+    def __post_init__(self) -> None:
+        if self.mode not in {"disabled", "shadow", "suggest", "restricted", "autonomous"}:
+            raise ValueError("unknown learning deployment mode")
+        for name in ("enable_l1", "enable_l2", "enable_l3", "enable_taste"):
+            if not isinstance(getattr(self, name), bool):
+                raise TypeError(f"{name} must be bool")
+        for name in (
+            "reliability_exit", "reliability_enter", "reliability_full",
+            "confidence_min", "disagreement_confidence",
+        ):
+            _unit_interval(name, getattr(self, name))
+        if not self.reliability_exit < self.reliability_enter < self.reliability_full:
+            raise ValueError("reliability thresholds must satisfy exit < enter < full")
+        if self.confidence_min >= 1:
+            raise ValueError("confidence_min must be < 1")
+        for name in ("inference_timeout_ms", "disagreement_limit", "restricted_delta"):
+            _positive(name, getattr(self, name))
+        versions = dict(self.policy_versions)
+        if len(versions) != len(self.policy_versions):
+            raise ValueError("duplicate policy module pin")
+        for name, version in versions.items():
+            if name not in {"l1", "l2", "l3", "taste"}:
+                raise ValueError("unknown policy module pin")
+            if len(version) != 64 or any(c not in "0123456789abcdef" for c in version):
+                raise ValueError("policy versions must be SHA-256 content hashes")
+        if self.mode in {"suggest", "restricted", "autonomous"}:
+            if not self.trial_id:
+                raise ValueError("executable policies require a trial_id")
+            for module in ("l1", "l2", "l3", "taste"):
+                if getattr(self, f"enable_{module}") and module not in versions:
+                    raise ValueError(f"missing trial policy pin: {module}")
+
+
+@dataclass(frozen=True)
 class Config:
     signal: SignalConfig = SignalConfig()
     state: StateConfig = StateConfig()
@@ -221,6 +278,7 @@ class Config:
     control: ControlConfig = ControlConfig()
     grammar: GrammarConfig = GrammarConfig()
     program: ProgramConfig = ProgramConfig()
+    learning: LearningConfig = LearningConfig()
 
 
 DEFAULT = Config()

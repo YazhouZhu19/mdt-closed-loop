@@ -8,8 +8,9 @@ from __future__ import annotations
 
 import math
 
-from .config import ControlConfig, GrammarConfig
-from .types import MusicParams, State
+from .config import ControlConfig
+from .l35_guard import MusicGrammar  # noqa: F401 -- compatibility re-export
+from .types import State
 
 
 class PIController:
@@ -90,99 +91,3 @@ class PIController:
         self._integral *= self.cfg.deadband_integral_leak
         self._last_output = 0.0
         self._last_scale = 0.0
-
-
-class MusicGrammar:
-    """把控制量翻译成参数向量，并强制音乐上的合法性。
-
-    - 连续参数变更排队到下一小节线
-    - 结构性参数 (层级) 排队到下一乐句边界
-    - 每个参数独立限幅与限速
-    """
-
-    LAYER_LEVELS = (0b0001, 0b0011, 0b0111, 0b1111)
-
-    def __init__(self, cfg: GrammarConfig, initial: MusicParams | None = None):
-        self.cfg = cfg
-        self.current = initial.copy() if initial else MusicParams()
-        self._pending_tempo: float | None = None
-        self._pending_layers: int | None = None
-        self._last_tempo_change_t: float | None = None
-
-    def _layer_level(self) -> int:
-        if self.current.layer_mask in self.LAYER_LEVELS:
-            return self.LAYER_LEVELS.index(self.current.layer_mask)
-        count = self.current.layer_mask.bit_count()
-        return max(0, min(len(self.LAYER_LEVELS) - 1, count - 1))
-
-    def request(self, control: float, t: float) -> None:
-        """control > 0 表示需要提升唤醒度，< 0 表示需要下压。"""
-        if not math.isfinite(control) or not math.isfinite(t) or t < 0:
-            raise ValueError("control and time must be finite; time must be >= 0")
-        c = self.cfg
-        lo, hi = c.tempo_range
-        if abs(control) < 1e-12:
-            self._pending_tempo = None
-            self._pending_layers = None
-            return
-        self._pending_tempo = max(lo, min(hi, self.current.tempo + control * 12.0))
-
-        level = self._layer_level()
-        delta = c.max_layer_delta_per_phrase
-        if control < -0.15:
-            level = max(0, level - delta)
-            self._pending_layers = self.LAYER_LEVELS[level]
-        elif control > 0.15:
-            level = min(len(self.LAYER_LEVELS) - 1, level + delta)
-            self._pending_layers = self.LAYER_LEVELS[level]
-        else:
-            self._pending_layers = None
-
-    def cancel_pending(self) -> None:
-        """Cancel commands that were computed from stale or unsafe input."""
-        self._pending_tempo = None
-        self._pending_layers = None
-
-    def commit(
-        self,
-        t: float,
-        *,
-        bar_boundary: bool = False,
-        phrase_boundary: bool = False,
-    ) -> tuple[MusicParams, bool]:
-        """Commit pending changes on explicit events from the audio clock."""
-        if not math.isfinite(t) or t < 0:
-            raise ValueError("music clock time must be finite and >= 0")
-        changed = False
-        c = self.cfg
-
-        if self._pending_tempo is not None and (bar_boundary or phrase_boundary):
-            elapsed = (
-                30.0
-                if self._last_tempo_change_t is None
-                else max(t - self._last_tempo_change_t, 0.0)
-            )
-            budget = c.max_tempo_delta_per_30s * max(elapsed, 0.0) / 30.0
-            delta = self._pending_tempo - self.current.tempo
-            step = max(-budget, min(budget, delta))
-            if abs(step) > 1e-3:
-                self.current.tempo += step
-                self._last_tempo_change_t = t
-                changed = True
-            if abs(self._pending_tempo - self.current.tempo) < 1e-3:
-                self._pending_tempo = None
-
-        if self._pending_layers is not None and phrase_boundary:
-            self.current.layer_mask = self._pending_layers
-            self._pending_layers = None
-            changed = True
-
-        # 派生参数跟随速度，保持整体听感一致
-        lo, hi = c.tempo_range
-        norm = (self.current.tempo - lo) / (hi - lo)
-        self.current.dynamics = 0.25 + 0.5 * norm
-        self.current.harmonic_brightness = 0.2 + 0.5 * norm
-        self.current.rhythmic_accent = 0.1 + 0.4 * norm
-        self.current.reverb_depth = 0.6 - 0.3 * norm
-
-        return self.current.copy(), changed

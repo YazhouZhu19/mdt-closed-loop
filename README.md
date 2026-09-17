@@ -1,5 +1,7 @@
 # MDT Closed-Loop Control
 
+Optional learning modules now provide offline-fitted emissions, contextual trajectory selection, bounded gain scheduling and preference mapping behind deterministic arbitration and a frozen music guard. All switches are disabled by default; no clinically trained weights are included. See the [learning module implementation and usage guide (Chinese)](docs/LEARNING_MODULES.zh-CN.md).
+
 [简体中文](README.zh-CN.md) · [Usage](docs/USAGE.md) · [Architecture](docs/ARCHITECTURE.md) · [Validation](docs/VALIDATION.md)
 
 An event-driven research prototype for closed-loop music digital therapeutics (MDT). The system converts EDA and RR-interval windows into a personalized arousal estimate, compares that estimate with a planned therapeutic trajectory, and translates a bounded PI-control command into musically constrained parameter changes.
@@ -20,6 +22,12 @@ An event-driven research prototype for closed-loop music digital therapeutics (M
 - Deterministic, isolated synthetic tests and a runnable synthetic demonstration.
 
 ## Closed-loop overview
+
+The opt-in extension is shown below. See the [revised model description and editable diagram (Chinese)](docs/LEARNING_MODEL.zh-CN.md) for its learning branches, offline lifecycle and execution gates.
+
+![Learning-enabled closed-loop architecture (Chinese labels)](docs/figures/learning-architecture.png)
+
+The baseline flow remains active when learning is disabled:
 
 ```mermaid
 flowchart LR
@@ -56,7 +64,7 @@ u(k) = clamp(q(k) * (Kp * e(k) + Ki * I(k)))
 Requirements: Python 3.10 or newer.
 
 ```bash
-git clone <your-repository-url>
+git clone https://github.com/YazhouZhu19/mdt-closed-loop.git
 cd mdt-closed-loop
 python -m venv .venv
 source .venv/bin/activate
@@ -93,6 +101,13 @@ mdt_core/
   l1_state.py     Personal baseline and arousal-state estimation
   l2_planner.py   Therapeutic target trajectory and dose bands
   l3_control.py   PI controller and music-grammar constraints
+  agents/         Offline-fitted emission, trajectory, gain and taste models
+  policy.py       Policy contract and bounded inference
+  arbiter.py      Deterministic arbitration and explicit hysteresis
+  learning.py     Session-local learning orchestration
+  l35_mapping.py Rule mapping and preference integration
+  l35_guard.py   Frozen music-parameter projection and boundary commits
+  trial.py       Trial-period version registry
   l4_l6.py        Recording, outcomes, safety, and research arms
   engine.py       Music-engine interface, null engine, SHAM engine
   session.py      Multi-rate orchestration and lifecycle
@@ -108,6 +123,8 @@ demo.py           End-to-end synthetic demonstration
 - [Chinese technical report](docs/TECHNICAL_REPORT.zh-CN.md)
 - [Detailed usage and integration guide](docs/USAGE.md)
 - [System architecture and core algorithms](docs/ARCHITECTURE.md)
+- [Learning model and architecture figure (Chinese)](docs/LEARNING_MODEL.zh-CN.md)
+- [Learning module configuration, training and usage (Chinese)](docs/LEARNING_MODULES.zh-CN.md)
 - [Validation scope and reproducibility](docs/VALIDATION.md)
 - [Contributing guide](CONTRIBUTING.md)
 - [Code of conduct](CODE_OF_CONDUCT.md)

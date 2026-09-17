@@ -36,7 +36,7 @@ jobs:
         run: python -m compileall -q mdt_core tests demo.py
 
       - name: Lint
-        run: ruff check mdt_core tests demo.py
+        run: ruff check mdt_core tests demo.py docs/LEARNING_BANDIT_EXAMPLE.py
 
       - name: Type-check local sources
         run: mypy --no-site-packages --ignore-missing-imports mdt_core tests demo.py
@@ -47,3 +47,7 @@ jobs:
       - name: Run isolated synthetic demonstration
         if: matrix.python-version == '3.12'
         run: python demo.py
+
+      - name: Run offline learning example
+        if: matrix.python-version == '3.12'
+        run: python -m docs.LEARNING_BANDIT_EXAMPLE

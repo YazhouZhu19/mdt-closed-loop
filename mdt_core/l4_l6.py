@@ -5,11 +5,25 @@ from __future__ import annotations
 import hashlib
 import json
 import math
+from collections.abc import Mapping
 from dataclasses import dataclass, field
 from pathlib import Path
 
 from .config import ProgramConfig
 from .types import Arm, ControlRecord, Features, State, Strategy
+
+
+def _json_safe(value):
+    """Rejected model outputs must not create non-standard NaN JSON records."""
+    if isinstance(value, float) and not math.isfinite(value):
+        return None
+    if isinstance(value, Mapping):
+        return {str(k): _json_safe(v) for k, v in value.items()}
+    if isinstance(value, (list, tuple)):
+        return [_json_safe(v) for v in value]
+    if value is None or isinstance(value, (str, int, float, bool)):
+        return value
+    return f"<unsupported:{type(value).__name__}>"
 
 
 class SessionRecorder:
@@ -24,6 +38,8 @@ class SessionRecorder:
         self.physio: list[dict] = []
         self.music: list[dict] = []
         self.subjective: dict = {}
+        self.policy_decisions: list[dict] = []
+        self.policy_manifest: dict = {}
         self._dir = Path(out_dir)
         self._last_physio_t = -math.inf
         self._last_music_t = -math.inf
@@ -61,8 +77,18 @@ class SessionRecorder:
                 "control_scale": rec.control_scale,
                 "trajectory_phase": rec.trajectory_phase,
                 "trajectory_speed": rec.trajectory_speed,
+                "policy_version": rec.policy_version,
+                "action_logprob": rec.action_logprob,
+                "context_hash": rec.context_hash,
+                "ood_flag": rec.ood_flag,
+                "arbiter_decision": rec.arbiter_decision,
+                "lambda_mix": rec.lambda_mix,
+                "policy_versions": dict(rec.policy_versions),
             }
         )
+
+    def log_policy(self, row: dict) -> None:
+        self.policy_decisions.append(_json_safe(row))
 
     def log_subjective(
         self,
@@ -90,8 +116,11 @@ class SessionRecorder:
                     "physio": self.physio,
                     "music": self.music,
                     "subjective": self.subjective,
+                    "policy_manifest": self.policy_manifest,
+                    "policy_decisions": self.policy_decisions,
                 },
                 ensure_ascii=False,
+                allow_nan=False,
             ),
             encoding="utf-8",
         )

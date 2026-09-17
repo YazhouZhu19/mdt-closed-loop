@@ -6,7 +6,7 @@ The repository has been validated as an offline research prototype with determin
 
 ## Reference run
 
-Final reference checks were completed on 2026-08-28 with:
+The learning-module revision was checked on 2026-09-17 with:
 
 - macOS arm64;
 - Python 3.12.4;
@@ -19,26 +19,46 @@ The package declares Python 3.10+ and compatible minimum NumPy/SciPy versions. G
 
 ```bash
 python -m pip install -e ".[dev]"
-python -m py_compile mdt_core/*.py demo.py tests/*.py
-ruff check mdt_core tests demo.py
+python -m compileall -q mdt_core tests demo.py docs/LEARNING_BANDIT_EXAMPLE.py
+ruff check mdt_core tests demo.py docs/LEARNING_BANDIT_EXAMPLE.py
 mypy --no-site-packages --ignore-missing-imports mdt_core tests demo.py
 python -W error -m unittest discover -s tests -v
 python demo.py
+python -m docs.LEARNING_BANDIT_EXAMPLE
 ```
 
-## Results at release preparation
+## Results for the learning-module revision
 
 | Check | Result |
 |---|---|
 | Python syntax compilation | passed |
-| Unit and integration tests | 47/47 passed |
+| Unit and integration tests | 124/124 passed (47 original, 77 added) |
 | Warnings treated as errors | passed |
 | Ruff static/lint check | passed |
-| mypy local-source check | 15 source files, no issues |
+| mypy local-source check | 34 source files, no issues |
 | Python wheel build | passed |
 | Import from installed wheel target | passed |
 | End-to-end synthetic demonstration | passed |
 | 40-minute bounded closed-loop simulation | passed |
+| Four-arm replay against pre-change numeric/engine fixture | exact match |
+| Offline contextual-bandit training/calibration/artifact example | passed |
+| Learned proposal boundary commit, dropout cancellation and safe abort | passed |
+| Zero-reliability hold preserves every music parameter and emits no engine update | passed |
+| Reliable deadband restores rule timbres only at a real music boundary | passed |
+| Concurrent trial registration and cross-session version drift rejection | passed |
+
+The new tests cover calibration of both the observation likelihood and temporal
+Kalman posterior, unsupported-history quarantine, deterministic arbitration and
+hysteresis, real inference timeouts, malformed metadata and recursive actions,
+idempotent projection under adversarial parameter vectors, model content hashes,
+shadow-mode equivalence and complete isolation of comparison/calibration arms.
+
+The fitted-emission fixture is a generated chronological process. Its held-out
+observation ECE is 0.0277 with 90% coverage 0.881; its Kalman posterior ECE is
+0.0147 with coverage 0.891. These figures verify the implementation of the
+acceptance checks only. They do not validate real-participant calibration,
+mixed-cadence operation, clinical outcomes, or the performance of a learned
+policy relative to PI. See [Learning modules](LEARNING_MODULES.zh-CN.md).
 
 The mypy command deliberately excludes site-package internals. It checks this repository while treating third-party NumPy/SciPy imports as external, avoiding false failures caused by locally mismatched checker and dependency-stub versions.
 

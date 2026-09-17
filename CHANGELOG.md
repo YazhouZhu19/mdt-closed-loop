@@ -6,6 +6,13 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Added
 
+- Opt-in offline learning modules for L1 emissions, L2 contextual trajectories, L3 stage 3-A gains and L3.5 preferences; all disabled by default.
+- Deterministic arbitration with explicit hysteresis, OOD/error/timeout fallback, version pins and staged authority.
+- Frozen idempotent music projection separated from learnable mapping.
+- Trial-period registry, full proposal/context/propensity audit, and independent calibration evidence.
+- Pre-change four-arm replay fixture and adversarial/calibration/learning integration tests.
+- Revised model description, paper-style architecture figure and editable Mermaid source.
+
 - Apache License 2.0 and corresponding package/documentation metadata.
 - Kalman posterior uncertainty in state output and synchronized records.
 - Response-adaptive ISO planning for the `FULL_LOOP` research arm.
@@ -20,6 +27,7 @@ All notable changes to this project will be documented in this file. The format 
 
 ### Safety
 
+- Loss of reliable state cancels pending learned changes and timbre restoration, preserving the complete currently playing parameter vector until reliable control resumes.
 - Control stops above the hard posterior-uncertainty limit and leaks stored integral.
 - Adaptive ISO progress freezes when state reliability is below its configured threshold.
 

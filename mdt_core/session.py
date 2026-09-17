@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import math
 import uuid
+from collections.abc import Mapping
 from pathlib import Path
 from typing import Any
 
@@ -29,6 +30,9 @@ from .l4_l6 import (
     SafetyMonitor,
     SessionRecorder,
 )
+from .learning import Approval, LearningRuntime, make_context
+from .policy import Policy
+from .trial import pin_trial
 from .types import Arm, ControlRecord, MusicParams, RawWindow, SessionStatus, State
 
 
@@ -46,6 +50,10 @@ class Session:
         is_calibration: bool = False,
         safety_monitor: SafetyMonitor | None = None,
         sham_trajectory: list[MusicParams] | None = None,
+        policies: Mapping[str, Policy] | None = None,
+        emission_model: Any = None,
+        policy_context: Mapping | None = None,
+        policy_approval: Approval | None = None,
     ):
         if not user_id:
             raise ValueError("user_id must not be empty")
@@ -91,6 +99,29 @@ class Session:
         self.recorder = SessionRecorder(self.session_id, user_id, self.arm, out_dir)
         self.outcome = OutcomeEvaluator(cfg.program)
         self.safety = safety_monitor or SafetyMonitor()
+        self._learning: LearningRuntime | None = None
+        self._policy_context = dict(policy_context or {})
+        self._quality_counts = {"ok": 0, "noisy": 0, "lost": 0}
+        self._initial_arousal: float | None = None
+        # Controls and calibration never load, copy, hash, or invoke models.
+        if (self.arm is Arm.FULL_LOOP and not is_calibration
+                and cfg.learning.mode != "disabled"):
+            enabled_modules = tuple(
+                module for module in ("l1", "l2", "l3", "taste")
+                if getattr(cfg.learning, f"enable_{module}")
+            )
+            supplied = any(module in (policies or {}) for module in enabled_modules)
+            supplied = supplied or (cfg.learning.enable_l1 and emission_model is not None)
+            if supplied:
+                pin_trial(
+                    out_dir, cfg.learning.trial_id,
+                    dict(cfg.learning.policy_versions), cfg.learning.mode,
+                    enabled_modules,
+                )
+            self._learning = LearningRuntime(
+                cfg, baseline, self.recorder, policies or {},
+                emission_model=emission_model, approval=policy_approval,
+            )
 
         self.status = SessionStatus.CREATED
         self._started = False
@@ -163,10 +194,47 @@ class Session:
             return target - previous, "open_loop_iso_trajectory", 1.0
         if state.confidence < self.cfg.state.min_confidence:
             self.controller.suspend()
+            if self._learning is not None:
+                self._learning.suspend()
             self.grammar.cancel_pending()
             return 0.0, "open_loop_low_confidence", 0.0
         output, reason = self.controller.step(target, state, dt)
+        if self._learning is not None:
+            ctx = self._context(state)
+            ctx.update(target=target, baseline_output=output, dt=dt)
+            output = self._learning.control(
+                output, target, state, dt, ctx, self.controller.last_scale,
+            )
         return output, reason, self.controller.last_scale
+
+    def _context(self, state: State) -> dict:
+        ctx = make_context(
+            self.user_id, self.baseline, state, self.cfg,
+            completed_sessions=self.program.completed_sessions,
+            previous_outcome=(self.program.isi_history[-1] if self.program.isi_history else None),
+            extra=self._policy_context,
+        )
+        total = max(1, sum(self._quality_counts.values()))
+        ctx["quality_distribution"] = {key: value / total for key, value in self._quality_counts.items()}
+        ctx["reliability"] = self.controller.reliability(state)
+        ctx["initial_arousal"] = self._initial_arousal if self._initial_arousal is not None else state.arousal
+        ctx["session_id"] = self.session_id
+        return ctx
+
+    def _estimate(self, feats, process_scale: float) -> State:
+        self._quality_counts[feats.quality.value] += 1
+        if self._learning is not None:
+            self._learning.last_metadata = {}
+        state = self.estimator.update(feats, process_scale=process_scale)
+        if self._learning is not None:
+            state = self._learning.estimate(feats, process_scale, state, self._context(state))
+        return state
+
+    def _policy_metadata(self) -> dict:
+        if self._learning is None:
+            return {}
+        return {"policy_versions": dict(self.recorder.policy_manifest["versions"]),
+                **self._learning.last_metadata}
 
     def _process_features(
         self,
@@ -178,6 +246,10 @@ class Session:
         phrase_boundary: bool,
     ) -> tuple[State, MusicParams]:
         if not self._anchored and state.confidence > 0:
+            self._initial_arousal = state.arousal
+            if self._learning is not None:
+                self._learning.plan(self.planner, self._context(state),
+                                    self.controller.reliability(state))
             self.planner.set_anchor(state.arousal)
             self._anchored = True
 
@@ -195,6 +267,14 @@ class Session:
             target = self.planner.target(feats.t)
         control, reason, control_scale = self._select_control(target, state, dt)
         self.grammar.request(control, feats.t)
+        if self._learning is not None:
+            self._learning.taste(self.grammar, control, feats.t, self._context(state), control_scale)
+            if control_scale == 0:
+                # A zero-reliability hold also cancels the timbre restoration
+                # that request(0) can queue after a learned output. A trusted
+                # deadband has positive reliability and still restores at a
+                # real boundary.
+                self.grammar.cancel_pending()
         params, changed = self.grammar.commit(
             feats.t,
             bar_boundary=bar_boundary,
@@ -225,6 +305,7 @@ class Session:
                 control_scale=control_scale,
                 trajectory_phase=self.planner.phase,
                 trajectory_speed=self.planner.speed_factor,
+                **self._policy_metadata(),
             )
         )
         self._last_state = state
@@ -253,7 +334,7 @@ class Session:
         feats = extract_eda(window, self.cfg.signal)
         self._accept_observation(window.t)
         self._last_fast_t = window.t
-        state = self.estimator.update(
+        state = self._estimate(
             feats, process_scale=step / self.cfg.signal.hrv_step_s
         )
         return self._process_features(
@@ -291,7 +372,7 @@ class Session:
         ):
             self.baseline.accumulate(feats)
 
-        state = self.estimator.update(
+        state = self._estimate(
             feats, process_scale=step / self.cfg.signal.hrv_step_s
         )
         return self._process_features(
@@ -370,6 +451,7 @@ class Session:
                     control_scale=self._last_control_scale,
                     trajectory_phase=self.planner.phase,
                     trajectory_speed=self.planner.speed_factor,
+                    **self._policy_metadata(),
                 )
             )
         self._last_music_t = t
@@ -424,6 +506,9 @@ class Session:
             if self._started:
                 self.engine.stop()
             self.grammar.cancel_pending()
+            self.controller.reset()
+            if self._learning is not None:
+                self._learning.suspend()
             self.program.stopped_reason = "safety_escalation"
             self.status = SessionStatus.ABORTED
             self._output_path = self.recorder.flush()
@@ -479,6 +564,11 @@ class Session:
         if self._started:
             self.engine.stop()
         self.grammar.cancel_pending()
+        self.controller.reset()
+        if self._learning is not None:
+            self._learning.suspend()
+        self._last_control = 0.0
+        self._last_control_scale = 0.0
         self.program.stopped_reason = reason
         self.status = SessionStatus.ABORTED
         self._output_path = self.recorder.flush()

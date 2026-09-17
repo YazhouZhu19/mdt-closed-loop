@@ -1,0 +1,37 @@
+Edit the first image (MDT architecture figure) into a completely redesigned, restrained journal-paper schematic. The second image is a STYLE REFERENCE ONLY: look at Fig. 2 in that journal page for thin black connector lines, small muted blocks, clear panel lettering, generous white space, and formal scientific typesetting. Do not reproduce that paper's aircraft, physical apparatus, actual methods, authors, logos, caption, or text. Preserve only the MDT architecture semantics from image 1.
+
+Deliver one landscape scientific figure, approximately 2:1 width/height, pure opaque white background. Aim high-resolution with sharp labels. Absolutely NO cartoons, people, headphones, speakers, music-note icons, gears, brains, shields, clipboard icons, scales, badges, glossy gradients, shadows, large title banners, colorful ribbons, decorative illustrations, or marketing infographic styling. This must resemble a control-systems methods figure assembled in Illustrator/LaTeX for a scientific paper. Thin uniform charcoal strokes; near-square corners; regular-weight sans-serif Chinese labels; slightly heavier small panel letters a,b,c. Two restrained colors only: pale desaturated blue for learned modules, pale sand for deterministic gate/safety constraints. Other modules white or very pale gray. Black/dark-gray arrowheads. Gray dashed arrows only for frozen model release. Small mathematical variables along edges.
+
+REQUIRED LAYOUT: 3 panels, with a occupying the full top ~65% of figure; b bottom left and c bottom right. Put captions below in a slim text line, not inside large title boxes. No giant main title.
+
+Panel a heading exactly “a  在线闭环控制”
+Arrange the principal closed loop left-to-right. At far left a PLAIN RECTANGLE “使用者生理状态” (no human drawing). Then “L0 特征提取” with sublabel “EDA / HRV”. Then a larger L1 group with the heading “L1 状态估计”: inside it, two small STACKED INDEPENDENT rectangles “基线估计” and “学习发射 + Kalman” feeding a small “门控” block; label the group output “â, P, c”. Both estimator branches are independent, NOT serial. A small caption below L1 may say “独立滤波状态”.
+Place “L2 轨迹规划” ABOVE and slightly to the right of L1/L3; inside it two concise lines “上下文老虎机” and “参数门控 → 参考轨迹”. L1 state branches upward into this L2 box; L2 output goes DOWN into L3 labeled “r(k)”. A direct state path from L1 separately goes into L3 labeled “â(k)”.
+The L3 group heading is “L3 增益调度”: common state + reference input fork into TWO STACKED PARALLEL blocks “基线 PI” and “学习增益 PI”. Both branches have separate arrows INTO “仲裁” at the right edge of this group. No arrow from baseline PI to learned PI. Put sublabel “Kp, Ki, 死区, 泄漏” below the learned branch. The group output is “u(k)”. Do NOT depict MPC or end-to-end RL.
+Then a group “L3.5 音乐参数” with two concise lines “规则映射 / 偏好候选” and “偏好门控”.
+Then a sand-colored rectangle “冻结安全守卫” with small sublabel “限幅 / 限速 / 层级”.
+Then a separate white rectangle “边界提交” with sublabel “小节 / 乐句”.
+Then “音乐引擎” as a simple rectangle, no icon.
+Route a thin clear return arrow from the music engine BELOW the chain back to “使用者生理状态”, labeled “音乐作用与生理反馈”. Keep it separate from dashed model-release lines.
+Place a small independent box “安全中止” below the music engine with one fine arrow to the engine; no stop-sign icon.
+Preserve all four learning gates: state gate, trajectory parameter gate, control arbiter, preference gate. They use the same deterministic contract, depicted in panel c. This is NOT merely a single gate at the actuator.
+
+Panel b heading exactly “b  离线学习与版本冻结”
+Four small rectangles in a straight row:
+“会话日志与标签” → “离线训练” → “独立校准与评估” → “固定版本工件”
+A SINGLE dashed arrow labeled “仅推理” may connect the fixed artifact box to the OUTER boundary of panel a. It must not suggest direct actuator access or online weight updates.
+Small text beneath: “会话内不更新权重；新版本进入新试验期”.
+No database cylinder icon, no laptop or paper drawing.
+
+Panel c heading exactly “c  确定性仲裁”
+A short condition line: “可靠度 · 校准 · OOD · 版本 · 超时”.
+Then the centered formula:
+“u = (1−λ)u基线 + λu学习”
+Below: “0 ≤ λ ≤ 1；异常时 λ = 0”
+Small last line: “迟滞切换 / 受限偏移”
+Keep this as a concise mathematical inset with a thin border, not an illustrated safety shield.
+
+Bottom small legend: pale blue square “学习模块”; pale sand square “确定性门控 / 约束”; solid arrow “在线信号”; dashed arrow “固定模型发布”.
+Small final figure caption (one line, no huge footer):
+“MDT 学习型闭环架构。学习默认关闭，仅 FULL_LOOP 可启用。”
+All Chinese text must be correct and legible. Give boxes enough width. If space is tight, enlarge the overall figure, do not add icons or reduce type to unreadable small text. Avoid any reference-paper wording about FALCON, MPC, online learning, aircraft, or warm-up. This is a NEW ORIGINAL scientific drawing of MDT using generic academic diagram conventions.

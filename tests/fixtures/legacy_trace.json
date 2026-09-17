@@ -1,0 +1,1752 @@
+{
+  "A_full_loop": {
+    "engine": [
+      {
+        "dynamics": 0.5333333333333333,
+        "harmonic_brightness": 0.48333333333333334,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.43,
+        "rhythmic_accent": 0.32666666666666666,
+        "tempo": 72.0
+      },
+      {
+        "dynamics": 0.5043742829405083,
+        "harmonic_brightness": 0.45437428294050836,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.447375430235695,
+        "rhythmic_accent": 0.3034994263524067,
+        "tempo": 70.2624569764305
+      },
+      {
+        "dynamics": 0.4651608874652505,
+        "harmonic_brightness": 0.41516088746525054,
+        "layer_mask": 3,
+        "register": 0.5,
+        "reverb_depth": 0.47090346752084966,
+        "rhythmic_accent": 0.2721287099722004,
+        "tempo": 67.90965324791503
+      }
+    ],
+    "music": [
+      {
+        "control_output": 0.0,
+        "control_scale": 1.0,
+        "error": 0.0,
+        "estimated": 0.6703649367418995,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "deadband",
+        "state_uncertainty": 0.20039682539682535,
+        "t": 0,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 1.0,
+        "error": -0.06796187887924698,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "deadband",
+        "state_uncertainty": 0.11424754352697811,
+        "t": 15,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.06796187887924698,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "open_loop_low_confidence",
+        "state_uncertainty": 0.1242475435269781,
+        "t": 30,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 1.0,
+        "error": -0.0780089966387928,
+        "estimated": 0.7483739333806922,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "deadband",
+        "state_uncertainty": 0.08734443836304742,
+        "t": 300,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.2698850429487587
+      },
+      {
+        "control_output": -0.14479525196412463,
+        "control_scale": 1.0,
+        "error": -0.12066270997010387,
+        "estimated": 0.7458594775741063,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "closed_loop",
+        "state_uncertainty": 0.07006333455474978,
+        "t": 360,
+        "target": 0.6251967676040024,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.3020142004773567
+      },
+      {
+        "control_output": -0.14479525196412463,
+        "control_scale": 1.0,
+        "error": -0.12066270997010387,
+        "estimated": 0.7458594775741063,
+        "params": {
+          "dynamics": 0.5043742829405083,
+          "harmonic_brightness": 0.45437428294050836,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.447375430235695,
+          "rhythmic_accent": 0.3034994263524067,
+          "tempo": 70.2624569764305
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.07006333455474978,
+        "t": 361,
+        "target": 0.6251967676040024,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.3020142004773567
+      },
+      {
+        "control_output": -0.19606697737628853,
+        "control_scale": 1.0,
+        "error": -0.21348217194730779,
+        "estimated": 0.7559044797327353,
+        "params": {
+          "dynamics": 0.5043742829405083,
+          "harmonic_brightness": 0.45437428294050836,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.447375430235695,
+          "rhythmic_accent": 0.3034994263524067,
+          "tempo": 70.2624569764305
+        },
+        "reason": "closed_loop",
+        "state_uncertainty": 0.06064240266398716,
+        "t": 600,
+        "target": 0.5424223077854275,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 0.5965125672439687
+      },
+      {
+        "control_output": -0.19606697737628853,
+        "control_scale": 1.0,
+        "error": -0.21348217194730779,
+        "estimated": 0.7559044797327353,
+        "params": {
+          "dynamics": 0.4651608874652505,
+          "harmonic_brightness": 0.41516088746525054,
+          "layer_mask": 3,
+          "register": 0.5,
+          "reverb_depth": 0.47090346752084966,
+          "rhythmic_accent": 0.2721287099722004,
+          "tempo": 67.90965324791503
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.06064240266398716,
+        "t": 601,
+        "target": 0.5424223077854275,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 0.5965125672439687
+      }
+    ],
+    "physio": [
+      {
+        "arousal": 0.6703649367418995,
+        "confidence": 1.0,
+        "hf_power": 295.6052075993323,
+        "quality": "ok",
+        "rmssd": 41.82768874928693,
+        "scl_slope": 0.003933529395391379,
+        "scr_rate": 1.0,
+        "sd1": 29.79010762069214,
+        "t": 0,
+        "uncertainty": 0.20039682539682535,
+        "z": {
+          "hf_power": 2.347982641335559,
+          "rmssd": -0.1827688749286928,
+          "scl_slope": 1.933529395391379,
+          "scr_rate": 1.0,
+          "sd1": -0.25572966009887715
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 1.0,
+        "hf_power": 174.10540527500424,
+        "quality": "ok",
+        "rmssd": 40.9979637933831,
+        "scl_slope": 0.0041887854240489205,
+        "scr_rate": 3.0,
+        "sd1": 29.19305842533569,
+        "t": 15,
+        "uncertainty": 0.11424754352697811,
+        "z": {
+          "hf_power": 2.7529819824166526,
+          "rmssd": -0.09979637933831001,
+          "scl_slope": 2.1887854240489206,
+          "scr_rate": 3.0,
+          "sd1": -0.17043691790509843
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 0.0,
+        "hf_power": null,
+        "quality": "lost",
+        "rmssd": null,
+        "scl_slope": null,
+        "scr_rate": null,
+        "sd1": null,
+        "t": 30,
+        "uncertainty": 0.1242475435269781,
+        "z": {}
+      },
+      {
+        "arousal": 0.7483739333806922,
+        "confidence": 1.0,
+        "hf_power": 328.4019877050923,
+        "quality": "ok",
+        "rmssd": 38.49048863964262,
+        "scl_slope": 0.003867215508980631,
+        "scr_rate": 2.0,
+        "sd1": 27.41627777170232,
+        "t": 300,
+        "uncertainty": 0.08734443836304742,
+        "z": {
+          "hf_power": 2.2386600409830257,
+          "rmssd": 0.15095113603573793,
+          "scl_slope": 1.8672155089806308,
+          "scr_rate": 2.0,
+          "sd1": 0.08338888975681158
+        }
+      },
+      {
+        "arousal": 0.7458594775741063,
+        "confidence": 1.0,
+        "hf_power": 299.5626030472958,
+        "quality": "ok",
+        "rmssd": 40.90648066912819,
+        "scl_slope": 0.0034197554368426484,
+        "scr_rate": 2.0,
+        "sd1": 29.132332676844715,
+        "t": 360,
+        "uncertainty": 0.07006333455474978,
+        "z": {
+          "hf_power": 2.3347913231756805,
+          "rmssd": -0.0906480669128193,
+          "scl_slope": 1.4197554368426484,
+          "scr_rate": 2.0,
+          "sd1": -0.16176181097781647
+        }
+      },
+      {
+        "arousal": 0.7559044797327353,
+        "confidence": 1.0,
+        "hf_power": 177.89878053868017,
+        "quality": "ok",
+        "rmssd": 41.56042263154777,
+        "scl_slope": 0.004404366144893243,
+        "scr_rate": 2.0,
+        "sd1": 29.5852928619459,
+        "t": 600,
+        "uncertainty": 0.06064240266398716,
+        "z": {
+          "hf_power": 2.7403373982043995,
+          "rmssd": -0.15604226315477732,
+          "scl_slope": 2.404366144893243,
+          "scr_rate": 2.0,
+          "sd1": -0.22647040884941408
+        }
+      }
+    ],
+    "states": [
+      {
+        "arousal": 0.6703649367418995,
+        "confidence": 1.0,
+        "t": 0,
+        "uncertainty": 0.20039682539682535,
+        "z_scores": {
+          "hf_power": 2.347982641335559,
+          "rmssd": -0.1827688749286928,
+          "scl_slope": 1.933529395391379,
+          "scr_rate": 1.0,
+          "sd1": -0.25572966009887715
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 1.0,
+        "t": 15,
+        "uncertainty": 0.11424754352697811,
+        "z_scores": {
+          "hf_power": 2.7529819824166526,
+          "rmssd": -0.09979637933831001,
+          "scl_slope": 2.1887854240489206,
+          "scr_rate": 3.0,
+          "sd1": -0.17043691790509843
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 0.0,
+        "t": 30,
+        "uncertainty": 0.1242475435269781,
+        "z_scores": {}
+      },
+      {
+        "arousal": 0.7483739333806922,
+        "confidence": 1.0,
+        "t": 300,
+        "uncertainty": 0.08734443836304742,
+        "z_scores": {
+          "hf_power": 2.2386600409830257,
+          "rmssd": 0.15095113603573793,
+          "scl_slope": 1.8672155089806308,
+          "scr_rate": 2.0,
+          "sd1": 0.08338888975681158
+        }
+      },
+      {
+        "arousal": 0.7458594775741063,
+        "confidence": 1.0,
+        "t": 360,
+        "uncertainty": 0.07006333455474978,
+        "z_scores": {
+          "hf_power": 2.3347913231756805,
+          "rmssd": -0.0906480669128193,
+          "scl_slope": 1.4197554368426484,
+          "scr_rate": 2.0,
+          "sd1": -0.16176181097781647
+        }
+      },
+      {
+        "arousal": 0.7559044797327353,
+        "confidence": 1.0,
+        "t": 600,
+        "uncertainty": 0.06064240266398716,
+        "z_scores": {
+          "hf_power": 2.7403373982043995,
+          "rmssd": -0.15604226315477732,
+          "scl_slope": 2.404366144893243,
+          "scr_rate": 2.0,
+          "sd1": -0.22647040884941408
+        }
+      }
+    ]
+  },
+  "B_sham": {
+    "engine": [
+      {
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.4,
+        "rhythmic_accent": 0.3,
+        "tempo": 70
+      },
+      {
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.4,
+        "rhythmic_accent": 0.3,
+        "tempo": 68
+      },
+      {
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.4,
+        "rhythmic_accent": 0.3,
+        "tempo": 68
+      },
+      {
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.4,
+        "rhythmic_accent": 0.3,
+        "tempo": 68
+      },
+      {
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.4,
+        "rhythmic_accent": 0.3,
+        "tempo": 68
+      },
+      {
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.4,
+        "rhythmic_accent": 0.3,
+        "tempo": 68
+      },
+      {
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.4,
+        "rhythmic_accent": 0.3,
+        "tempo": 68
+      }
+    ],
+    "music": [
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": 0.0,
+        "estimated": 0.6703649367418995,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 70
+        },
+        "reason": "sham_pre_registered",
+        "state_uncertainty": 0.20039682539682535,
+        "t": 0,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": 0.0,
+        "estimated": 0.6703649367418995,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered_boundary",
+        "state_uncertainty": 0.20039682539682535,
+        "t": 1,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.06796187887924698,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered",
+        "state_uncertainty": 0.11424754352697811,
+        "t": 15,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.06796187887924698,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered_boundary",
+        "state_uncertainty": 0.11424754352697811,
+        "t": 16,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.06796187887924698,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered",
+        "state_uncertainty": 0.1242475435269781,
+        "t": 30,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.06796187887924698,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered_boundary",
+        "state_uncertainty": 0.1242475435269781,
+        "t": 31,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.0780089966387928,
+        "estimated": 0.7483739333806922,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered",
+        "state_uncertainty": 0.08734443836304742,
+        "t": 300,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.0780089966387928,
+        "estimated": 0.7483739333806922,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered_boundary",
+        "state_uncertainty": 0.08734443836304742,
+        "t": 301,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.11018553661500019,
+        "estimated": 0.7458594775741063,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered",
+        "state_uncertainty": 0.07006333455474978,
+        "t": 360,
+        "target": 0.6356739409591061,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.11018553661500019,
+        "estimated": 0.7458594775741063,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered_boundary",
+        "state_uncertainty": 0.07006333455474978,
+        "t": 361,
+        "target": 0.6356739409591061,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.2589945219048023,
+        "estimated": 0.7559044797327353,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered",
+        "state_uncertainty": 0.06064240266398716,
+        "t": 600,
+        "target": 0.496909957827933,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.2589945219048023,
+        "estimated": 0.7559044797327353,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.5,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.4,
+          "rhythmic_accent": 0.3,
+          "tempo": 68
+        },
+        "reason": "sham_pre_registered_boundary",
+        "state_uncertainty": 0.06064240266398716,
+        "t": 601,
+        "target": 0.496909957827933,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      }
+    ],
+    "physio": [
+      {
+        "arousal": 0.6703649367418995,
+        "confidence": 1.0,
+        "hf_power": 295.6052075993323,
+        "quality": "ok",
+        "rmssd": 41.82768874928693,
+        "scl_slope": 0.003933529395391379,
+        "scr_rate": 1.0,
+        "sd1": 29.79010762069214,
+        "t": 0,
+        "uncertainty": 0.20039682539682535,
+        "z": {
+          "hf_power": 2.347982641335559,
+          "rmssd": -0.1827688749286928,
+          "scl_slope": 1.933529395391379,
+          "scr_rate": 1.0,
+          "sd1": -0.25572966009887715
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 1.0,
+        "hf_power": 174.10540527500424,
+        "quality": "ok",
+        "rmssd": 40.9979637933831,
+        "scl_slope": 0.0041887854240489205,
+        "scr_rate": 3.0,
+        "sd1": 29.19305842533569,
+        "t": 15,
+        "uncertainty": 0.11424754352697811,
+        "z": {
+          "hf_power": 2.7529819824166526,
+          "rmssd": -0.09979637933831001,
+          "scl_slope": 2.1887854240489206,
+          "scr_rate": 3.0,
+          "sd1": -0.17043691790509843
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 0.0,
+        "hf_power": null,
+        "quality": "lost",
+        "rmssd": null,
+        "scl_slope": null,
+        "scr_rate": null,
+        "sd1": null,
+        "t": 30,
+        "uncertainty": 0.1242475435269781,
+        "z": {}
+      },
+      {
+        "arousal": 0.7483739333806922,
+        "confidence": 1.0,
+        "hf_power": 328.4019877050923,
+        "quality": "ok",
+        "rmssd": 38.49048863964262,
+        "scl_slope": 0.003867215508980631,
+        "scr_rate": 2.0,
+        "sd1": 27.41627777170232,
+        "t": 300,
+        "uncertainty": 0.08734443836304742,
+        "z": {
+          "hf_power": 2.2386600409830257,
+          "rmssd": 0.15095113603573793,
+          "scl_slope": 1.8672155089806308,
+          "scr_rate": 2.0,
+          "sd1": 0.08338888975681158
+        }
+      },
+      {
+        "arousal": 0.7458594775741063,
+        "confidence": 1.0,
+        "hf_power": 299.5626030472958,
+        "quality": "ok",
+        "rmssd": 40.90648066912819,
+        "scl_slope": 0.0034197554368426484,
+        "scr_rate": 2.0,
+        "sd1": 29.132332676844715,
+        "t": 360,
+        "uncertainty": 0.07006333455474978,
+        "z": {
+          "hf_power": 2.3347913231756805,
+          "rmssd": -0.0906480669128193,
+          "scl_slope": 1.4197554368426484,
+          "scr_rate": 2.0,
+          "sd1": -0.16176181097781647
+        }
+      },
+      {
+        "arousal": 0.7559044797327353,
+        "confidence": 1.0,
+        "hf_power": 177.89878053868017,
+        "quality": "ok",
+        "rmssd": 41.56042263154777,
+        "scl_slope": 0.004404366144893243,
+        "scr_rate": 2.0,
+        "sd1": 29.5852928619459,
+        "t": 600,
+        "uncertainty": 0.06064240266398716,
+        "z": {
+          "hf_power": 2.7403373982043995,
+          "rmssd": -0.15604226315477732,
+          "scl_slope": 2.404366144893243,
+          "scr_rate": 2.0,
+          "sd1": -0.22647040884941408
+        }
+      }
+    ],
+    "states": [
+      {
+        "arousal": 0.6703649367418995,
+        "confidence": 1.0,
+        "t": 0,
+        "uncertainty": 0.20039682539682535,
+        "z_scores": {
+          "hf_power": 2.347982641335559,
+          "rmssd": -0.1827688749286928,
+          "scl_slope": 1.933529395391379,
+          "scr_rate": 1.0,
+          "sd1": -0.25572966009887715
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 1.0,
+        "t": 15,
+        "uncertainty": 0.11424754352697811,
+        "z_scores": {
+          "hf_power": 2.7529819824166526,
+          "rmssd": -0.09979637933831001,
+          "scl_slope": 2.1887854240489206,
+          "scr_rate": 3.0,
+          "sd1": -0.17043691790509843
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 0.0,
+        "t": 30,
+        "uncertainty": 0.1242475435269781,
+        "z_scores": {}
+      },
+      {
+        "arousal": 0.7483739333806922,
+        "confidence": 1.0,
+        "t": 300,
+        "uncertainty": 0.08734443836304742,
+        "z_scores": {
+          "hf_power": 2.2386600409830257,
+          "rmssd": 0.15095113603573793,
+          "scl_slope": 1.8672155089806308,
+          "scr_rate": 2.0,
+          "sd1": 0.08338888975681158
+        }
+      },
+      {
+        "arousal": 0.7458594775741063,
+        "confidence": 1.0,
+        "t": 360,
+        "uncertainty": 0.07006333455474978,
+        "z_scores": {
+          "hf_power": 2.3347913231756805,
+          "rmssd": -0.0906480669128193,
+          "scl_slope": 1.4197554368426484,
+          "scr_rate": 2.0,
+          "sd1": -0.16176181097781647
+        }
+      },
+      {
+        "arousal": 0.7559044797327353,
+        "confidence": 1.0,
+        "t": 600,
+        "uncertainty": 0.06064240266398716,
+        "z_scores": {
+          "hf_power": 2.7403373982043995,
+          "rmssd": -0.15604226315477732,
+          "scl_slope": 2.404366144893243,
+          "scr_rate": 2.0,
+          "sd1": -0.22647040884941408
+        }
+      }
+    ]
+  },
+  "C_direct": {
+    "engine": [
+      {
+        "dynamics": 0.5333333333333333,
+        "harmonic_brightness": 0.48333333333333334,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.43,
+        "rhythmic_accent": 0.32666666666666666,
+        "tempo": 72.0
+      },
+      {
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.45,
+        "layer_mask": 3,
+        "register": 0.5,
+        "reverb_depth": 0.44999999999999996,
+        "rhythmic_accent": 0.30000000000000004,
+        "tempo": 70.0
+      },
+      {
+        "dynamics": 0.48333333333333334,
+        "harmonic_brightness": 0.43333333333333335,
+        "layer_mask": 1,
+        "register": 0.5,
+        "reverb_depth": 0.45999999999999996,
+        "rhythmic_accent": 0.2866666666666667,
+        "tempo": 69.0
+      },
+      {
+        "dynamics": 0.4139796793290711,
+        "harmonic_brightness": 0.36397967932907116,
+        "layer_mask": 1,
+        "register": 0.5,
+        "reverb_depth": 0.5016121924025573,
+        "rhythmic_accent": 0.2311837434632569,
+        "tempo": 64.83878075974427
+      },
+      {
+        "dynamics": 0.34731301266240444,
+        "harmonic_brightness": 0.29731301266240445,
+        "layer_mask": 1,
+        "register": 0.5,
+        "reverb_depth": 0.5416121924025573,
+        "rhythmic_accent": 0.1778504101299236,
+        "tempo": 60.83878075974427
+      },
+      {
+        "dynamics": 0.2772816094864583,
+        "harmonic_brightness": 0.2272816094864583,
+        "layer_mask": 1,
+        "register": 0.5,
+        "reverb_depth": 0.583631034308125,
+        "rhythmic_accent": 0.12182528758916666,
+        "tempo": 56.6368965691875
+      }
+    ],
+    "music": [
+      {
+        "control_output": -0.31166422153385476,
+        "control_scale": 1.0,
+        "error": -0.47036493674189944,
+        "estimated": 0.6703649367418995,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "closed_loop",
+        "state_uncertainty": 0.20039682539682535,
+        "t": 0,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.31166422153385476,
+        "control_scale": 1.0,
+        "error": -0.47036493674189944,
+        "estimated": 0.6703649367418995,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.45,
+          "layer_mask": 3,
+          "register": 0.5,
+          "reverb_depth": 0.44999999999999996,
+          "rhythmic_accent": 0.30000000000000004,
+          "tempo": 70.0
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.20039682539682535,
+        "t": 1,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.3422470670295159,
+        "control_scale": 1.0,
+        "error": -0.5383268156211465,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5,
+          "harmonic_brightness": 0.45,
+          "layer_mask": 3,
+          "register": 0.5,
+          "reverb_depth": 0.44999999999999996,
+          "rhythmic_accent": 0.30000000000000004,
+          "tempo": 70.0
+        },
+        "reason": "closed_loop",
+        "state_uncertainty": 0.11424754352697811,
+        "t": 15,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.3422470670295159,
+        "control_scale": 1.0,
+        "error": -0.5383268156211465,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.48333333333333334,
+          "harmonic_brightness": 0.43333333333333335,
+          "layer_mask": 1,
+          "register": 0.5,
+          "reverb_depth": 0.45999999999999996,
+          "rhythmic_accent": 0.2866666666666667,
+          "tempo": 69.0
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.11424754352697811,
+        "t": 16,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 0.0,
+        "error": -0.5383268156211465,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.48333333333333334,
+          "harmonic_brightness": 0.43333333333333335,
+          "layer_mask": 1,
+          "register": 0.5,
+          "reverb_depth": 0.45999999999999996,
+          "rhythmic_accent": 0.2866666666666667,
+          "tempo": 69.0
+        },
+        "reason": "open_loop_low_confidence",
+        "state_uncertainty": 0.1242475435269781,
+        "t": 30,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.34676827002131155,
+        "control_scale": 1.0,
+        "error": -0.5483739333806923,
+        "estimated": 0.7483739333806922,
+        "params": {
+          "dynamics": 0.48333333333333334,
+          "harmonic_brightness": 0.43333333333333335,
+          "layer_mask": 1,
+          "register": 0.5,
+          "reverb_depth": 0.45999999999999996,
+          "rhythmic_accent": 0.2866666666666667,
+          "tempo": 69.0
+        },
+        "reason": "closed_loop",
+        "state_uncertainty": 0.08734443836304742,
+        "t": 300,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.34676827002131155,
+        "control_scale": 1.0,
+        "error": -0.5483739333806923,
+        "estimated": 0.7483739333806922,
+        "params": {
+          "dynamics": 0.4139796793290711,
+          "harmonic_brightness": 0.36397967932907116,
+          "layer_mask": 1,
+          "register": 0.5,
+          "reverb_depth": 0.5016121924025573,
+          "rhythmic_accent": 0.2311837434632569,
+          "tempo": 64.83878075974427
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.08734443836304742,
+        "t": 301,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.3456367649083479,
+        "control_scale": 1.0,
+        "error": -0.5458594775741064,
+        "estimated": 0.7458594775741063,
+        "params": {
+          "dynamics": 0.4139796793290711,
+          "harmonic_brightness": 0.36397967932907116,
+          "layer_mask": 1,
+          "register": 0.5,
+          "reverb_depth": 0.5016121924025573,
+          "rhythmic_accent": 0.2311837434632569,
+          "tempo": 64.83878075974427
+        },
+        "reason": "closed_loop",
+        "state_uncertainty": 0.07006333455474978,
+        "t": 360,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.3456367649083479,
+        "control_scale": 1.0,
+        "error": -0.5458594775741064,
+        "estimated": 0.7458594775741063,
+        "params": {
+          "dynamics": 0.34731301266240444,
+          "harmonic_brightness": 0.29731301266240445,
+          "layer_mask": 1,
+          "register": 0.5,
+          "reverb_depth": 0.5416121924025573,
+          "rhythmic_accent": 0.1778504101299236,
+          "tempo": 60.83878075974427
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.07006333455474978,
+        "t": 361,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.3501570158797309,
+        "control_scale": 1.0,
+        "error": -0.5559044797327353,
+        "estimated": 0.7559044797327353,
+        "params": {
+          "dynamics": 0.34731301266240444,
+          "harmonic_brightness": 0.29731301266240445,
+          "layer_mask": 1,
+          "register": 0.5,
+          "reverb_depth": 0.5416121924025573,
+          "rhythmic_accent": 0.1778504101299236,
+          "tempo": 60.83878075974427
+        },
+        "reason": "closed_loop",
+        "state_uncertainty": 0.06064240266398716,
+        "t": 600,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": -0.3501570158797309,
+        "control_scale": 1.0,
+        "error": -0.5559044797327353,
+        "estimated": 0.7559044797327353,
+        "params": {
+          "dynamics": 0.2772816094864583,
+          "harmonic_brightness": 0.2272816094864583,
+          "layer_mask": 1,
+          "register": 0.5,
+          "reverb_depth": 0.583631034308125,
+          "rhythmic_accent": 0.12182528758916666,
+          "tempo": 56.6368965691875
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.06064240266398716,
+        "t": 601,
+        "target": 0.2,
+        "trajectory_phase": "direct",
+        "trajectory_speed": 0.0
+      }
+    ],
+    "physio": [
+      {
+        "arousal": 0.6703649367418995,
+        "confidence": 1.0,
+        "hf_power": 295.6052075993323,
+        "quality": "ok",
+        "rmssd": 41.82768874928693,
+        "scl_slope": 0.003933529395391379,
+        "scr_rate": 1.0,
+        "sd1": 29.79010762069214,
+        "t": 0,
+        "uncertainty": 0.20039682539682535,
+        "z": {
+          "hf_power": 2.347982641335559,
+          "rmssd": -0.1827688749286928,
+          "scl_slope": 1.933529395391379,
+          "scr_rate": 1.0,
+          "sd1": -0.25572966009887715
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 1.0,
+        "hf_power": 174.10540527500424,
+        "quality": "ok",
+        "rmssd": 40.9979637933831,
+        "scl_slope": 0.0041887854240489205,
+        "scr_rate": 3.0,
+        "sd1": 29.19305842533569,
+        "t": 15,
+        "uncertainty": 0.11424754352697811,
+        "z": {
+          "hf_power": 2.7529819824166526,
+          "rmssd": -0.09979637933831001,
+          "scl_slope": 2.1887854240489206,
+          "scr_rate": 3.0,
+          "sd1": -0.17043691790509843
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 0.0,
+        "hf_power": null,
+        "quality": "lost",
+        "rmssd": null,
+        "scl_slope": null,
+        "scr_rate": null,
+        "sd1": null,
+        "t": 30,
+        "uncertainty": 0.1242475435269781,
+        "z": {}
+      },
+      {
+        "arousal": 0.7483739333806922,
+        "confidence": 1.0,
+        "hf_power": 328.4019877050923,
+        "quality": "ok",
+        "rmssd": 38.49048863964262,
+        "scl_slope": 0.003867215508980631,
+        "scr_rate": 2.0,
+        "sd1": 27.41627777170232,
+        "t": 300,
+        "uncertainty": 0.08734443836304742,
+        "z": {
+          "hf_power": 2.2386600409830257,
+          "rmssd": 0.15095113603573793,
+          "scl_slope": 1.8672155089806308,
+          "scr_rate": 2.0,
+          "sd1": 0.08338888975681158
+        }
+      },
+      {
+        "arousal": 0.7458594775741063,
+        "confidence": 1.0,
+        "hf_power": 299.5626030472958,
+        "quality": "ok",
+        "rmssd": 40.90648066912819,
+        "scl_slope": 0.0034197554368426484,
+        "scr_rate": 2.0,
+        "sd1": 29.132332676844715,
+        "t": 360,
+        "uncertainty": 0.07006333455474978,
+        "z": {
+          "hf_power": 2.3347913231756805,
+          "rmssd": -0.0906480669128193,
+          "scl_slope": 1.4197554368426484,
+          "scr_rate": 2.0,
+          "sd1": -0.16176181097781647
+        }
+      },
+      {
+        "arousal": 0.7559044797327353,
+        "confidence": 1.0,
+        "hf_power": 177.89878053868017,
+        "quality": "ok",
+        "rmssd": 41.56042263154777,
+        "scl_slope": 0.004404366144893243,
+        "scr_rate": 2.0,
+        "sd1": 29.5852928619459,
+        "t": 600,
+        "uncertainty": 0.06064240266398716,
+        "z": {
+          "hf_power": 2.7403373982043995,
+          "rmssd": -0.15604226315477732,
+          "scl_slope": 2.404366144893243,
+          "scr_rate": 2.0,
+          "sd1": -0.22647040884941408
+        }
+      }
+    ],
+    "states": [
+      {
+        "arousal": 0.6703649367418995,
+        "confidence": 1.0,
+        "t": 0,
+        "uncertainty": 0.20039682539682535,
+        "z_scores": {
+          "hf_power": 2.347982641335559,
+          "rmssd": -0.1827688749286928,
+          "scl_slope": 1.933529395391379,
+          "scr_rate": 1.0,
+          "sd1": -0.25572966009887715
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 1.0,
+        "t": 15,
+        "uncertainty": 0.11424754352697811,
+        "z_scores": {
+          "hf_power": 2.7529819824166526,
+          "rmssd": -0.09979637933831001,
+          "scl_slope": 2.1887854240489206,
+          "scr_rate": 3.0,
+          "sd1": -0.17043691790509843
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 0.0,
+        "t": 30,
+        "uncertainty": 0.1242475435269781,
+        "z_scores": {}
+      },
+      {
+        "arousal": 0.7483739333806922,
+        "confidence": 1.0,
+        "t": 300,
+        "uncertainty": 0.08734443836304742,
+        "z_scores": {
+          "hf_power": 2.2386600409830257,
+          "rmssd": 0.15095113603573793,
+          "scl_slope": 1.8672155089806308,
+          "scr_rate": 2.0,
+          "sd1": 0.08338888975681158
+        }
+      },
+      {
+        "arousal": 0.7458594775741063,
+        "confidence": 1.0,
+        "t": 360,
+        "uncertainty": 0.07006333455474978,
+        "z_scores": {
+          "hf_power": 2.3347913231756805,
+          "rmssd": -0.0906480669128193,
+          "scl_slope": 1.4197554368426484,
+          "scr_rate": 2.0,
+          "sd1": -0.16176181097781647
+        }
+      },
+      {
+        "arousal": 0.7559044797327353,
+        "confidence": 1.0,
+        "t": 600,
+        "uncertainty": 0.06064240266398716,
+        "z_scores": {
+          "hf_power": 2.7403373982043995,
+          "rmssd": -0.15604226315477732,
+          "scl_slope": 2.404366144893243,
+          "scr_rate": 2.0,
+          "sd1": -0.22647040884941408
+        }
+      }
+    ]
+  },
+  "D_iso": {
+    "engine": [
+      {
+        "dynamics": 0.5333333333333333,
+        "harmonic_brightness": 0.48333333333333334,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.43,
+        "rhythmic_accent": 0.32666666666666666,
+        "tempo": 72.0
+      },
+      {
+        "dynamics": 0.5263951341767745,
+        "harmonic_brightness": 0.4763951341767746,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.43416291949393526,
+        "rhythmic_accent": 0.3211161073414197,
+        "tempo": 71.58370805060648
+      },
+      {
+        "dynamics": 0.4986423375505401,
+        "harmonic_brightness": 0.44864233755054006,
+        "layer_mask": 7,
+        "register": 0.5,
+        "reverb_depth": 0.45081459746967595,
+        "rhythmic_accent": 0.2989138700404321,
+        "tempo": 69.9185402530324
+      }
+    ],
+    "music": [
+      {
+        "control_output": 0.0,
+        "control_scale": 1.0,
+        "error": 0.0,
+        "estimated": 0.6703649367418995,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "open_loop_iso_trajectory",
+        "state_uncertainty": 0.20039682539682535,
+        "t": 0,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 1.0,
+        "error": -0.06796187887924698,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "open_loop_iso_trajectory",
+        "state_uncertainty": 0.11424754352697811,
+        "t": 15,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 1.0,
+        "error": -0.06796187887924698,
+        "estimated": 0.7383268156211464,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "open_loop_iso_trajectory",
+        "state_uncertainty": 0.1242475435269781,
+        "t": 30,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "match",
+        "trajectory_speed": 0.0
+      },
+      {
+        "control_output": 0.0,
+        "control_scale": 1.0,
+        "error": -0.0780089966387928,
+        "estimated": 0.7483739333806922,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "open_loop_iso_trajectory",
+        "state_uncertainty": 0.08734443836304742,
+        "t": 300,
+        "target": 0.6703649367418995,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": -0.03469099578279333,
+        "control_scale": 1.0,
+        "error": -0.11018553661500019,
+        "estimated": 0.7458594775741063,
+        "params": {
+          "dynamics": 0.5333333333333333,
+          "harmonic_brightness": 0.48333333333333334,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43,
+          "rhythmic_accent": 0.32666666666666666,
+          "tempo": 72.0
+        },
+        "reason": "open_loop_iso_trajectory",
+        "state_uncertainty": 0.07006333455474978,
+        "t": 360,
+        "target": 0.6356739409591061,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": -0.03469099578279333,
+        "control_scale": 1.0,
+        "error": -0.11018553661500019,
+        "estimated": 0.7458594775741063,
+        "params": {
+          "dynamics": 0.5263951341767745,
+          "harmonic_brightness": 0.4763951341767746,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43416291949393526,
+          "rhythmic_accent": 0.3211161073414197,
+          "tempo": 71.58370805060648
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.07006333455474978,
+        "t": 361,
+        "target": 0.6356739409591061,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": -0.1387639831311731,
+        "control_scale": 1.0,
+        "error": -0.2589945219048023,
+        "estimated": 0.7559044797327353,
+        "params": {
+          "dynamics": 0.5263951341767745,
+          "harmonic_brightness": 0.4763951341767746,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.43416291949393526,
+          "rhythmic_accent": 0.3211161073414197,
+          "tempo": 71.58370805060648
+        },
+        "reason": "open_loop_iso_trajectory",
+        "state_uncertainty": 0.06064240266398716,
+        "t": 600,
+        "target": 0.496909957827933,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      },
+      {
+        "control_output": -0.1387639831311731,
+        "control_scale": 1.0,
+        "error": -0.2589945219048023,
+        "estimated": 0.7559044797327353,
+        "params": {
+          "dynamics": 0.4986423375505401,
+          "harmonic_brightness": 0.44864233755054006,
+          "layer_mask": 7,
+          "register": 0.5,
+          "reverb_depth": 0.45081459746967595,
+          "rhythmic_accent": 0.2989138700404321,
+          "tempo": 69.9185402530324
+        },
+        "reason": "music_boundary_commit",
+        "state_uncertainty": 0.06064240266398716,
+        "t": 601,
+        "target": 0.496909957827933,
+        "trajectory_phase": "descent",
+        "trajectory_speed": 1.0
+      }
+    ],
+    "physio": [
+      {
+        "arousal": 0.6703649367418995,
+        "confidence": 1.0,
+        "hf_power": 295.6052075993323,
+        "quality": "ok",
+        "rmssd": 41.82768874928693,
+        "scl_slope": 0.003933529395391379,
+        "scr_rate": 1.0,
+        "sd1": 29.79010762069214,
+        "t": 0,
+        "uncertainty": 0.20039682539682535,
+        "z": {
+          "hf_power": 2.347982641335559,
+          "rmssd": -0.1827688749286928,
+          "scl_slope": 1.933529395391379,
+          "scr_rate": 1.0,
+          "sd1": -0.25572966009887715
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 1.0,
+        "hf_power": 174.10540527500424,
+        "quality": "ok",
+        "rmssd": 40.9979637933831,
+        "scl_slope": 0.0041887854240489205,
+        "scr_rate": 3.0,
+        "sd1": 29.19305842533569,
+        "t": 15,
+        "uncertainty": 0.11424754352697811,
+        "z": {
+          "hf_power": 2.7529819824166526,
+          "rmssd": -0.09979637933831001,
+          "scl_slope": 2.1887854240489206,
+          "scr_rate": 3.0,
+          "sd1": -0.17043691790509843
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 0.0,
+        "hf_power": null,
+        "quality": "lost",
+        "rmssd": null,
+        "scl_slope": null,
+        "scr_rate": null,
+        "sd1": null,
+        "t": 30,
+        "uncertainty": 0.1242475435269781,
+        "z": {}
+      },
+      {
+        "arousal": 0.7483739333806922,
+        "confidence": 1.0,
+        "hf_power": 328.4019877050923,
+        "quality": "ok",
+        "rmssd": 38.49048863964262,
+        "scl_slope": 0.003867215508980631,
+        "scr_rate": 2.0,
+        "sd1": 27.41627777170232,
+        "t": 300,
+        "uncertainty": 0.08734443836304742,
+        "z": {
+          "hf_power": 2.2386600409830257,
+          "rmssd": 0.15095113603573793,
+          "scl_slope": 1.8672155089806308,
+          "scr_rate": 2.0,
+          "sd1": 0.08338888975681158
+        }
+      },
+      {
+        "arousal": 0.7458594775741063,
+        "confidence": 1.0,
+        "hf_power": 299.5626030472958,
+        "quality": "ok",
+        "rmssd": 40.90648066912819,
+        "scl_slope": 0.0034197554368426484,
+        "scr_rate": 2.0,
+        "sd1": 29.132332676844715,
+        "t": 360,
+        "uncertainty": 0.07006333455474978,
+        "z": {
+          "hf_power": 2.3347913231756805,
+          "rmssd": -0.0906480669128193,
+          "scl_slope": 1.4197554368426484,
+          "scr_rate": 2.0,
+          "sd1": -0.16176181097781647
+        }
+      },
+      {
+        "arousal": 0.7559044797327353,
+        "confidence": 1.0,
+        "hf_power": 177.89878053868017,
+        "quality": "ok",
+        "rmssd": 41.56042263154777,
+        "scl_slope": 0.004404366144893243,
+        "scr_rate": 2.0,
+        "sd1": 29.5852928619459,
+        "t": 600,
+        "uncertainty": 0.06064240266398716,
+        "z": {
+          "hf_power": 2.7403373982043995,
+          "rmssd": -0.15604226315477732,
+          "scl_slope": 2.404366144893243,
+          "scr_rate": 2.0,
+          "sd1": -0.22647040884941408
+        }
+      }
+    ],
+    "states": [
+      {
+        "arousal": 0.6703649367418995,
+        "confidence": 1.0,
+        "t": 0,
+        "uncertainty": 0.20039682539682535,
+        "z_scores": {
+          "hf_power": 2.347982641335559,
+          "rmssd": -0.1827688749286928,
+          "scl_slope": 1.933529395391379,
+          "scr_rate": 1.0,
+          "sd1": -0.25572966009887715
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 1.0,
+        "t": 15,
+        "uncertainty": 0.11424754352697811,
+        "z_scores": {
+          "hf_power": 2.7529819824166526,
+          "rmssd": -0.09979637933831001,
+          "scl_slope": 2.1887854240489206,
+          "scr_rate": 3.0,
+          "sd1": -0.17043691790509843
+        }
+      },
+      {
+        "arousal": 0.7383268156211464,
+        "confidence": 0.0,
+        "t": 30,
+        "uncertainty": 0.1242475435269781,
+        "z_scores": {}
+      },
+      {
+        "arousal": 0.7483739333806922,
+        "confidence": 1.0,
+        "t": 300,
+        "uncertainty": 0.08734443836304742,
+        "z_scores": {
+          "hf_power": 2.2386600409830257,
+          "rmssd": 0.15095113603573793,
+          "scl_slope": 1.8672155089806308,
+          "scr_rate": 2.0,
+          "sd1": 0.08338888975681158
+        }
+      },
+      {
+        "arousal": 0.7458594775741063,
+        "confidence": 1.0,
+        "t": 360,
+        "uncertainty": 0.07006333455474978,
+        "z_scores": {
+          "hf_power": 2.3347913231756805,
+          "rmssd": -0.0906480669128193,
+          "scl_slope": 1.4197554368426484,
+          "scr_rate": 2.0,
+          "sd1": -0.16176181097781647
+        }
+      },
+      {
+        "arousal": 0.7559044797327353,
+        "confidence": 1.0,
+        "t": 600,
+        "uncertainty": 0.06064240266398716,
+        "z_scores": {
+          "hf_power": 2.7403373982043995,
+          "rmssd": -0.15604226315477732,
+          "scl_slope": 2.404366144893243,
+          "scr_rate": 2.0,
+          "sd1": -0.22647040884941408
+        }
+      }
+    ]
+  }
+}

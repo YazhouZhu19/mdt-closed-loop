@@ -5,6 +5,7 @@ from __future__ import annotations
 import math
 from dataclasses import dataclass, field
 from enum import Enum
+from typing import Any
 
 
 class SignalQuality(str, Enum):
@@ -137,3 +138,29 @@ class ControlRecord:
     control_scale: float = 0.0
     trajectory_phase: str = "unknown"
     trajectory_speed: float = 0.0
+    policy_version: str | None = None
+    action_logprob: float | None = None
+    context_hash: str | None = None
+    ood_flag: bool = False
+    arbiter_decision: str = "disabled"
+    lambda_mix: float = 0.0
+    policy_versions: dict[str, str] = field(default_factory=dict)
+
+
+@dataclass(frozen=True)
+class PolicyDecision:
+    """A proposal, never an actuator command. Log probability is for this action.
+
+    For deterministic policies ``logprob`` is zero. After arbitration, the
+    executed action is logged separately; its probability must not be confused
+    with the proposal's sampling probability.
+    """
+
+    action: Any
+    logprob: float
+    confidence: float
+    in_distribution: bool
+    policy_version: str
+    context_hash: str
+    error: str | None = None
+    latency_ms: float = 0.0

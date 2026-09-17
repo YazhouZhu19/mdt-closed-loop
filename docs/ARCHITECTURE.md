@@ -2,9 +2,13 @@
 
 ## 1. Scope
 
+The original path below remains the default. The opt-in learning extension is described in [Learning modules](LEARNING_MODULES.zh-CN.md): `PolicyRunner` pins and bounds inference, `arbiter.resolve` uses explicit hysteresis state, and `l35_guard.project` enforces immutable event constraints. Only FULL_LOOP treatment sessions can enter this path; ISO, SHAM, DIRECT and calibration bypass it entirely. L3 currently supports stage 3-A gain scheduling only.
+
 The implementation is a soft-real-time, event-driven research prototype. It accepts timestamped sensor windows and audio transport events, but it does not own an operating-system scheduler, device driver, audio renderer, or deadline monitor. Consequently, it cannot claim deterministic hard-real-time behavior.
 
 ## 2. Layered model
+
+The opt-in learning architecture and its correspondence to the implementation are documented in the [revised model description](LEARNING_MODEL.zh-CN.md). The diagram below describes the preserved baseline path.
 
 ```mermaid
 flowchart TD
