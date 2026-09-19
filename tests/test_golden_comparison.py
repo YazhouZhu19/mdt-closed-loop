@@ -1,4 +1,4 @@
-"""Negative controls for the narrow floating-point fixture tolerance."""
+"""Negative controls for declared cross-platform floating-point tolerances."""
 
 import copy
 import json
@@ -23,6 +23,8 @@ class GoldenComparisonTests(unittest.TestCase):
         actual["physio"][1]["hf_power"] = 174.10540527500487
         actual["physio"][5]["z"]["rmssd"] += 1e-15
         actual["states"][5]["z_scores"]["sd1"] += 1e-15
+        actual["music"][0]["estimated"] = 0.6703649367419056
+        actual["engine"][1]["dynamics"] = 0.504374282940508
         assert_legacy_trace_equal(self, actual, self.golden)
 
     def test_feature_changes_above_tolerance_are_rejected(self):
@@ -40,7 +42,7 @@ class GoldenComparisonTests(unittest.TestCase):
                 with self.assertRaises(AssertionError):
                     assert_legacy_trace_equal(self, actual, self.golden)
 
-    def test_clock_state_control_and_engine_remain_exact(self):
+    def test_meaningful_state_control_and_engine_changes_are_rejected(self):
         for section, field in (
             ("states", "t"),
             ("states", "arousal"),
@@ -53,12 +55,31 @@ class GoldenComparisonTests(unittest.TestCase):
                 actual = copy.deepcopy(self.golden)
                 value = actual[section][1][field]
                 actual[section][1][field] = (
-                    value + 1
-                    if isinstance(value, int)
-                    else math.nextafter(value, math.inf)
+                    value + 1 if isinstance(value, int) else value + 1e-8
                 )
                 with self.assertRaises(AssertionError):
                     assert_legacy_trace_equal(self, actual, self.golden)
+
+    def test_clocks_and_undeclared_float_fields_remain_exact(self):
+        for field in ("t", "undeclared_value"):
+            with self.subTest(field=field), self.assertRaises(AssertionError):
+                assert_legacy_trace_equal(
+                    self,
+                    {"music": [{field: math.nextafter(15.0, math.inf)}]},
+                    {"music": [{field: 15.0}]},
+                )
+
+    def test_zero_and_sign_transitions_are_rejected(self):
+        for actual, expected in ((1e-16, 0.0), (0.0, 1e-16), (-1e-16, 1e-16)):
+            with (
+                self.subTest(actual=actual, expected=expected),
+                self.assertRaises(AssertionError),
+            ):
+                assert_legacy_trace_equal(
+                    self,
+                    {"music": [{"control_output": actual}]},
+                    {"music": [{"control_output": expected}]},
+                )
 
     def test_structure_and_discrete_decisions_remain_exact(self):
         for mutation in ("missing_key", "extra_key", "missing_row", "quality", "layer"):

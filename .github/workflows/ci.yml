@@ -20,6 +20,8 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
 
       - name: Set up Python
         uses: actions/setup-python@v7
@@ -40,6 +42,9 @@ jobs:
 
       - name: Type-check local sources
         run: mypy --no-site-packages --ignore-missing-imports mdt_core tests examples demo.py
+
+      - name: Compare legacy runtime exactly with pinned original
+        run: python tests/check_legacy_reference.py
 
       - name: Run isolated synthetic tests
         run: python -W error -m unittest discover -s tests -v

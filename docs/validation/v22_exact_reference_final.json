@@ -1,0 +1,17 @@
+{
+  "reference_commit": "bbb66823d85979848069615ac1e486ab1435362a",
+  "environment": {
+    "numpy": "1.26.4",
+    "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+    "scipy": "1.13.1"
+  },
+  "arms": [
+    "A_full_loop",
+    "B_sham",
+    "C_direct",
+    "D_iso"
+  ],
+  "all_values_and_types_exactly_equal": true,
+  "tolerance_used": false,
+  "runtime_import_origins_verified": true
+}

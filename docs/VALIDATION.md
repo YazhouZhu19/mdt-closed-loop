@@ -10,11 +10,13 @@ The release was checked on macOS arm64 with Python 3.12.14, NumPy 1.26.4, SciPy 
 
 ### Portable fixture comparison
 
-The complete warnings-as-errors suite now passes **283/283 test methods**. Compilation, Ruff and mypy (50 source files) also pass. See the [current local validation record](validation/v22_portability_validation.json) and [full output](validation/v22_portability_full_tests.txt).
+The complete warnings-as-errors suite now passes **285/285 test methods**. Compilation, Ruff and mypy also pass. See the [current local validation record](validation/v22_final_validation.json) and [full output](validation/v22_final_full_tests.txt).
 
-The immutable pre-learning fixture now uses `rel_tol=1e-12, abs_tol=1e-12` only for five derived physiological features and their Z scores. All clocks, state estimates, decisions, control outputs, engine parameters, structure and types still compare exactly. Seven comparator tests check platform roundoff, detectable feature changes, exact-field changes, schema/type mismatches and nonfinite rejection. Same-environment replay equivalence tests retain exact equality. The [fixture documentation](../tests/fixtures/README.md) defines the full comparison contract.
+The [same-environment original-runtime replay](validation/v22_exact_reference_final.json) also passes: all four arms match exactly, with runtime import locations verified.
 
-This is a test-portability correction; runtime code and the fixture were not changed. It addresses the exact-golden failure observed in the initial [GitHub Python 3.10/3.11/3.12 run](https://github.com/YazhouZhu19/mdt-closed-loop/actions/runs/35450479213). Check the [CI page](https://github.com/YazhouZhu19/mdt-closed-loop/actions/workflows/ci.yml) for the result corresponding to the commit being reviewed; the local result does not substitute for that matrix.
+The immutable pre-learning fixture uses `rel_tol=1e-12, abs_tol=1e-12` for explicitly listed continuous feature, state and control fields. Clocks, discrete decisions, zero/sign transitions, structure and types still compare exactly. Nine comparator tests check observed platform roundoff, meaningful changes to continuous outputs, exact-field changes, schema/type mismatches and nonfinite rejection. A separate CI step exports pinned pre-learning commit `bbb6682` and compares its replay with the current implementation **exactly, in the same environment**, including every continuous value. The [fixture documentation](../tests/fixtures/README.md) defines the full comparison contract.
+
+These are test-portability corrections; runtime code and the fixture were not changed. The [initial CI run](https://github.com/YazhouZhu19/mdt-closed-loop/actions/runs/35450479213) failed the bitwise golden comparison. A [first narrow correction](validation/v22_portability_validation.json) passed locally but its [Linux CI run](https://github.com/YazhouZhu19/mdt-closed-loop/actions/runs/35451018169) exposed propagation of roundoff into state and control values (around `1e-15`). The final comparison contract therefore covers those continuous fields while adding exact original-code replay to each CI environment. Check the [CI page](https://github.com/YazhouZhu19/mdt-closed-loop/actions/workflows/ci.yml) for the result corresponding to the commit being reviewed; the local result does not substitute for that matrix.
 
 ### Initial release check, before portability correction
 
@@ -47,6 +49,7 @@ python -m compileall -q mdt_core tests examples demo.py docs/LEARNING_BANDIT_EXA
 ruff check mdt_core tests examples demo.py docs/LEARNING_BANDIT_EXAMPLE.py
 mypy --no-site-packages --ignore-missing-imports mdt_core tests examples demo.py
 python -W error -m unittest discover -s tests -v
+python tests/check_legacy_reference.py
 python demo.py
 python -m docs.LEARNING_BANDIT_EXAMPLE
 ```
