@@ -1,0 +1,93 @@
+{
+  "schema_version": "mdt-v22-m0-inventory-1",
+  "audit_date": "2026-09-19",
+  "scope": "Local workspace code/, files/, outputs/ relevant logs and data artifacts; no claims about files outside this workspace.",
+  "method": "File inventory plus manual source/provenance review; not an automatic authentication of source records.",
+  "m0_status": "not_assessable",
+  "premise_status": "not_assessed",
+  "eligible_natural_run_sessions_found": 0,
+  "assessable_sessions": 0,
+  "natural_failure_count": null,
+  "failure_rate": null,
+  "confidence_interval": null,
+  "f1_library_status": "unavailable",
+  "reason": "No eligible natural execution logs found in audited workspace.",
+  "artifacts": [
+    {
+      "path": "docs/validation/v21_contract_demo.json",
+      "exists": true,
+      "sha256": "cd7f86639f665aa57c279bd5c8944ebd5ca783198e6c609bc6feb3b3bdd47080",
+      "classification": "F3",
+      "m0_eligible": false,
+      "reason": "Explicit synthetic_execution_contract_demo; NullEngine ACKs",
+      "original_workspace_path": "code/docs/validation/v21_contract_demo.json",
+      "included_in_repository": true
+    },
+    {
+      "path": "examples/v21_contract_demo.py",
+      "exists": true,
+      "sha256": "aa6a30bebfb1665dee802df61ac827a8cdc52afcda64b65d9ad7c673da5641fd",
+      "classification": "F3",
+      "m0_eligible": false,
+      "reason": "Constructed observations, times and commands",
+      "original_workspace_path": "code/examples/v21_contract_demo.py",
+      "included_in_repository": true
+    },
+    {
+      "path": "demo.py",
+      "exists": true,
+      "sha256": "0cc04d790d1a46385ce3b10f0dfb4ff042f64ad0ff31fcfa57968df005bb9724",
+      "classification": "F3",
+      "m0_eligible": false,
+      "reason": "Synthetic EDA/RR and offline engine",
+      "original_workspace_path": "code/demo.py",
+      "included_in_repository": true
+    },
+    {
+      "path": "tests/fixtures/legacy_trace.json",
+      "exists": true,
+      "sha256": "580609bf96f68cadfd97821bb5c8814363975a9b6298f46c6ae8eaa0cbf41259",
+      "classification": "regression",
+      "m0_eligible": false,
+      "reason": "Golden fixture, not natural execution",
+      "original_workspace_path": "code/tests/fixtures/legacy_trace.json",
+      "included_in_repository": true
+    },
+    {
+      "path": "docs/V21_LEGACY_REPLAY_VALIDATION.json",
+      "exists": true,
+      "sha256": "a5dd9d609d5667149f244bc558886cd649274939f7d838470fa0977d38d731ff",
+      "classification": "regression",
+      "m0_eligible": false,
+      "reason": "HEAD versus working-tree comparison",
+      "original_workspace_path": "code/docs/V21_LEGACY_REPLAY_VALIDATION.json",
+      "included_in_repository": true
+    },
+    {
+      "path": "docs/validation/v21_test_summary.json",
+      "exists": true,
+      "sha256": "2d759376c473c64d6e2fde07d16bac0b2b688521c364bc1639c753b6c7fa0895",
+      "classification": "F3",
+      "m0_eligible": false,
+      "reason": "Software test summary, not independent natural sessions",
+      "original_workspace_path": "code/docs/validation/v21_test_summary.json",
+      "included_in_repository": true
+    },
+    {
+      "path": "outputs/mdt-hierarchical-agents/MDT_v21_deliverables.json",
+      "exists": true,
+      "sha256": "1e347d09d40b2a32c03a71a6cb7adbb496a9d8fbf231da52bf11f76dfe0931e1",
+      "classification": "delivery_metadata",
+      "m0_eligible": false,
+      "reason": "Artifact inventory, not execution data",
+      "original_workspace_path": "outputs/mdt-hierarchical-agents/MDT_v21_deliverables.json",
+      "included_in_repository": false
+    }
+  ],
+  "limits": [
+    "The zero is the number of qualifying sessions found, not zero failures in a deployment.",
+    "Public physiological datasets have not been downloaded or accepted as execution logs.",
+    "F2 device/API scenarios and independent strong B1 remain to be sourced and reviewed."
+  ],
+  "repository_packaging_note": "Original local-workspace audit; repository paths and hashes refreshed where copies are included. Missing original nonrepository artifacts remain explicitly unavailable."
+}

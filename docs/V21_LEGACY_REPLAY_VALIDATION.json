@@ -1,0 +1,146 @@
+{
+  "head": "5285377da14897ff2275b5c0f0918e7874279c9f",
+  "head_copy": "temporary checkout of recorded HEAD",
+  "python": "Bundled CPython on macOS arm64; executable path omitted in repository copy",
+  "dependency_path": "isolated NumPy 1.26.4 / SciPy 1.13.1 target",
+  "numpy": "1.26.4",
+  "scipy": "1.13.1",
+  "arms": [
+    {
+      "arm": "A_full_loop",
+      "head_vs_worktree_exact_equal": true,
+      "head_vs_worktree_mismatch_count": 0,
+      "fixture_vs_head_mismatch_count": 13,
+      "fixture_vs_head_max_abs_diff": 6.252776074688882e-13,
+      "fixture_mismatch_examples": [
+        {
+          "path": "/states/1/z_scores/hf_power",
+          "old": 2.7529819824166526,
+          "new": 2.7529819824166504,
+          "abs_diff": 2.220446049250313e-15
+        },
+        {
+          "path": "/states/5/z_scores/sd1",
+          "old": -0.22647040884941408,
+          "new": -0.22647040884941458,
+          "abs_diff": 4.996003610813204e-16
+        },
+        {
+          "path": "/states/5/z_scores/hf_power",
+          "old": 2.7403373982043995,
+          "new": 2.740337398204399,
+          "abs_diff": 4.440892098500626e-16
+        },
+        {
+          "path": "/states/5/z_scores/rmssd",
+          "old": -0.15604226315477732,
+          "new": -0.15604226315477873,
+          "abs_diff": 1.4155343563970746e-15
+        }
+      ],
+      "replay_sha256": "7961d4641ab6df5d3d63aca4bd2db24dea24142a6e80a885c7cea7757d6fefbe"
+    },
+    {
+      "arm": "B_sham",
+      "head_vs_worktree_exact_equal": true,
+      "head_vs_worktree_mismatch_count": 0,
+      "fixture_vs_head_mismatch_count": 13,
+      "fixture_vs_head_max_abs_diff": 6.252776074688882e-13,
+      "fixture_mismatch_examples": [
+        {
+          "path": "/states/1/z_scores/hf_power",
+          "old": 2.7529819824166526,
+          "new": 2.7529819824166504,
+          "abs_diff": 2.220446049250313e-15
+        },
+        {
+          "path": "/states/5/z_scores/sd1",
+          "old": -0.22647040884941408,
+          "new": -0.22647040884941458,
+          "abs_diff": 4.996003610813204e-16
+        },
+        {
+          "path": "/states/5/z_scores/hf_power",
+          "old": 2.7403373982043995,
+          "new": 2.740337398204399,
+          "abs_diff": 4.440892098500626e-16
+        },
+        {
+          "path": "/states/5/z_scores/rmssd",
+          "old": -0.15604226315477732,
+          "new": -0.15604226315477873,
+          "abs_diff": 1.4155343563970746e-15
+        }
+      ],
+      "replay_sha256": "00aa8c5a48b32201205171e15427ea01a7d9ff2c8b191033847dacdf41347427"
+    },
+    {
+      "arm": "C_direct",
+      "head_vs_worktree_exact_equal": true,
+      "head_vs_worktree_mismatch_count": 0,
+      "fixture_vs_head_mismatch_count": 13,
+      "fixture_vs_head_max_abs_diff": 6.252776074688882e-13,
+      "fixture_mismatch_examples": [
+        {
+          "path": "/states/1/z_scores/hf_power",
+          "old": 2.7529819824166526,
+          "new": 2.7529819824166504,
+          "abs_diff": 2.220446049250313e-15
+        },
+        {
+          "path": "/states/5/z_scores/sd1",
+          "old": -0.22647040884941408,
+          "new": -0.22647040884941458,
+          "abs_diff": 4.996003610813204e-16
+        },
+        {
+          "path": "/states/5/z_scores/hf_power",
+          "old": 2.7403373982043995,
+          "new": 2.740337398204399,
+          "abs_diff": 4.440892098500626e-16
+        },
+        {
+          "path": "/states/5/z_scores/rmssd",
+          "old": -0.15604226315477732,
+          "new": -0.15604226315477873,
+          "abs_diff": 1.4155343563970746e-15
+        }
+      ],
+      "replay_sha256": "98bd495a56e73c16903163170f42a6e747dd36d20cdcf5fa9e52f8861f8b56ab"
+    },
+    {
+      "arm": "D_iso",
+      "head_vs_worktree_exact_equal": true,
+      "head_vs_worktree_mismatch_count": 0,
+      "fixture_vs_head_mismatch_count": 13,
+      "fixture_vs_head_max_abs_diff": 6.252776074688882e-13,
+      "fixture_mismatch_examples": [
+        {
+          "path": "/states/1/z_scores/hf_power",
+          "old": 2.7529819824166526,
+          "new": 2.7529819824166504,
+          "abs_diff": 2.220446049250313e-15
+        },
+        {
+          "path": "/states/5/z_scores/sd1",
+          "old": -0.22647040884941408,
+          "new": -0.22647040884941458,
+          "abs_diff": 4.996003610813204e-16
+        },
+        {
+          "path": "/states/5/z_scores/hf_power",
+          "old": 2.7403373982043995,
+          "new": 2.740337398204399,
+          "abs_diff": 4.440892098500626e-16
+        },
+        {
+          "path": "/states/5/z_scores/rmssd",
+          "old": -0.15604226315477732,
+          "new": -0.15604226315477873,
+          "abs_diff": 1.4155343563970746e-15
+        }
+      ],
+      "replay_sha256": "4cfc92eb8e9590b41e2aecb1f0d4d599e945eca92fd51ee76699f934d61d4910"
+    }
+  ]
+}

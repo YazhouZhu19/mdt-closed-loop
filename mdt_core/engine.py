@@ -31,13 +31,31 @@ class NullEngine(MusicEngine):
         self.history: list[MusicParams] = []
         self.started = False
         self.stopped = False
+        self._command_acks: dict = {}
 
     def start(self, session_id: str, params: MusicParams) -> None:
         if self.started and not self.stopped:
             raise RuntimeError("engine is already running")
         self.started = True
         self.stopped = False
+        self._command_acks.clear()
         self.history.append(params.copy())
+
+    def submit(self, command):
+        """Simulation-only explicit ACK, with immutable-payload deduplication."""
+        from .execution import ExecutionAck
+
+        previous = self._command_acks.get(command.command_id)
+        if previous is not None:
+            original, ack = previous
+            if original != command:
+                raise ValueError("command ID was reused with a different payload")
+            return ack
+        self.apply(command.projected.params())
+        ack = ExecutionAck(command.epoch, command.command_id,
+                           command.boundary_at, command.projected)
+        self._command_acks[command.command_id] = (command, ack)
+        return ack
 
     def apply(self, params: MusicParams) -> None:
         if not self.started or self.stopped:

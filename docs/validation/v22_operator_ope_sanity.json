@@ -1,0 +1,601 @@
+{
+  "schema_version": "1.0",
+  "provenance": "constructed_mathematical_sanity_check",
+  "real_data_used": false,
+  "sampling_used": false,
+  "method": "exact_fraction_enumeration_and_analytic_uniform_integrals",
+  "reproduction_command": "python3 examples/v22_operator_ope_sanity.py --output docs/validation/v22_operator_ope_sanity.json",
+  "claims": {
+    "new_algorithm": false,
+    "novelty_evidence": false,
+    "clinical_or_sleep_effect_evidence": false,
+    "runtime_safety_validation": false
+  },
+  "limitations": [
+    "Constructed toy arithmetic, not a collected dataset or benchmark.",
+    "No sequential OPE, hidden state, ACK missingness, or fitted propensity.",
+    "No finite-sample confidence interval or empirical coverage estimate.",
+    "The n=1000 variance is theoretical for iid sample means, not a run.",
+    "Known results and counterexamples do not establish paper novelty."
+  ],
+  "fixed_operator_discrete_bandit": {
+    "setting": "constructed_iid_contextual_bandit_with_fixed_operator",
+    "assumptions": [
+      "Same known deterministic execution map for behavior and target.",
+      "Known positive behavior probabilities for every proposal.",
+      "Same context distribution in behavior and target.",
+      "Reward conditional on context and execution is Bernoulli(q).",
+      "Proposal has no direct reward effect given context and execution.",
+      "Finite action space and bounded rewards give finite second moments."
+    ],
+    "oracle_target_value": {
+      "exact": "1/2",
+      "decimal": 0.5
+    },
+    "estimators": {
+      "raw_ips": {
+        "expected_value": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "bias": {
+          "exact": "0",
+          "decimal": 0.0
+        },
+        "second_moment_one_observation": {
+          "exact": "2689/3600",
+          "decimal": 0.7469444444444444
+        },
+        "variance_one_observation": {
+          "exact": "1789/3600",
+          "decimal": 0.49694444444444447
+        },
+        "variance_of_iid_mean_n_1000": {
+          "exact": "1789/3600000",
+          "decimal": 0.0004969444444444445
+        }
+      },
+      "execution_mips": {
+        "expected_value": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "bias": {
+          "exact": "0",
+          "decimal": 0.0
+        },
+        "second_moment_one_observation": {
+          "exact": "809/1260",
+          "decimal": 0.6420634920634921
+        },
+        "variance_one_observation": {
+          "exact": "247/630",
+          "decimal": 0.39206349206349206
+        },
+        "variance_of_iid_mean_n_1000": {
+          "exact": "247/630000",
+          "decimal": 0.00039206349206349206
+        }
+      }
+    },
+    "variance_reduction_one_observation": {
+      "exact": "881/8400",
+      "decimal": 0.10488095238095238
+    },
+    "coarsening_identities": [
+      {
+        "context": "x0",
+        "execution": "e0",
+        "conditional_mean_raw_weight": {
+          "exact": "5/3",
+          "decimal": 1.6666666666666667
+        },
+        "execution_weight": {
+          "exact": "5/3",
+          "decimal": 1.6666666666666667
+        },
+        "equal_exactly": true
+      },
+      {
+        "context": "x0",
+        "execution": "e1",
+        "conditional_mean_raw_weight": {
+          "exact": "5/7",
+          "decimal": 0.7142857142857143
+        },
+        "execution_weight": {
+          "exact": "5/7",
+          "decimal": 0.7142857142857143
+        },
+        "equal_exactly": true
+      },
+      {
+        "context": "x1",
+        "execution": "e0",
+        "conditional_mean_raw_weight": {
+          "exact": "1/4",
+          "decimal": 0.25
+        },
+        "execution_weight": {
+          "exact": "1/4",
+          "decimal": 0.25
+        },
+        "equal_exactly": true
+      },
+      {
+        "context": "x1",
+        "execution": "e1",
+        "conditional_mean_raw_weight": {
+          "exact": "8/5",
+          "decimal": 1.6
+        },
+        "execution_weight": {
+          "exact": "8/5",
+          "decimal": 1.6
+        },
+        "equal_exactly": true
+      },
+      {
+        "context": "x1",
+        "execution": "e2",
+        "conditional_mean_raw_weight": {
+          "exact": "1",
+          "decimal": 1.0
+        },
+        "execution_weight": {
+          "exact": "1",
+          "decimal": 1.0
+        },
+        "equal_exactly": true
+      }
+    ],
+    "enumerated_proposals": [
+      {
+        "context": "x0",
+        "context_probability": {
+          "exact": "1/3",
+          "decimal": 0.3333333333333333
+        },
+        "proposal": "a0",
+        "execution": "e0",
+        "behavior_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "target_probability": {
+          "exact": "2/5",
+          "decimal": 0.4
+        },
+        "reward_bernoulli_probability": {
+          "exact": "1/4",
+          "decimal": 0.25
+        },
+        "behavior_execution_probability": {
+          "exact": "3/10",
+          "decimal": 0.3
+        },
+        "target_execution_probability": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "raw_weight": {
+          "exact": "4",
+          "decimal": 4.0
+        },
+        "execution_weight": {
+          "exact": "5/3",
+          "decimal": 1.6666666666666667
+        }
+      },
+      {
+        "context": "x0",
+        "context_probability": {
+          "exact": "1/3",
+          "decimal": 0.3333333333333333
+        },
+        "proposal": "a1",
+        "execution": "e0",
+        "behavior_probability": {
+          "exact": "1/5",
+          "decimal": 0.2
+        },
+        "target_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "reward_bernoulli_probability": {
+          "exact": "1/4",
+          "decimal": 0.25
+        },
+        "behavior_execution_probability": {
+          "exact": "3/10",
+          "decimal": 0.3
+        },
+        "target_execution_probability": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "raw_weight": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "execution_weight": {
+          "exact": "5/3",
+          "decimal": 1.6666666666666667
+        }
+      },
+      {
+        "context": "x0",
+        "context_probability": {
+          "exact": "1/3",
+          "decimal": 0.3333333333333333
+        },
+        "proposal": "a2",
+        "execution": "e1",
+        "behavior_probability": {
+          "exact": "3/10",
+          "decimal": 0.3
+        },
+        "target_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "reward_bernoulli_probability": {
+          "exact": "3/4",
+          "decimal": 0.75
+        },
+        "behavior_execution_probability": {
+          "exact": "7/10",
+          "decimal": 0.7
+        },
+        "target_execution_probability": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "raw_weight": {
+          "exact": "1/3",
+          "decimal": 0.3333333333333333
+        },
+        "execution_weight": {
+          "exact": "5/7",
+          "decimal": 0.7142857142857143
+        }
+      },
+      {
+        "context": "x0",
+        "context_probability": {
+          "exact": "1/3",
+          "decimal": 0.3333333333333333
+        },
+        "proposal": "a3",
+        "execution": "e1",
+        "behavior_probability": {
+          "exact": "2/5",
+          "decimal": 0.4
+        },
+        "target_probability": {
+          "exact": "2/5",
+          "decimal": 0.4
+        },
+        "reward_bernoulli_probability": {
+          "exact": "3/4",
+          "decimal": 0.75
+        },
+        "behavior_execution_probability": {
+          "exact": "7/10",
+          "decimal": 0.7
+        },
+        "target_execution_probability": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "raw_weight": {
+          "exact": "1",
+          "decimal": 1.0
+        },
+        "execution_weight": {
+          "exact": "5/7",
+          "decimal": 0.7142857142857143
+        }
+      },
+      {
+        "context": "x1",
+        "context_probability": {
+          "exact": "2/3",
+          "decimal": 0.6666666666666666
+        },
+        "proposal": "a0",
+        "execution": "e0",
+        "behavior_probability": {
+          "exact": "2/5",
+          "decimal": 0.4
+        },
+        "target_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "reward_bernoulli_probability": {
+          "exact": "1/5",
+          "decimal": 0.2
+        },
+        "behavior_execution_probability": {
+          "exact": "2/5",
+          "decimal": 0.4
+        },
+        "target_execution_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "raw_weight": {
+          "exact": "1/4",
+          "decimal": 0.25
+        },
+        "execution_weight": {
+          "exact": "1/4",
+          "decimal": 0.25
+        }
+      },
+      {
+        "context": "x1",
+        "context_probability": {
+          "exact": "2/3",
+          "decimal": 0.6666666666666666
+        },
+        "proposal": "a1",
+        "execution": "e1",
+        "behavior_probability": {
+          "exact": "3/10",
+          "decimal": 0.3
+        },
+        "target_probability": {
+          "exact": "2/5",
+          "decimal": 0.4
+        },
+        "reward_bernoulli_probability": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "behavior_execution_probability": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "target_execution_probability": {
+          "exact": "4/5",
+          "decimal": 0.8
+        },
+        "raw_weight": {
+          "exact": "4/3",
+          "decimal": 1.3333333333333333
+        },
+        "execution_weight": {
+          "exact": "8/5",
+          "decimal": 1.6
+        }
+      },
+      {
+        "context": "x1",
+        "context_probability": {
+          "exact": "2/3",
+          "decimal": 0.6666666666666666
+        },
+        "proposal": "a2",
+        "execution": "e1",
+        "behavior_probability": {
+          "exact": "1/5",
+          "decimal": 0.2
+        },
+        "target_probability": {
+          "exact": "2/5",
+          "decimal": 0.4
+        },
+        "reward_bernoulli_probability": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "behavior_execution_probability": {
+          "exact": "1/2",
+          "decimal": 0.5
+        },
+        "target_execution_probability": {
+          "exact": "4/5",
+          "decimal": 0.8
+        },
+        "raw_weight": {
+          "exact": "2",
+          "decimal": 2.0
+        },
+        "execution_weight": {
+          "exact": "8/5",
+          "decimal": 1.6
+        }
+      },
+      {
+        "context": "x1",
+        "context_probability": {
+          "exact": "2/3",
+          "decimal": 0.6666666666666666
+        },
+        "proposal": "a3",
+        "execution": "e2",
+        "behavior_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "target_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "reward_bernoulli_probability": {
+          "exact": "4/5",
+          "decimal": 0.8
+        },
+        "behavior_execution_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "target_execution_probability": {
+          "exact": "1/10",
+          "decimal": 0.1
+        },
+        "raw_weight": {
+          "exact": "1",
+          "decimal": 1.0
+        },
+        "execution_weight": {
+          "exact": "1",
+          "decimal": 1.0
+        }
+      }
+    ],
+    "interpretation": "Both estimators are exactly unbiased in this toy fixture. Raw IPS is valid with the fixed execution map; its variance is larger here. This reproduces a known MIPS special case, not a new result."
+  },
+  "changed_operator_uniform_clipping": {
+    "raw_behavior_and_target": "Uniform[-2, 2], identical raw policies",
+    "logging_operator": "clip(a, -1, 1)",
+    "target_operator": "clip(a, -1/2, 1/2)",
+    "logging_distribution": {
+      "interior_interval": [
+        -1,
+        1
+      ],
+      "interior_density": {
+        "exact": "1/4",
+        "decimal": 0.25
+      },
+      "mass_at_each_endpoint": {
+        "exact": "1/4",
+        "decimal": 0.25
+      }
+    },
+    "target_distribution": {
+      "interior_interval": [
+        -0.5,
+        0.5
+      ],
+      "interior_density": {
+        "exact": "1/4",
+        "decimal": 0.25
+      },
+      "mass_at_each_endpoint": {
+        "exact": "3/8",
+        "decimal": 0.375
+      },
+      "continuous_mass": {
+        "exact": "1/4",
+        "decimal": 0.25
+      }
+    },
+    "new_boundary_events": [
+      {
+        "event": "execution == -1/2",
+        "logging_event_probability": {
+          "exact": "0",
+          "decimal": 0.0
+        },
+        "logging_interior_density_at_point": {
+          "exact": "1/4",
+          "decimal": 0.25
+        },
+        "target_event_probability": {
+          "exact": "3/8",
+          "decimal": 0.375
+        },
+        "importance_weight": null,
+        "weight_status": "undefined_target_mass_over_zero_logging_mass"
+      },
+      {
+        "event": "execution == 1/2",
+        "logging_event_probability": {
+          "exact": "0",
+          "decimal": 0.0
+        },
+        "logging_interior_density_at_point": {
+          "exact": "1/4",
+          "decimal": 0.25
+        },
+        "target_event_probability": {
+          "exact": "3/8",
+          "decimal": 0.375
+        },
+        "importance_weight": null,
+        "weight_status": "undefined_target_mass_over_zero_logging_mass"
+      }
+    ],
+    "topological_support_inclusion": true,
+    "target_absolutely_continuous_with_respect_to_logging": false,
+    "target_singular_mass": {
+      "exact": "3/4",
+      "decimal": 0.75
+    },
+    "oracle_reward_fixture": "q(e) = e^2 on [-1, 1]",
+    "oracle_logging_value": {
+      "exact": "2/3",
+      "decimal": 0.6666666666666666
+    },
+    "oracle_target_value": {
+      "exact": "5/24",
+      "decimal": 0.20833333333333334
+    },
+    "raw_ips_weight": {
+      "exact": "1",
+      "decimal": 1.0
+    },
+    "raw_ips_expected_value_under_old_logging_law": {
+      "exact": "2/3",
+      "decimal": 0.6666666666666666
+    },
+    "raw_ips_bias_for_new_operator_value": {
+      "exact": "11/24",
+      "decimal": 0.4583333333333333
+    },
+    "no_smoothness_identification_bound": {
+      "assumptions": "Population logging law known; bounded reward in [0, 1]; no continuity, parametric reward model, or new data. The oracle reward formula is not supplied to the evaluator.",
+      "identified_absolutely_continuous_contribution": {
+        "exact": "1/48",
+        "decimal": 0.020833333333333332
+      },
+      "lower": {
+        "exact": "1/48",
+        "decimal": 0.020833333333333332
+      },
+      "upper": {
+        "exact": "37/48",
+        "decimal": 0.7708333333333334
+      },
+      "width": {
+        "exact": "3/4",
+        "decimal": 0.75
+      },
+      "construction": "Two witness reward functions equal e^2 except at {-1/2, 1/2}. Set their means at those points to 0 and 1 respectively. They induce identical logging laws because logging assigns zero mass to those events, but achieve the stated target-value endpoints.",
+      "not_a_sampling_confidence_interval": true,
+      "not_a_new_theorem": true
+    },
+    "interpretation": "Positive logging density is not positive event probability. The new boundary atoms require a measure-level support check; dividing their mass by the logging density is invalid. Under additional continuity of the reward mean, neighborhood limits may identify these interior points at the population level, but do not create ordinary IS weights. This file does not implement smoothness estimation."
+  },
+  "references": [
+    {
+      "document_reference": "19",
+      "title": "Off-Policy Evaluation for Large Action Spaces via Embeddings",
+      "authors": "Saito and Joachims",
+      "year": 2022,
+      "url": "https://proceedings.mlr.press/v162/saito22a.html",
+      "use": "Existing MIPS and its fixed deterministic embedding case."
+    },
+    {
+      "document_reference": "27",
+      "title": "Off-policy Evaluation Beyond Overlap: Sharp Partial Identification Under Smoothness",
+      "authors": "Khan, Saveski, and Ugander",
+      "year": 2024,
+      "url": "https://proceedings.mlr.press/v235/khan24b.html",
+      "use": "Existing beyond-overlap partial identification; this file only illustrates the elementary bounded-reward case."
+    },
+    {
+      "document_reference": "28",
+      "title": "Mechanizing Soundness of Off-Policy Evaluation",
+      "authors": "Yeager, Moss, Norrish, and Thomas",
+      "year": 2022,
+      "url": "https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.ITP.2022.32",
+      "use": "Existing mixed-measure OPE and a clipped-action example."
+    }
+  ]
+}

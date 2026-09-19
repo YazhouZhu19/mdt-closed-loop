@@ -1,10 +1,10 @@
 # MDT 学习型闭环控制模型说明
 
-依据当前代码实现整理，日期：2026-09-17。
+本文保留 v2.0 学习接口与默认兼容路径说明（2026-09-18）。当前研究主线及分支选择、绝对执行目标、证据边界见[v2.2 完整模型](research/MODEL_V22.zh-CN.md)与[执行配置指南](V21_IMPLEMENTATION.md)。旧路径的连续状态融合、偏好学习接口不代表首版 v2.2 研究已启用或验证这些模型。
 
 改造后的 MDT 是一个**以规则控制为基础、由离线学习模块提供个体化建议、经过仲裁与音乐约束后执行的多层闭环系统**。它根据使用者的生理反应调整音乐参数，再观察新的生理反应。学习覆盖“如何估计状态、如何设定目标、如何调整控制增益、如何贴合偏好”四个位置。
 
-![MDT 学习型闭环结构图（论文风格）](figures/learning-architecture.png)
+![MDT 学习型闭环结构图（英文标注）](figures/learning-architecture-en.png)
 
 ## 模型组成与信息流
 
@@ -59,78 +59,78 @@ $$
 
 ```mermaid
 flowchart LR
-  U[使用者] -->|生理反应| S[EDA / HRV]
-  S --> L0[L0 信号清洗与特征]
+  U[Participant] -->|Physiological response| S[EDA / HRV]
+  S --> L0[L0 Signal cleaning and features]
 
-  subgraph L1[L1 状态估计]
-    B1[原观测 + 独立 Kalman]
-    M1[学习发射 + 独立 Kalman]
-    A1{状态仲裁}
+  subgraph L1[L1 State estimation]
+    B1[Baseline observation + independent Kalman]
+    M1[Learned emission + independent Kalman]
+    A1{State arbitration}
     B1 --> A1
     M1 --> A1
   end
   L0 --> B1
   L0 --> M1
-  A1 --> X[状态 / 置信度 / 方差]
+  A1 --> X[State / confidence / variance]
 
-  subgraph L2[L2 目标轨迹]
-    B2[默认轨迹参数]
-    M2[分层上下文老虎机]
-    A2{参数仲裁}
-    T[确定性轨迹规划器]
+  subgraph L2[L2 Reference trajectory]
+    B2[Default trajectory parameters]
+    M2[Hierarchical contextual bandit]
+    A2{Parameter arbitration}
+    T[Deterministic trajectory planner]
     B2 --> A2
     M2 --> A2
     A2 --> T
   end
-  X -->|首个可锚定状态| M2
-  X -->|跟踪与可靠度| T
+  X -->|First eligible anchor state| M2
+  X -->|Tracking and reliability| T
 
-  subgraph L3[L3 增益调度控制]
-    E[目标减当前状态]
-    B3[基线 PI]
-    M3[学习增益 → 增益 PI]
-    A3{控制仲裁}
+  subgraph L3[L3 Gain scheduling]
+    E[Reference minus current state]
+    B3[Baseline PI]
+    M3[Learned gains → Gain-scheduled PI]
+    A3{Control arbitration}
     E --> B3
     E --> M3
     B3 --> A3
     M3 --> A3
   end
-  T -->|目标| E
-  X -->|当前状态| E
+  T -->|Reference| E
+  X -->|Current state| E
 
-  subgraph L35[L3.5 音乐参数与执行约束]
-    R[规则参数映射]
-    M4[偏好候选排序]
-    A4{偏好仲裁}
-    G[冻结音乐守卫]
-    C[真实小节 / 乐句提交]
+  subgraph L35[L3.5 Music parameters and execution constraints]
+    R[Rule-based parameter mapping]
+    M4[Preference candidate ranking]
+    A4{Preference arbitration}
+    G[Frozen music guard]
+    C[Actual bar / phrase boundary commit]
     R --> A4
     M4 --> A4
     A4 --> G --> C
   end
   A3 --> R
   A3 --> M4
-  C --> EN[音乐引擎]
-  EN -->|音乐反馈| U
+  C --> EN[Music engine]
+  EN -->|Music feedback| U
 
-  O[批准日志与弱标签 → 离线训练 / 校准 / 评估]
-  O -.固定工件.-> M1
-  O -.固定工件.-> M2
-  O -.固定工件.-> M3
-  O -.固定工件.-> M4
-  V[L4—L6 审计 / 版本锁定 / 分臂 / 安全中止]
-  V -.监督与中止.-> EN
-  A1 -.决策审计.-> V
-  A2 -.决策审计.-> V
-  A3 -.决策审计.-> V
-  A4 -.决策审计.-> V
-  V -.历史记录 / 反馈.-> O
+  O[Approved logs and weak labels → Offline training / calibration / evaluation]
+  O -.Frozen artifacts.-> M1
+  O -.Frozen artifacts.-> M2
+  O -.Frozen artifacts.-> M3
+  O -.Frozen artifacts.-> M4
+  V[L4–L6 Audit / version pins / arm assignment / safety stop]
+  V -.Supervision and stop.-> EN
+  A1 -.Decision audit.-> V
+  A2 -.Decision audit.-> V
+  A3 -.Decision audit.-> V
+  A4 -.Decision audit.-> V
+  V -.Historical records / feedback.-> O
 ```
 
 实现对应：[会话编排](../mdt_core/session.py)、[学习运行时](../mdt_core/learning.py)、[仲裁规则](../mdt_core/arbiter.py)。配置、工件训练及详细边界见[学习模块改造与使用](LEARNING_MODULES.zh-CN.md)。
 
 ## 图像制作说明
 
-当前结构图使用内置 ImageGen 重绘为论文风格：白底、细线框、低饱和配色，并以 a/b/c 三个面板分别表达在线闭环、离线学习与版本冻结、确定性仲裁。参考 [FALCON 论文图 2](https://www.nature.com/articles/s44182-024-00013-0.pdf) 的分面与连线组织方式，仅借鉴绘图风格，不引入该论文的控制算法。模型方法与模块含义保持不变，以本文及可编辑 Mermaid 为准。
+当前结构图使用内置 ImageGen 完成参考风格润色与英文标注替换。标题、模块、公式下标、箭头说明及图例均使用英文；浅蓝、浅橙与浅绿分区、圆角卡片、技术示意图标和原有控制逻辑保留。本文说明文字仍为中文，模型含义以本文及可编辑 Mermaid 为准。
 
-论文风格提示词保留于[重绘提示词](figures/paper-style-prompt.txt)、[校对提示词](figures/paper-style-correction-prompt.txt)和[连线修订提示词](figures/paper-style-connectivity-prompt.txt)。独立图源见 [Mermaid 源文件](figures/learning-architecture.mmd)。
+提示词见[参考风格重绘](figures/reference-style-prompt.txt)与[英文标注替换](figures/english-localization-prompt.txt)。[中文配图](figures/learning-architecture-reference-style.png)保留供比较；可编辑图源见 [English Mermaid](figures/learning-architecture-en.mmd)。

@@ -1,0 +1,244 @@
+test_full_loop_records_adaptive_and_uncertainty_telemetry (test_adaptive_control.AdaptiveSessionIntegrationTests.test_full_loop_records_adaptive_and_uncertainty_telemetry) ... ok
+test_adaptive_configuration_is_validated (test_adaptive_control.AdaptiveTrajectoryTests.test_adaptive_configuration_is_validated) ... ok
+test_fixed_iso_comparator_remains_wall_clock_driven (test_adaptive_control.AdaptiveTrajectoryTests.test_fixed_iso_comparator_remains_wall_clock_driven) ... ok
+test_on_track_response_advances_faster_than_lagging_response (test_adaptive_control.AdaptiveTrajectoryTests.test_on_track_response_advances_faster_than_lagging_response) ... ok
+test_sleep_trajectory_never_raises_a_low_anchor (test_adaptive_control.AdaptiveTrajectoryTests.test_sleep_trajectory_never_raises_a_low_anchor) ... ok
+test_unreliable_state_holds_adaptive_target (test_adaptive_control.AdaptiveTrajectoryTests.test_unreliable_state_holds_adaptive_target) ... ok
+test_controller_derates_as_uncertainty_increases (test_adaptive_control.UncertaintyAwareControlTests.test_controller_derates_as_uncertainty_increases) ... ok
+test_controller_holds_above_hard_uncertainty_limit (test_adaptive_control.UncertaintyAwareControlTests.test_controller_holds_above_hard_uncertainty_limit) ... ok
+test_explicit_suspend_clears_output_scale (test_adaptive_control.UncertaintyAwareControlTests.test_explicit_suspend_clears_output_scale) ... ok
+test_posterior_uncertainty_grows_during_signal_loss (test_adaptive_control.UncertaintyAwareControlTests.test_posterior_uncertainty_grows_during_signal_loss) ... ok
+test_uncertainty_limits_are_validated (test_adaptive_control.UncertaintyAwareControlTests.test_uncertainty_limits_are_validated) ... ok
+test_deadband_returns_hold_command (test_control_session.ControllerTests.test_deadband_returns_hold_command) ... ok
+test_explicit_boundary_tolerates_clock_jitter (test_control_session.ControllerTests.test_explicit_boundary_tolerates_clock_jitter) ... ok
+test_layer_change_is_reversible (test_control_session.ControllerTests.test_layer_change_is_reversible) ... ok
+test_non_positive_dt_is_rejected (test_control_session.ControllerTests.test_non_positive_dt_is_rejected) ... ok
+test_zero_command_cancels_pending_structure (test_control_session.ControllerTests.test_zero_command_cancels_pending_structure) ... ok
+test_dose_upper_bound_is_honored (test_control_session.ProgramTests.test_dose_upper_bound_is_honored) ... ok
+test_program_state_rejects_impossible_initial_values (test_control_session.ProgramTests.test_program_state_rejects_impossible_initial_values) ... ok
+test_randomization_weights_are_validated (test_control_session.ProgramTests.test_randomization_weights_are_validated) ... ok
+test_research_modes_are_distinct (test_control_session.ProgramTests.test_research_modes_are_distinct) ... ok
+test_audio_and_sensor_events_share_monotonic_processing_order (test_control_session.SessionTests.test_audio_and_sensor_events_share_monotonic_processing_order) ... ok
+test_backward_time_and_duration_are_rejected (test_control_session.SessionTests.test_backward_time_and_duration_are_rejected) ... ok
+test_calibration_is_rest_only_and_not_treatment_dose (test_control_session.SessionTests.test_calibration_is_rest_only_and_not_treatment_dose) ... ok
+test_calibration_never_requires_or_actuates_sham_music (test_control_session.SessionTests.test_calibration_never_requires_or_actuates_sham_music) ... ok
+test_calibration_without_usable_signal_is_not_counted (test_control_session.SessionTests.test_calibration_without_usable_signal_is_not_counted) ... ok
+test_end_to_end_closed_loop_and_atomic_record (test_control_session.SessionTests.test_end_to_end_closed_loop_and_atomic_record) ... ok
+test_failed_fast_cadence_does_not_poison_global_clock (test_control_session.SessionTests.test_failed_fast_cadence_does_not_poison_global_clock) ... ok
+test_fast_and_slow_cadences_are_enforced (test_control_session.SessionTests.test_fast_and_slow_cadences_are_enforced) ... ok
+test_finish_without_observation_is_rejected (test_control_session.SessionTests.test_finish_without_observation_is_rejected) ... ok
+test_futility_is_applied_on_finish (test_control_session.SessionTests.test_futility_is_applied_on_finish) ... ok
+test_invalid_finish_input_has_no_side_effects (test_control_session.SessionTests.test_invalid_finish_input_has_no_side_effects) ... ok
+test_lifecycle_is_monotonic_and_finish_is_idempotent (test_control_session.SessionTests.test_lifecycle_is_monotonic_and_finish_is_idempotent) ... ok
+test_long_synthetic_closed_loop_stays_bounded (test_control_session.SessionTests.test_long_synthetic_closed_loop_stays_bounded)
+Forty minutes of generated data; output lives only in a temp directory. ... ok
+test_safety_at_finish_is_not_counted_as_completed_dose (test_control_session.SessionTests.test_safety_at_finish_is_not_counted_as_completed_dose) ... ok
+test_safety_hook_aborts_live_session (test_control_session.SessionTests.test_safety_hook_aborts_live_session) ... ok
+test_sham_is_automatic_and_uses_pre_registered_trajectory (test_control_session.SessionTests.test_sham_is_automatic_and_uses_pre_registered_trajectory) ... ok
+test_sham_without_trajectory_is_rejected (test_control_session.SessionTests.test_sham_without_trajectory_is_rejected) ... ok
+test_artifact_roundtrip_and_corruption (test_learning_emission.EmissionTests.test_artifact_roundtrip_and_corruption) ... ok
+test_calibration_evaluates_heldout_uncertainty (test_learning_emission.EmissionTests.test_calibration_evaluates_heldout_uncertainty) ... ok
+test_default_matches_pre_extraction_float_bits (test_learning_emission.EmissionTests.test_default_matches_pre_extraction_float_bits) ... ok
+test_duplicate_windows_cannot_inflate_support (test_learning_emission.EmissionTests.test_duplicate_windows_cannot_inflate_support) ... ok
+test_filter_configuration_and_cadence_require_revalidation (test_learning_emission.EmissionTests.test_filter_configuration_and_cadence_require_revalidation) ... ok
+test_hash_baseline_and_version_mismatch_fall_back (test_learning_emission.EmissionTests.test_hash_baseline_and_version_mismatch_fall_back) ... ok
+test_heldout_posterior_diagnostics_match_running_filter (test_learning_emission.EmissionTests.test_heldout_posterior_diagnostics_match_running_filter) ... ok
+test_malformed_output_is_rejected (test_learning_emission.EmissionTests.test_malformed_output_is_rejected) ... ok
+test_missing_and_ood_fall_back (test_learning_emission.EmissionTests.test_missing_and_ood_fall_back) ... ok
+test_posterior_gate_rejects_unmatched_temporal_dynamics (test_learning_emission.EmissionTests.test_posterior_gate_rejects_unmatched_temporal_dynamics) ... ok
+test_runtime_shadow_identity_and_active_variance_safeguard (test_learning_emission.EmissionTests.test_runtime_shadow_identity_and_active_variance_safeguard) ... ok
+test_splits_cannot_share_sessions (test_learning_emission.EmissionTests.test_splits_cannot_share_sessions) ... ok
+test_timeout_is_bounded_and_quarantined (test_learning_emission.EmissionTests.test_timeout_is_bounded_and_quarantined) ... ok
+test_unavailable_baseline_before_first_observation_quarantines (test_learning_emission.EmissionTests.test_unavailable_baseline_before_first_observation_quarantines) ... ok
+test_unvalidated_history_never_resumes_during_session (test_learning_emission.EmissionTests.test_unvalidated_history_never_resumes_during_session) ... ok
+test_wrong_uncertainty_rejected_despite_accurate_mean (test_learning_emission.EmissionTests.test_wrong_uncertainty_rejected_despite_accurate_mean) ... ok
+test_adversarial_projection_is_bounded_and_idempotent (test_learning_guard.GuardTests.test_adversarial_projection_is_bounded_and_idempotent) ... ok
+test_all_noncanonical_masks_are_projected_by_active_layer_count (test_learning_guard.GuardTests.test_all_noncanonical_masks_are_projected_by_active_layer_count) ... ok
+test_cancel_pending_also_cancels_default_timbre_restoration (test_learning_guard.GuardTests.test_cancel_pending_also_cancels_default_timbre_restoration) ... ok
+test_default_and_learned_paths_clear_each_others_pending_commands (test_learning_guard.GuardTests.test_default_and_learned_paths_clear_each_others_pending_commands) ... ok
+test_default_mapping_is_pure (test_learning_guard.GuardTests.test_default_mapping_is_pure) ... ok
+test_elapsed_zero_does_not_allow_tempo_movement (test_learning_guard.GuardTests.test_elapsed_zero_does_not_allow_tempo_movement) ... ok
+test_fallback_cannot_spend_the_same_phrase_layer_budget_twice (test_learning_guard.GuardTests.test_fallback_cannot_spend_the_same_phrase_layer_budget_twice) ... ok
+test_fallback_restores_timbre_only_at_a_boundary_and_reports_change (test_learning_guard.GuardTests.test_fallback_restores_timbre_only_at_a_boundary_and_reports_change) ... ok
+test_frozen_default_matches_original_full_vector_transcript (test_learning_guard.GuardTests.test_frozen_default_matches_original_full_vector_transcript) ... ok
+test_learned_request_waits_and_enforces_each_event_budget (test_learning_guard.GuardTests.test_learned_request_waits_and_enforces_each_event_budget) ... ok
+test_limits_are_a_frozen_snapshot (test_learning_guard.GuardTests.test_limits_are_a_frozen_snapshot) ... ok
+test_artifact_roundtrip_and_tamper_detection (test_learning_guard.TasteTests.test_artifact_roundtrip_and_tamper_detection) ... ok
+test_independent_calibration_creates_new_artifact (test_learning_guard.TasteTests.test_independent_calibration_creates_new_artifact) ... ok
+test_offline_preference_is_versioned_immutable_and_uncalibrated (test_learning_guard.TasteTests.test_offline_preference_is_versioned_immutable_and_uncalibrated) ... ok
+test_training_overlap_and_invalid_feedback_are_rejected (test_learning_guard.TasteTests.test_training_overlap_and_invalid_feedback_are_rejected) ... ok
+test_calibration_uses_separate_sessions_and_changes_version (test_learning_planner.HierarchicalBanditTests.test_calibration_uses_separate_sessions_and_changes_version) ... ok
+test_duplicate_validation_windows_cannot_inflate_support (test_learning_planner.HierarchicalBanditTests.test_duplicate_validation_windows_cannot_inflate_support) ... ok
+test_fitted_l2_session_startup_shadow_active_and_exported_propensity (test_learning_planner.HierarchicalBanditTests.test_fitted_l2_session_startup_shadow_active_and_exported_propensity) ... ok
+test_immutable_content_identity_and_artifact_roundtrip (test_learning_planner.HierarchicalBanditTests.test_immutable_content_identity_and_artifact_roundtrip) ... ok
+test_invalid_rewards_and_duplicate_actions_rejected (test_learning_planner.HierarchicalBanditTests.test_invalid_rewards_and_duplicate_actions_rejected) ... ok
+test_subject_posterior_shrinks_toward_population (test_learning_planner.HierarchicalBanditTests.test_subject_posterior_shrinks_toward_population) ... ok
+test_unseen_subject_pools_but_out_of_support_context_is_ood (test_learning_planner.HierarchicalBanditTests.test_unseen_subject_pools_but_out_of_support_context_is_ood) ... ok
+test_unvalidated_fit_is_shadow_only_and_logpropensity_is_exact (test_learning_planner.HierarchicalBanditTests.test_unvalidated_fit_is_shadow_only_and_logpropensity_is_exact) ... ok
+test_default_parameters_reproduce_baseline_trajectory (test_learning_planner.ParameterizedPlannerTests.test_default_parameters_reproduce_baseline_trajectory) ... ok
+test_learned_parameters_change_curve_and_freeze_at_anchor (test_learning_planner.ParameterizedPlannerTests.test_learned_parameters_change_curve_and_freeze_at_anchor) ... ok
+test_learning_cannot_select_study_strategy (test_learning_planner.ParameterizedPlannerTests.test_learning_cannot_select_study_strategy) ... ok
+test_parameter_bounds_and_nonfinite_values_rejected (test_learning_planner.ParameterizedPlannerTests.test_parameter_bounds_and_nonfinite_values_rejected) ... ok
+test_speed_gain_preserves_reliability_hold_and_speed_cap (test_learning_planner.ParameterizedPlannerTests.test_speed_gain_preserves_reliability_hold_and_speed_cap) ... ok
+test_unmodified_config_outside_learning_limits_remains_exact (test_learning_planner.ParameterizedPlannerTests.test_unmodified_config_outside_learning_limits_remains_exact) ... ok
+test_unreliable_startup_does_not_prevent_first_anchor_selection (test_learning_planner.ParameterizedPlannerTests.test_unreliable_startup_does_not_prevent_first_anchor_selection) ... ok
+test_all_four_fallback_criteria (test_learning_runtime.ArbiterTests.test_all_four_fallback_criteria) ... ok
+test_configuration_rejects_unpinned_trial (test_learning_runtime.ArbiterTests.test_configuration_rejects_unpinned_trial) ... ok
+test_hysteresis_and_convex_blend (test_learning_runtime.ArbiterTests.test_hysteresis_and_convex_blend) ... ok
+test_modes_uncalibrated_and_restricted_neighborhood (test_learning_runtime.ArbiterTests.test_modes_uncalibrated_and_restricted_neighborhood) ... ok
+test_offline_fit_calibration_ood_and_content_version (test_learning_runtime.GainTrainingTests.test_offline_fit_calibration_ood_and_content_version) ... ok
+test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) ...
+  test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) (arm=<Arm.FULL_LOOP: 'A_full_loop'>) ... FAIL
+  test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) (arm=<Arm.SHAM: 'B_sham'>) ... FAIL
+  test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) (arm=<Arm.DIRECT: 'C_direct'>) ... FAIL
+  test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) (arm=<Arm.ISO: 'D_iso'>) ... FAIL
+test_changed_trial_pin_rejected_before_engine_start (test_learning_runtime.LearningSessionTests.test_changed_trial_pin_rejected_before_engine_start) ... ok
+test_disabled_and_control_arms_do_not_even_load_models (test_learning_runtime.LearningSessionTests.test_disabled_and_control_arms_do_not_even_load_models) ... ok
+test_gain_proposal_cannot_change_hard_limits_and_waits_for_boundary (test_learning_runtime.LearningSessionTests.test_gain_proposal_cannot_change_hard_limits_and_waits_for_boundary) ... ok
+test_l2_once_logprob_and_pins_persist (test_learning_runtime.LearningSessionTests.test_l2_once_logprob_and_pins_persist) ... ok
+test_safety_abort_overrides_learning_and_blocks_late_boundaries (test_learning_runtime.LearningSessionTests.test_safety_abort_overrides_learning_and_blocks_late_boundaries) ... ok
+test_shadow_outputs_match_baseline (test_learning_runtime.LearningSessionTests.test_shadow_outputs_match_baseline) ... ok
+test_taste_guard_and_loss_cancel_pending (test_learning_runtime.LearningSessionTests.test_taste_guard_and_loss_cancel_pending) ... ok
+test_uncalibrated_bad_gain_and_ood_fall_back (test_learning_runtime.LearningSessionTests.test_uncalibrated_bad_gain_and_ood_fall_back) ... ok
+test_uncertain_state_holds_timbre_but_reliable_deadband_restores_it (test_learning_runtime.LearningSessionTests.test_uncertain_state_holds_timbre_but_reliable_deadband_restores_it) ... ok
+test_exception_version_context_nonfinite (test_learning_runtime.RunnerTests.test_exception_version_context_nonfinite) ... ok
+test_real_timeout_quarantines_late_result_and_bounds_workers (test_learning_runtime.RunnerTests.test_real_timeout_quarantines_late_result_and_bounds_workers) ... ok
+test_session_model_snapshot_isolated_from_external_mutation (test_learning_runtime.RunnerTests.test_session_model_snapshot_isolated_from_external_mutation) ... ok
+test_conflicting_concurrent_writers_never_both_succeed (test_learning_trial.TrialRegistryTests.test_conflicting_concurrent_writers_never_both_succeed) ... ok
+test_corrupt_or_symlinked_manifest_is_never_overwritten (test_learning_trial.TrialRegistryTests.test_corrupt_or_symlinked_manifest_is_never_overwritten) ... ok
+test_disabled_and_shadow_do_not_create_registry (test_learning_trial.TrialRegistryTests.test_disabled_and_shadow_do_not_create_registry) ... ok
+test_manifest_is_stable_and_contains_only_study_configuration (test_learning_trial.TrialRegistryTests.test_manifest_is_stable_and_contains_only_study_configuration) ... ok
+test_missing_configured_pin_rejected_before_filesystem_write (test_learning_trial.TrialRegistryTests.test_missing_configured_pin_rejected_before_filesystem_write) ... ok
+test_trial_id_cannot_escape_registry_directory (test_learning_trial.TrialRegistryTests.test_trial_id_cannot_escape_registry_directory) ... ok
+test_version_mode_or_enabled_module_drift_is_rejected (test_learning_trial.TrialRegistryTests.test_version_mode_or_enabled_module_drift_is_rejected) ... ok
+test_malformed_fields_fall_back_without_exceptions (test_policy_adversarial.MalformedArbiterTests.test_malformed_fields_fall_back_without_exceptions) ... ok
+test_recursive_action_and_finite_overflow_are_rejected (test_policy_adversarial.MalformedArbiterTests.test_recursive_action_and_finite_overflow_are_rejected) ... ok
+test_immutable_mapping_normalized_for_approval_and_json (test_policy_adversarial.RunnerMetadataTests.test_immutable_mapping_normalized_for_approval_and_json) ... ok
+test_raising_calibration_property_falls_back (test_policy_adversarial.RunnerMetadataTests.test_raising_calibration_property_falls_back) ... ok
+test_slow_calibration_property_is_bounded_and_late_result_cannot_activate (test_policy_adversarial.RunnerMetadataTests.test_slow_calibration_property_is_bounded_and_late_result_cannot_activate) ... ok
+test_unsupported_actions_never_execute_repr_or_deepcopy (test_policy_adversarial.RunnerMetadataTests.test_unsupported_actions_never_execute_repr_or_deepcopy) ... ok
+test_configuration_is_validated (test_signal_state.SignalTests.test_configuration_is_validated) ... ok
+test_extracts_finite_features (test_signal_state.SignalTests.test_extracts_finite_features) ... ok
+test_invalid_sampling_rate_is_rejected (test_signal_state.SignalTests.test_invalid_sampling_rate_is_rejected) ... ok
+test_large_nan_gap_drops_eda_but_keeps_hrv (test_signal_state.SignalTests.test_large_nan_gap_drops_eda_but_keeps_hrv) ... ok
+test_music_parameters_reject_non_finite_or_invalid_values (test_signal_state.SignalTests.test_music_parameters_reject_non_finite_or_invalid_values) ... ok
+test_small_nan_gap_is_interpolated_and_downgraded (test_signal_state.SignalTests.test_small_nan_gap_is_interpolated_and_downgraded) ... ok
+test_baseline_requires_all_features (test_signal_state.StateTests.test_baseline_requires_all_features) ... ok
+test_extreme_z_score_is_numerically_stable (test_signal_state.StateTests.test_extreme_z_score_is_numerically_stable) ... ok
+test_kalman_process_scale_is_validated (test_signal_state.StateTests.test_kalman_process_scale_is_validated) ... ok
+test_multimodal_estimate_has_full_confidence (test_signal_state.StateTests.test_multimodal_estimate_has_full_confidence) ... ok
+test_commit_rechecks_ttl_and_watchdog_stops_without_new_sensors (test_v21_execution.ContractTests.test_commit_rechecks_ttl_and_watchdog_stops_without_new_sensors) ... ok
+test_double_ttl_cannot_refresh_old_observation (test_v21_execution.ContractTests.test_double_ttl_cannot_refresh_old_observation) ... ok
+test_dynamics_hard_cap_and_rate (test_v21_execution.ContractTests.test_dynamics_hard_cap_and_rate) ... ok
+test_engine_retransmission_is_idempotent_and_payload_reuse_rejected (test_v21_execution.ContractTests.test_engine_retransmission_is_idempotent_and_payload_reuse_rejected) ... ok
+test_future_nan_and_backwards_clock (test_v21_execution.ContractTests.test_future_nan_and_backwards_clock) ... ok
+test_hold_recovery_requires_distinct_valid_observations_and_baseline (test_v21_execution.ContractTests.test_hold_recovery_requires_distinct_valid_observations_and_baseline) ... ok
+test_latest_target_replaces_pending_and_rejects_old (test_v21_execution.ContractTests.test_latest_target_replaces_pending_and_rejects_old) ... ok
+test_malformed_ack_also_revokes_writes (test_v21_execution.ContractTests.test_malformed_ack_also_revokes_writes) ... ok
+test_missing_ack_does_not_advance_current_and_stops (test_v21_execution.ContractTests.test_missing_ack_does_not_advance_current_and_stops) ... ok
+test_noninteger_sequence_cannot_poison_ordering (test_v21_execution.ContractTests.test_noninteger_sequence_cannot_poison_ordering) ... ok
+test_old_epoch_parent_ack_and_reused_observation_rejected (test_v21_execution.ContractTests.test_old_epoch_parent_ack_and_reused_observation_rejected) ... ok
+test_real_boundaries_progress_fixed_target_and_duplicates_deduplicate (test_v21_execution.ContractTests.test_real_boundaries_progress_fixed_target_and_duplicates_deduplicate) ... ok
+test_stop_failure_leaves_writes_revoked (test_v21_execution.ContractTests.test_stop_failure_leaves_writes_revoked) ... ok
+test_target_immutable_and_defensive_current (test_v21_execution.ContractTests.test_target_immutable_and_defensive_current) ... ok
+test_wrong_ack_rejected (test_v21_execution.ContractTests.test_wrong_ack_rejected) ... ok
+test_boundary_failure_aborts_session_without_recording_completion (test_v21_execution.IntegrationTests.test_boundary_failure_aborts_session_without_recording_completion) ... ok
+test_ingestion_preserves_original_age (test_v21_execution.IntegrationTests.test_ingestion_preserves_original_age) ... ok
+test_multirate_clock_never_double_counts_elapsed_time (test_v21_execution.IntegrationTests.test_multirate_clock_never_double_counts_elapsed_time) ... ok
+test_v21_requires_explicit_source_timestamp_and_deduplicates_ingestion (test_v21_execution.IntegrationTests.test_v21_requires_explicit_source_timestamp_and_deduplicates_ingestion) ... ok
+test_v21_session_uses_ack_and_persists_lineage (test_v21_execution.IntegrationTests.test_v21_session_uses_ack_and_persists_lineage) ... ok
+test_caps_take_minimum_and_zero_disagreement_is_finite (test_v21_gates.V21ArbiterTests.test_caps_take_minimum_and_zero_disagreement_is_finite) ... ok
+test_control_distance_uses_frozen_two_unit_range (test_v21_gates.V21ArbiterTests.test_control_distance_uses_frozen_two_unit_range) ... ok
+test_invalid_or_rewound_time_fails_closed_and_cannot_reset_clock (test_v21_gates.V21ArbiterTests.test_invalid_or_rewound_time_fails_closed_and_cannot_reset_clock) ... ok
+test_profile_is_opt_in_and_configuration_is_validated (test_v21_gates.V21ArbiterTests.test_profile_is_opt_in_and_configuration_is_validated) ... ok
+test_ramp_has_no_first_event_credit_and_immediate_downweight (test_v21_gates.V21ArbiterTests.test_ramp_has_no_first_event_credit_and_immediate_downweight) ... ok
+test_restricted_residual_and_binary_selection_are_distinct (test_v21_gates.V21ArbiterTests.test_restricted_residual_and_binary_selection_are_distinct) ... ok
+test_emission_exception_stops_updating_its_branch (test_v21_gates.V21RuntimeTests.test_emission_exception_stops_updating_its_branch) ... ok
+test_exception_quarantine_persists_across_suspend_and_stops_inference (test_v21_gates.V21RuntimeTests.test_exception_quarantine_persists_across_suspend_and_stops_inference) ... ok
+test_one_shot_trajectory_is_not_silenced_by_continuous_ramp (test_v21_gates.V21RuntimeTests.test_one_shot_trajectory_is_not_silenced_by_continuous_ramp) ... ok
+test_selected_state_keeps_exact_branch_variance_and_confidence (test_v21_gates.V21RuntimeTests.test_selected_state_keeps_exact_branch_variance_and_confidence) ... ok
+test_taste_returns_selected_target_and_retains_legacy_request (test_v21_gates.V21RuntimeTests.test_taste_returns_selected_target_and_retains_legacy_request) ... ok
+test_transient_ood_can_recover_only_through_hysteresis_and_ramp (test_v21_gates.V21RuntimeTests.test_transient_ood_can_recover_only_through_hysteresis_and_ramp) ... ok
+test_duplicate_attempt_ids_and_invalid_counts_are_rejected (test_v21_metrics.CommitRateTests.test_duplicate_attempt_ids_and_invalid_counts_are_rejected) ... ok
+test_no_execution_does_not_claim_perfect_commit_rate (test_v21_metrics.CommitRateTests.test_no_execution_does_not_claim_perfect_commit_rate) ... ok
+test_rejected_invalid_attempt_is_not_an_invalid_commit (test_v21_metrics.CommitRateTests.test_rejected_invalid_attempt_is_not_an_invalid_commit) ... ok
+test_cycle_and_unknown_nodes_are_rejected (test_v21_metrics.CriticalPathTests.test_cycle_and_unknown_nodes_are_rejected) ... ok
+test_empty_graph_has_zero_path (test_v21_metrics.CriticalPathTests.test_empty_graph_has_zero_path) ... ok
+test_invalid_duration_and_duplicate_edge_are_rejected (test_v21_metrics.CriticalPathTests.test_invalid_duration_and_duplicate_edge_are_rejected) ... ok
+test_parallel_dependencies_use_max_not_sum (test_v21_metrics.CriticalPathTests.test_parallel_dependencies_use_max_not_sum) ... ok
+test_serial_dependencies_sum (test_v21_metrics.CriticalPathTests.test_serial_dependencies_sum) ... ok
+test_ack_cost_does_not_depend_on_event_time_spacing (test_v21_metrics.MusicChangeCostTests.test_ack_cost_does_not_depend_on_event_time_spacing) ... ok
+test_epoch_and_order_must_be_preserved (test_v21_metrics.MusicChangeCostTests.test_epoch_and_order_must_be_preserved) ... ok
+test_exact_duplicate_ack_is_not_counted_twice (test_v21_metrics.MusicChangeCostTests.test_exact_duplicate_ack_is_not_counted_twice) ... ok
+test_missing_scales_and_non_ack_input_are_rejected (test_v21_metrics.MusicChangeCostTests.test_missing_scales_and_non_ack_input_are_rejected) ... ok
+test_normalization_weights_and_discrete_layers (test_v21_metrics.MusicChangeCostTests.test_normalization_weights_and_discrete_layers) ... ok
+test_exact_zero_event_session_risk_bound (test_v21_metrics.SessionRiskBoundTests.test_exact_zero_event_session_risk_bound) ... ok
+test_large_n_remains_positive_without_cancellation (test_v21_metrics.SessionRiskBoundTests.test_large_n_remains_positive_without_cancellation) ... ok
+test_no_trials_or_invalid_confidence_is_an_error (test_v21_metrics.SessionRiskBoundTests.test_no_trials_or_invalid_confidence_is_an_error) ... ok
+test_all_missing_is_not_zero_rmse (test_v21_metrics.TrackingCostTests.test_all_missing_is_not_zero_rmse) ... ok
+test_bad_intervals_are_rejected (test_v21_metrics.TrackingCostTests.test_bad_intervals_are_rejected) ... ok
+test_explicit_missing_and_gaps_reduce_coverage (test_v21_metrics.TrackingCostTests.test_explicit_missing_and_gaps_reduce_coverage) ... ok
+test_irregular_intervals_are_time_weighted (test_v21_metrics.TrackingCostTests.test_irregular_intervals_are_time_weighted) ... ok
+test_piecewise_constant_integral_is_invariant_to_subdivision (test_v21_metrics.TrackingCostTests.test_piecewise_constant_integral_is_invariant_to_subdivision) ... ok
+test_active_integral_does_not_leak (test_v21_pi.NormalizedRecurrenceTests.test_active_integral_does_not_leak) ... ok
+test_config_rejects_invalid_recurrence_parameters (test_v21_pi.NormalizedRecurrenceTests.test_config_rejects_invalid_recurrence_parameters) ... ok
+test_deadband_and_zero_reliability_use_exponential_leak (test_v21_pi.NormalizedRecurrenceTests.test_deadband_and_zero_reliability_use_exponential_leak) ... ok
+test_integral_and_output_are_bounded (test_v21_pi.NormalizedRecurrenceTests.test_integral_and_output_are_bounded) ... ok
+test_invalid_and_stale_intervals_do_not_change_integral (test_v21_pi.NormalizedRecurrenceTests.test_invalid_and_stale_intervals_do_not_change_integral) ... ok
+test_legacy_matches_appendix_d_and_event_leak (test_v21_pi.NormalizedRecurrenceTests.test_legacy_matches_appendix_d_and_event_leak) ... ok
+test_pause_leak_depends_on_elapsed_time_not_number_of_events (test_v21_pi.NormalizedRecurrenceTests.test_pause_leak_depends_on_elapsed_time_not_number_of_events) ... ok
+test_q_squared_ablation_has_documented_twenty_percent_difference (test_v21_pi.NormalizedRecurrenceTests.test_q_squared_ablation_has_documented_twenty_percent_difference) ... ok
+test_subthreshold_reliability_freezes_integral_but_derates_output (test_v21_pi.NormalizedRecurrenceTests.test_subthreshold_reliability_freezes_integral_but_derates_output) ... ok
+test_time_normalization_is_equivalent_when_gains_and_clamp_scale (test_v21_pi.NormalizedRecurrenceTests.test_time_normalization_is_equivalent_when_gains_and_clamp_scale) ... ok
+test_actual_tempo_is_converted_back_to_integral_coordinates (test_v21_pi.TempoAcknowledgementTests.test_actual_tempo_is_converted_back_to_integral_coordinates) ... ok
+test_default_has_no_ack_feedback (test_v21_pi.TempoAcknowledgementTests.test_default_has_no_ack_feedback) ... ok
+test_exact_execution_has_zero_correction (test_v21_pi.TempoAcknowledgementTests.test_exact_execution_has_zero_correction) ... ok
+test_expired_command_is_not_used (test_v21_pi.TempoAcknowledgementTests.test_expired_command_is_not_used) ... ok
+test_feedback_is_clamped_and_nonfinite_ack_rejected (test_v21_pi.TempoAcknowledgementTests.test_feedback_is_clamped_and_nonfinite_ack_rejected) ... ok
+test_gain_snapshot_is_bound_to_submitted_decision (test_v21_pi.TempoAcknowledgementTests.test_gain_snapshot_is_bound_to_submitted_decision) ... ok
+test_no_inverse_for_zero_ki_or_zero_q (test_v21_pi.TempoAcknowledgementTests.test_no_inverse_for_zero_ki_or_zero_q) ... ok
+test_reversed_time_is_rejected_without_consuming_valid_ack (test_v21_pi.TempoAcknowledgementTests.test_reversed_time_is_rejected_without_consuming_valid_ack) ... ok
+test_suspend_or_zero_reliability_revokes_outstanding_ack (test_v21_pi.TempoAcknowledgementTests.test_suspend_or_zero_reliability_revokes_outstanding_ack) ... ok
+test_unacknowledged_command_can_expire_when_new_command_is_registered (test_v21_pi.TempoAcknowledgementTests.test_unacknowledged_command_can_expire_when_new_command_is_registered) ... ok
+test_wrong_duplicate_and_reused_commands_do_not_correct (test_v21_pi.TempoAcknowledgementTests.test_wrong_duplicate_and_reused_commands_do_not_correct) ... ok
+
+======================================================================
+FAIL: test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) (arm=<Arm.FULL_LOOP: 'A_full_loop'>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_learning_runtime.py", line 204, in test_all_arms_match_pre_change_golden_trace
+    self.assertEqual(replay(arm), golden[arm.value])
+AssertionError: {'states': [{'t': 0, 'arousal': 0.670364936[8191 chars]66}]} != {'engine': [{'dynamics': 0.5333333333333333[8191 chars]8}}]}
+Diff is 15188 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) (arm=<Arm.SHAM: 'B_sham'>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_learning_runtime.py", line 204, in test_all_arms_match_pre_change_golden_trace
+    self.assertEqual(replay(arm), golden[arm.value])
+AssertionError: {'states': [{'t': 0, 'arousal': 0.670364936[9713 chars].4}]} != {'engine': [{'dynamics': 0.5, 'harmonic_bri[9713 chars]8}}]}
+Diff is 18338 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) (arm=<Arm.DIRECT: 'C_direct'>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_learning_runtime.py", line 204, in test_all_arms_match_pre_change_golden_trace
+    self.assertEqual(replay(arm), golden[arm.value])
+AssertionError: {'states': [{'t': 0, 'arousal': 0.670364936[10169 chars]25}]} != {'engine': [{'dynamics': 0.5333333333333333[10169 chars]8}}]}
+Diff is 18387 characters long. Set self.maxDiff to None to see it.
+
+======================================================================
+FAIL: test_all_arms_match_pre_change_golden_trace (test_learning_runtime.LearningSessionTests.test_all_arms_match_pre_change_golden_trace) (arm=<Arm.ISO: 'D_iso'>)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "tests/test_learning_runtime.py", line 204, in test_all_arms_match_pre_change_golden_trace
+    self.assertEqual(replay(arm), golden[arm.value])
+AssertionError: {'states': [{'t': 0, 'arousal': 0.670364936[8188 chars]95}]} != {'engine': [{'dynamics': 0.5333333333333333[8188 chars]8}}]}
+Diff is 15185 characters long. Set self.maxDiff to None to see it.
+
+----------------------------------------------------------------------
+Ran 198 tests in 2.085s
+
+FAILED (failures=4)

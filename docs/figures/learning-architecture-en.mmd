@@ -1,0 +1,67 @@
+flowchart LR
+  U[Participant] -->|Physiological response| S[EDA / HRV]
+  S --> L0[L0 Signal cleaning and features]
+
+  subgraph L1[L1 State estimation]
+    B1[Baseline observation + independent Kalman]
+    M1[Learned emission + independent Kalman]
+    A1{State arbitration}
+    B1 --> A1
+    M1 --> A1
+  end
+  L0 --> B1
+  L0 --> M1
+  A1 --> X[State / confidence / variance]
+
+  subgraph L2[L2 Reference trajectory]
+    B2[Default trajectory parameters]
+    M2[Hierarchical contextual bandit]
+    A2{Parameter arbitration}
+    T[Deterministic trajectory planner]
+    B2 --> A2
+    M2 --> A2
+    A2 --> T
+  end
+  X -->|First eligible anchor state| M2
+  X -->|Tracking and reliability| T
+
+  subgraph L3[L3 Gain scheduling]
+    E[Reference minus current state]
+    B3[Baseline PI]
+    M3[Learned gains → Gain-scheduled PI]
+    A3{Control arbitration}
+    E --> B3
+    E --> M3
+    B3 --> A3
+    M3 --> A3
+  end
+  T -->|Reference| E
+  X -->|Current state| E
+
+  subgraph L35[L3.5 Music parameters and execution constraints]
+    R[Rule-based parameter mapping]
+    M4[Preference candidate ranking]
+    A4{Preference arbitration}
+    G[Frozen music guard]
+    C[Actual bar / phrase boundary commit]
+    R --> A4
+    M4 --> A4
+    A4 --> G --> C
+  end
+  A3 --> R
+  A3 --> M4
+  C --> EN[Music engine]
+  EN -->|Music feedback| U
+
+  O[Approved logs and weak labels → Offline training / calibration / evaluation]
+  O -.Frozen artifacts.-> M1
+  O -.Frozen artifacts.-> M2
+  O -.Frozen artifacts.-> M3
+  O -.Frozen artifacts.-> M4
+  V[L4–L6 Audit / version pins / arm assignment / safety stop]
+  V -.Supervision and stop.-> EN
+  A1 -.Decision audit.-> V
+  A2 -.Decision audit.-> V
+  A3 -.Decision audit.-> V
+  A4 -.Decision audit.-> V
+  V -.Historical records / feedback.-> O

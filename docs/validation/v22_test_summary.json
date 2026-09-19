@@ -1,0 +1,17 @@
+{
+  "date": "2026-09-19",
+  "scope": "Targeted v2.2 research helpers plus v2.1 execution/control/gate/metric regression",
+  "tests_run": 126,
+  "passed": 126,
+  "failed": 0,
+  "new_v22_tests": 52,
+  "prior_v21_tests": 74,
+  "dependencies": {
+    "numpy": "1.26.4",
+    "scipy": "1.13.1"
+  },
+  "runtime_changed_by_v22": false,
+  "full_suite_rerun": false,
+  "prior_full_suite_limitation": "v2.1 historical golden snapshot floating-point difference remains documented in V21_LEGACY_REPLAY_VALIDATION.json; no fixture changes.",
+  "claims": "Software and constructed mathematical validation only; no empirical frequency, physiological efficacy or new OPE novelty result."
+}

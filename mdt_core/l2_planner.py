@@ -85,6 +85,7 @@ class TrajectoryPlanner:
         self._adaptive_last_t: float | None = None
         self._phase = "unanchored"
         self._speed_factor = 0.0
+        self._active_time = 0.0
 
     @property
     def params(self) -> TrajectoryParams | None:
@@ -127,6 +128,16 @@ class TrajectoryPlanner:
         self._adaptive_last_t = None
         self._phase = "match"
         self._speed_factor = 0.0
+
+    def active_target(self, dt: float, state: State, reliability: float,
+                      *, enabled: bool) -> float:
+        """v2.1 progress clock: HOLD/initialization never accrue catch-up time."""
+        if not math.isfinite(dt) or dt < 0:
+            raise ValueError("active dt must be finite and nonnegative")
+        if enabled and reliability >= self.cfg.adaptive_min_reliability:
+            self._active_time += dt
+        return self.adaptive_target(self._active_time, state,
+                                    reliability if enabled else 0.0)
 
     @property
     def phase(self) -> str:

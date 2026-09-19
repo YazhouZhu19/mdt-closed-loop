@@ -1,0 +1,46 @@
+Use case: style-transfer.
+Asset: a polished Chinese academic framework illustration for the MDT learning-enabled closed-loop control system.
+Input image 1 is the EDIT TARGET and authoritative architecture content (the existing MDT paper-style figure). Input image 2 is a STYLE REFERENCE ONLY (the user's FreeCAD research framework screenshot). Redesign image 1 in the visual language of image 2. Do not copy FreeCAD, CAD parts, actor/verifier tasks, rounds, recursive exploration or memory algorithms. Keep the MDT model and all causal connections.
+
+Visual direction:
+A polished illustrated research-paper figure, landscape 3:2 aspect ratio, ideally 2400×1600 or larger, pure white background, sharp legible Chinese. Match the reference's pastel sectional frames, large floating rounded title tabs, dark teal lettering, nested rounded cards, light blue / warm apricot / mint-green palette, thin colored outlines and orderly connector arrows. Headers may feel friendly and slightly hand-drawn, but Chinese body text must be clean regular rounded sans-serif. Use generous spacing and consistent sizes. Include only a FEW small technical illustrations (waveform trace, a tiny model/network icon, audio sliders, a folder of model cards). They should be subordinate and occupy under 8% of the figure. No large people, no headphones character, no repeated robot mascots, no giant shields, no 3D/glossy decoration. The reference is inspiration for hierarchy and finish, not a collage to copy.
+
+Composition:
+Top 65% is one large very pale BLUE region with a broad floating title tab: “A  在线闭环控制”. Its flow is left to right, with L2 raised above L3, as in image 1. Bottom 30% has two framed sections: a wider pale APRICOT left section titled “B  离线学习与版本冻结”, and a mint GREEN right section titled “C  确定性仲裁”. Bottom edge has one compact legend/caption line. Do not cram the figure: increase canvas size and card widths as needed.
+
+Panel A topology — exact:
+1. Leftmost compact card “使用者生理状态”, with only a small waveform icon.
+2. Right arrow to “L0  特征提取”, sublabel “EDA / HRV”.
+3. Right arrow splits to TWO INDEPENDENT stacked subcards inside group “L1  状态估计”: top “基线观测 + Kalman”, bottom pale-blue “学习发射 + Kalman”. Both arrows go to a small warm gate “状态门控”. Caption inside group bottom: “独立滤波状态”. Never draw the branches in series.
+4. L1 gate output goes to a filled junction. Label beside it “â, P, c”. From this junction a continuous upward branch enters a raised card “L2  轨迹规划”. Three short lines inside L2: “上下文老虎机”, “参数门控 → 参考轨迹”, “每会话至多一次决策”. L2's downward output “r(k)” feeds the common input of the L3 group.
+5. A separate direct wire from the L1 junction, labeled “â(k)”, also feeds the common L3 input. “L3  增益调度” contains two INDEPENDENT parallel stacked rectangles “基线 PI” and “学习增益 PI”, each leading into a gate “控制仲裁”. Both PI blocks consume the same reference and state. Small sublabel below the learned PI: “Kp / Ki / 死区 / 泄漏”. Output rightward labeled “u(k)”. No arrow from one PI branch into the other.
+6. Rightward into “L3.5  音乐参数”, with two short lines “规则映射 / 偏好候选” and “偏好门控”. A small audio-sliders illustration is allowed in this card.
+7. Rightward into a warm card “冻结安全守卫”, sublabel “限幅 / 限速 / 层级”.
+8. Rightward into separate card “边界提交”, sublabel “小节 / 乐句”.
+9. Rightward into final card “音乐引擎”.
+10. Engine has a direct continuous feedback arrow BELOW the chain returning to the leftmost “使用者生理状态” card, labeled “音乐作用与生理反馈”. This is the closed loop. Keep it visually unbroken.
+11. A small card “安全中止” placed ABOVE the engine connects downward directly to the engine. It is not inserted into the normal feedback path.
+Keep all four deterministic gates: state gate, trajectory parameter gate, control gate, preference gate. Thin orthogonal connectors and visible arrowheads; no crossing through text or cards; no floating lines. Use muted blue solid arrows for online flow.
+
+Panel B:
+Four nested rounded cards in a clear left-to-right row:
+“会话日志与标签” → “离线训练” → “独立校准与评估” → “固定版本工件”.
+Small schematic model-card stack may be inside the final card only.
+A single dashed warm arrow from the artifact card reaches the OUTER border of panel A, with label “冻结模型 · 仅推理”. This is a publication link to the whole online panel, not a direct actuator command.
+Below the row: “会话内不更新权重；新版本进入新试验期”.
+
+Panel C:
+A small top conditions strip “可靠度 · 校准 · OOD · 版本 · 超时”.
+Main formula clear and centered: “u = (1−λ)u基线 + λu学习”.
+Below: “0 ≤ λ ≤ 1”.
+Two short outcome rows with subtle small check/return symbols if helpful:
+“门控通过：有界混合”
+“异常回退：λ = 0”.
+Bottom small caption “迟滞切换 / 受限偏移”.
+No efficacy claims.
+
+Bottom legend/caption:
+blue small sample “在线信号”, dashed warm sample “固定模型发布”, warm small sample “确定性门控 / 约束”.
+Then exact small footer: “MDT 学习型闭环架构｜学习默认关闭，仅 FULL_LOOP 可启用”.
+
+Preserve technical content. This remains stage 3-A gain scheduling, NOT MPC, NOT online training, NOT a recursive multi-agent planner. Do not add performance values or pretend calibration is a stability proof. Make the final image feel close to the user's colorful academic framework reference while keeping technical accuracy, a calm professional composition and readable Chinese text.

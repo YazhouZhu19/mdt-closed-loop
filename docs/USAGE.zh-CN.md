@@ -1,5 +1,7 @@
 # 使用与集成说明
 
+> Current revision: [v2.2 execution-contract and evidence workflow](research/README.md). This page retains the default legacy integration; the opt-in profile has [separate timing and ACK requirements](V21_IMPLEMENTATION.md).
+
 本文说明本地安装、合成演示、会话接入、研究分臂、输出记录和音乐引擎适配。
 
 ## 1. 环境准备

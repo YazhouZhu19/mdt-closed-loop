@@ -1,0 +1,45 @@
+{
+  "date": "2026-09-19",
+  "python_version": "3.12.14",
+  "numpy": "1.26.4",
+  "scipy": "1.13.1",
+  "new_tests": {
+    "count": 74,
+    "passed": 74,
+    "files": [
+      "test_v21_execution.py",
+      "test_v21_pi.py",
+      "test_v21_gates.py",
+      "test_v21_metrics.py"
+    ]
+  },
+  "full_suite": {
+    "test_methods": 198,
+    "passed_methods": 197,
+    "failed_methods": 1,
+    "failed_subtests": 4,
+    "known_failure": "Historical exact golden fixture; identical pre-existing floating point differences in unmodified HEAD",
+    "maximum_fixture_difference": 6.252776074688882e-13
+  },
+  "legacy_head_comparison": {
+    "all_four_arms_exact_equal": true,
+    "baseline_commit": "5285377da14897ff2275b5c0f0918e7874279c9f",
+    "evidence": "../V21_LEGACY_REPLAY_VALIDATION.json"
+  },
+  "checks": {
+    "ruff": "passed",
+    "git_diff_check": "passed",
+    "contract_demo_assertions": 19
+  },
+  "commands": {
+    "new": "python -m unittest tests.test_v21_execution tests.test_v21_pi tests.test_v21_gates tests.test_v21_metrics -v",
+    "full": "python -m unittest discover -s tests -v",
+    "demo": "python examples/v21_contract_demo.py --output docs/validation/v21_contract_demo.json"
+  },
+  "limits": [
+    "synthetic software tests only",
+    "no full public-data processing or B0/B1/B2/H study yet",
+    "no audio hardware calibration",
+    "no human efficacy claim"
+  ]
+}

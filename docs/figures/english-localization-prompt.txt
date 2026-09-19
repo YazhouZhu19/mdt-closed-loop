@@ -1,0 +1,66 @@
+Use case: text-localization.
+Edit the supplied MDT architecture figure. Replace EVERY Chinese label with clear, correct ENGLISH. Preserve the existing pastel blue/orange/green palette, rounded title tabs, nested cards, technical icons, panel structure, all arrows and model semantics. Do not redesign the style. Maintain landscape 3:2 proportions and sharp high-resolution lettering. English may wrap onto 2–3 lines; modestly widen title tabs/cards or enlarge the canvas to fit text, without changing the topology. Avoid tiny print or overlaps. No Chinese characters anywhere, including the equation subscripts, legend and footer.
+
+Exact English text replacements:
+
+PANEL A
+Main title: "A  Online Closed-Loop Control"
+Leftmost physiology card: "Participant" / "Physiology"
+L0 card: "L0  Feature Extraction"; keep "EDA / HRV".
+L1 group title: "L1  State Estimation"
+Upper branch: "Baseline observation" / "+ Kalman"
+Lower branch: "Learned emission" / "+ Kalman"
+Small gate: "State" / "Gate"
+Group bottom: "Independent filter states"
+Keep state label "â, P, c" and branch "â(k)".
+L2 title: "L2  Trajectory Planning"
+L2 content: "Contextual bandit", "Parameter gate → Reference", "At most one decision per session".
+Keep output "r(k)".
+L3 title: "L3  Gain Scheduling"
+Upper PI: "Baseline PI"
+Lower PI: "Gain-scheduled PI"
+Small gate: "Control" / "Arbitration"
+Bottom small text: "Kp / Ki / Deadband / Leakage".
+Keep output "u(k)".
+L3.5 card: "L3.5  Music Parameters"
+Sublabels: "Rule mapping / Preference candidates", "Preference gate".
+Safety card: "Frozen Safety Guard"
+Sublabel: "Bounds / Rates / Layers"
+Boundary card: "Boundary Commit"
+Sublabel: "Bar / Phrase"
+Engine card: "Music Engine"
+Small safety card above engine: "Safety Stop"
+Feedback label: "Music effect and physiological feedback".
+
+PANEL B
+Main title: "B  Offline Learning & Version Freeze"
+Four cards: "Session Logs & Labels" → "Offline Training" → "Independent Calibration & Evaluation" → "Fixed-Version Artifacts".
+Keep small model-version folder illustration.
+Dashed release arrow label: "Frozen models · Inference only".
+Bottom sentence: "No weight updates within a session; new versions enter a new trial period."
+
+PANEL C
+Main title: "C  Deterministic Arbitration"
+Conditions strip: "Reliability · Calibration · OOD · Version · Timeout".
+Equation: typeset u = (1 − λ) u_base + λ u_learned with base and learned as ENGLISH SUBSCRIPTS.
+Below: "0 ≤ λ ≤ 1".
+Check outcome: "Gate passed: bounded blend"
+Return outcome: "Fallback: λ = 0"
+Bottom strip: "Hysteresis / Restricted deviation".
+
+LEGEND AND FOOTER
+Blue solid arrow: "Online signal"
+Orange dashed arrow: "Frozen model release"
+Amber box sample: "Deterministic gates / Constraints"
+Footer: "MDT Learning-Enabled Closed Loop | Learning off by default; FULL_LOOP only."
+
+IMPORTANT INVARIANTS:
+L1 has two parallel independent estimators feeding one state gate.
+L1 output splits toward L2 and the two parallel PI branches in L3.
+L2 provides the reference input to L3. The baseline PI and gain-scheduled PI remain parallel and feed control arbitration.
+Execution order is L3.5 → Frozen Safety Guard → Boundary Commit → Music Engine.
+A separate Safety Stop points down into Music Engine.
+The continuous closed-loop feedback connects the Music Engine back to Participant Physiology.
+Offline release is a dashed connection to the outer online panel only.
+Do not add MPC, online learning, new modules, or new claims.
+Retain all icon artwork and color blocks. Localize all typography cleanly in one coherent, friendly scientific sans-serif style. Check spelling and make sure no original Chinese text remains.

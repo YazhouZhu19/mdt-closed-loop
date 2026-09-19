@@ -1,0 +1,409 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "synthetic_execution_contract_demo",
+  "epoch": "demo",
+  "scope": "Constructed software-contract scenario; not a physiological or intervention-effect experiment.",
+  "profile": "mdt_core.profiles.v21_config with explicitly shortened demonstration TTL/HOLD values",
+  "clock": "deterministic session-relative seconds; watchdog ticks supplied independently",
+  "execution_config": {
+    "enabled": true,
+    "observation_ttl_s": 5.0,
+    "decision_ttl_s": 10.0,
+    "hold_max_s": 3.0,
+    "recovery_observations": 2,
+    "dynamics_max": 0.65,
+    "dynamics_rate_per_s": 0.02
+  },
+  "limitations": [
+    "No participant data, physiological plant, learned model, or efficacy measurement.",
+    "NullEngine returns a synchronous simulated ACK and produces no audio.",
+    "Software dynamics is not calibrated sound pressure; no hearing-safety claim.",
+    "Explicit poll calls demonstrate deadline semantics, not an independent hardware watchdog."
+  ],
+  "all_checks_passed": true,
+  "checks": {
+    "startup_requires_two_observations": true,
+    "baseline_startup_accepts_second_observation": true,
+    "newer_target_replaces_pending_target": true,
+    "accepted_target_does_not_change_confirmed_music": true,
+    "boundary_submits_latest_decision": true,
+    "ack_updates_confirmed_music": true,
+    "target_is_projected_against_elapsed_budget": true,
+    "duplicate_boundary_has_no_execution_effect": true,
+    "later_boundary_uses_new_command_id": true,
+    "same_absolute_target_is_preserved": true,
+    "later_boundary_respects_incremental_budget": true,
+    "source_ttl_enters_hold_before_decision_ttl": true,
+    "repackaged_old_source_is_rejected": true,
+    "hold_cancels_pending_targets": true,
+    "hold_keeps_complete_confirmed_vector": true,
+    "hold_is_finite_before_deadline": true,
+    "hold_deadline_stops_without_sensor_or_boundary_event": true,
+    "stopped_session_rejects_new_decisions": true,
+    "late_boundary_cannot_restart_execution": true
+  },
+  "checkpoints": [
+    {
+      "name": "latest_absolute_target_pending",
+      "t": 2.0,
+      "mode": "BASELINE",
+      "ack_id": "bootstrap",
+      "confirmed": {
+        "tempo": 72.0,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "pending_sequence": 3,
+      "pending_target": {
+        "tempo": 68.0,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "engine_history_count": 0,
+      "engine_stopped": false
+    },
+    {
+      "name": "first_projected_target_acknowledged",
+      "t": 3.0,
+      "mode": "BASELINE",
+      "ack_id": "demo:3:0x1.8000000000000p+1",
+      "confirmed": {
+        "tempo": 71.8,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "pending_sequence": 3,
+      "pending_target": {
+        "tempo": 68.0,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "engine_history_count": 2,
+      "engine_stopped": false
+    },
+    {
+      "name": "duplicate_boundary_ignored",
+      "t": 3.0,
+      "mode": "BASELINE",
+      "ack_id": "demo:3:0x1.8000000000000p+1",
+      "confirmed": {
+        "tempo": 71.8,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "pending_sequence": 3,
+      "pending_target": {
+        "tempo": 68.0,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "engine_history_count": 2,
+      "engine_stopped": false
+    },
+    {
+      "name": "same_target_progresses_at_new_boundary",
+      "t": 4.0,
+      "mode": "BASELINE",
+      "ack_id": "demo:3:0x1.0000000000000p+2",
+      "confirmed": {
+        "tempo": 71.73333333333333,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "pending_sequence": 3,
+      "pending_target": {
+        "tempo": 68.0,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "engine_history_count": 3,
+      "engine_stopped": false
+    },
+    {
+      "name": "expired_source_is_not_refreshed_by_new_decision",
+      "t": 8.0,
+      "mode": "HOLD",
+      "ack_id": "demo:3:0x1.0000000000000p+2",
+      "confirmed": {
+        "tempo": 71.73333333333333,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "pending_sequence": null,
+      "pending_target": null,
+      "engine_history_count": 3,
+      "engine_stopped": false
+    },
+    {
+      "name": "hold_timeout_stops_engine",
+      "t": 10.0,
+      "mode": "STOPPED",
+      "ack_id": "demo:3:0x1.0000000000000p+2",
+      "confirmed": {
+        "tempo": 71.73333333333333,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "pending_sequence": null,
+      "pending_target": null,
+      "engine_history_count": 3,
+      "engine_stopped": true
+    },
+    {
+      "name": "stop_is_terminal",
+      "t": 11.0,
+      "mode": "STOPPED",
+      "ack_id": "demo:3:0x1.0000000000000p+2",
+      "confirmed": {
+        "tempo": 71.73333333333333,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      },
+      "pending_sequence": null,
+      "pending_target": null,
+      "engine_history_count": 3,
+      "engine_stopped": true
+    }
+  ],
+  "events": [
+    {
+      "t": 0.0,
+      "event": "recovery_wait",
+      "epoch": "demo",
+      "mode": "INITIALIZING",
+      "sequence": 1
+    },
+    {
+      "t": 1.0,
+      "event": "accepted",
+      "epoch": "demo",
+      "mode": "BASELINE",
+      "sequence": 2,
+      "observation_id": "synthetic-window-2",
+      "observation_end": 1.0,
+      "created_at": 1.0,
+      "parent_ack_id": "bootstrap",
+      "target": {
+        "tempo": 71.0,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      }
+    },
+    {
+      "t": 2.0,
+      "event": "accepted",
+      "epoch": "demo",
+      "mode": "BASELINE",
+      "sequence": 3,
+      "observation_id": "synthetic-window-3",
+      "observation_end": 2.0,
+      "created_at": 2.0,
+      "parent_ack_id": "bootstrap",
+      "target": {
+        "tempo": 68.0,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      }
+    },
+    {
+      "t": 3.0,
+      "event": "command",
+      "epoch": "demo",
+      "mode": "BASELINE",
+      "command_id": "demo:3:0x1.8000000000000p+1",
+      "sequence": 3,
+      "projected": {
+        "tempo": 71.8,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      }
+    },
+    {
+      "t": 3.0,
+      "event": "ack",
+      "epoch": "demo",
+      "mode": "BASELINE",
+      "command_id": "demo:3:0x1.8000000000000p+1",
+      "executed_at": 3.0,
+      "executed": {
+        "tempo": 71.8,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      }
+    },
+    {
+      "t": 3.0,
+      "event": "duplicate_boundary",
+      "epoch": "demo",
+      "mode": "BASELINE"
+    },
+    {
+      "t": 4.0,
+      "event": "command",
+      "epoch": "demo",
+      "mode": "BASELINE",
+      "command_id": "demo:3:0x1.0000000000000p+2",
+      "sequence": 3,
+      "projected": {
+        "tempo": 71.73333333333333,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      }
+    },
+    {
+      "t": 4.0,
+      "event": "ack",
+      "epoch": "demo",
+      "mode": "BASELINE",
+      "command_id": "demo:3:0x1.0000000000000p+2",
+      "executed_at": 4.0,
+      "executed": {
+        "tempo": 71.73333333333333,
+        "layer_mask": 7,
+        "register": 0.5,
+        "dynamics": 0.5,
+        "harmonic_brightness": 0.5,
+        "rhythmic_accent": 0.3,
+        "reverb_depth": 0.4
+      }
+    },
+    {
+      "t": 8.0,
+      "event": "hold",
+      "epoch": "demo",
+      "mode": "HOLD",
+      "reason": "expired"
+    },
+    {
+      "t": 8.0,
+      "event": "reject",
+      "epoch": "demo",
+      "mode": "HOLD",
+      "reason": "freshness",
+      "sequence": 4
+    },
+    {
+      "t": 8.0,
+      "event": "hold",
+      "epoch": "demo",
+      "mode": "HOLD",
+      "reason": "freshness"
+    },
+    {
+      "t": 10.0,
+      "event": "stopping",
+      "epoch": "demo",
+      "mode": "STOPPING",
+      "reason": "hold_timeout"
+    },
+    {
+      "t": 10.0,
+      "event": "stopped",
+      "epoch": "demo",
+      "mode": "STOPPED",
+      "reason": "hold_timeout"
+    },
+    {
+      "t": 11.0,
+      "event": "reject",
+      "epoch": "demo",
+      "mode": "STOPPED",
+      "reason": "terminal",
+      "sequence": 5
+    }
+  ],
+  "engine_history": [
+    {
+      "tempo": 72.0,
+      "layer_mask": 7,
+      "register": 0.5,
+      "dynamics": 0.5,
+      "harmonic_brightness": 0.5,
+      "rhythmic_accent": 0.3,
+      "reverb_depth": 0.4
+    },
+    {
+      "tempo": 71.8,
+      "layer_mask": 7,
+      "register": 0.5,
+      "dynamics": 0.5,
+      "harmonic_brightness": 0.5,
+      "rhythmic_accent": 0.3,
+      "reverb_depth": 0.4
+    },
+    {
+      "tempo": 71.73333333333333,
+      "layer_mask": 7,
+      "register": 0.5,
+      "dynamics": 0.5,
+      "harmonic_brightness": 0.5,
+      "rhythmic_accent": 0.3,
+      "reverb_depth": 0.4
+    }
+  ],
+  "engine_history_semantics": "Initial engine.start state, followed by ACKed command states."
+}

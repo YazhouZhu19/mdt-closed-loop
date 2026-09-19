@@ -43,6 +43,9 @@ class RawWindow:
     rr_intervals: list[float]
     contact_impedance: float | None = None
     accel_rms: float | None = None
+    # Session-relative original acquisition end; adapters must preserve it
+    # through replay/transport. None retains the synchronous legacy convention.
+    observed_end_t: float | None = None
 
 
 @dataclass

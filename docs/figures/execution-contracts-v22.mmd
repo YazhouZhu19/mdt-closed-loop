@@ -1,0 +1,93 @@
+flowchart TB
+  subgraph H["A - Hierarchical agent organization"]
+    direction TB
+    OP["Study protocol / operator"] --> C0["C0 Session Supervisor<br/>Mode, permissions, deadlines"]
+    C0 -. "delegate / receive reports" .-> C1["C1 Perception Coordinator"]
+    C0 -. "delegate / receive reports" .-> C2["C2 Planning Coordinator"]
+    C0 -. "delegate / receive reports" .-> C3["C3 Control Coordinator"]
+    C1 -.-> A1["A1 Quality Agent<br/>Deterministic checks"]
+    C1 -.-> A2["A2 State Agent<br/>Compact emission model"]
+    C2 -.-> A3["A3 Trajectory Agent<br/>Hierarchical contextual bandit"]
+    C3 -.-> A4["A4 Gain Agent<br/>Small gain regressor"]
+    C3 -.-> A5["A5 Preference Agent<br/>Frozen rule ranking (initial study)"]
+    SS["Snapshot contract (target specification)<br/>Per-modality history adapter pending"]
+    C1 -. "publish state" .-> SS
+    C2 -. "publish reference" .-> SS
+    C3 -. "read views / publish proposal status" .-> SS
+  end
+
+  subgraph P["B - Physiological closed loop and deterministic execution"]
+    direction LR
+    U["Reactive Response Simulator"] --> S["EDA / HRV"]
+    S --> L0["L0 Features + hard quality checks"]
+    L0 --> BE["Baseline observation<br/>Independent Kalman"]
+    L0 --> LE["A2 execution view<br/>Learned emission + independent Kalman"]
+    BE --> SG{"Binary state branch selector"}
+    LE --> SG
+    SG --> X["Accepted state<br/>arousal, variance, reliability"]
+    DP["Default trajectory parameters"] --> PG{"Parameter gate<br/>Attempt at most once"}
+    PG --> RP["Frozen trajectory parameters<br/>Active-time reference generator"]
+    X -->|"tracking / reliability"| RP
+    RP -->|"r(k)"| ER["e(k) = r(k) - a_hat(k)"]
+    X --> ER
+    ER --> BP["Baseline PI<br/>Own integral state"]
+    ER --> LP["Gain-scheduled PI<br/>Own integral state"]
+    BP --> CG{"Control gate"}
+    LP --> CG
+    CG -->|"u(k)"| MAP["Rule mapping<br/>Control-compatible candidates"]
+    MAP --> MG{"Preference gate"}
+    MG --> G["Frozen guard<br/>Bounds, tempo rate, layer limits<br/>Software dynamics cap / rate"]
+    G --> EG["Execution Gateway<br/>Dual TTL / absolute target / single writer<br/>Boundary projection / command ID / ACK"]
+    EG --> EN["Music engine"]
+    EN -->|"simulated physiological response"| U
+    EG -. "applied / acknowledged state" .-> SS
+    CLK["Audio boundary events"] --> EG
+    SAFE["STOP Monitor / Simulation Clock<br/>Bounded HOLD / terminal STOP"] ==>|"stop latch / revoke pending"| EG
+    C0 -. "authorized mode / execution lease" .-> EG
+  end
+
+  A1 -->|"quality may only reduce trust"| SG
+  L0 --> A1
+  OP -->|"direct stop"| SAFE
+  A2 -. "same role, execution view" .-> LE
+  X -->|"first eligible anchor only"| A3
+  A3 -->|"bounded parameters + proposal probability"| PG
+  X --> A4
+  RP --> A4
+  A4 -->|"bounded gains"| LP
+  MAP -->|"candidate set"| A5
+  A5 -->|"ranked valid candidate"| MG
+  X -.-> SS
+  RP -.-> SS
+  C1 -. "owns scheduling, cannot bypass gate" .-> SG
+  C2 -. "owns one-shot latch" .-> PG
+  C3 -. "owns sequencing" .-> CG
+  C3 -. "owns sequencing" .-> MG
+
+  subgraph O["C - Audit and offline model lifecycle"]
+    direction LR
+    LOG["Audit log<br/>Snapshots, proposals, gates, commits"]
+    TRAIN["Offline training"] --> EVAL["Independent calibration<br/>Replay and failure tests"]
+    LOG --> TRAIN
+    EVAL --> REG["Frozen model registry<br/>Trial manifest + content hashes"]
+  end
+  SG -.-> LOG
+  PG -.-> LOG
+  CG -.-> LOG
+  MG -.-> LOG
+  G -.-> LOG
+  EG -.-> LOG
+  SAFE -.-> LOG
+  REG -. "load at session start" .-> A2
+  REG -. "load at session start" .-> A3
+  REG -. "load at session start" .-> A4
+  REG -. "load at session start" .-> A5
+
+  classDef learned fill:#d9eeff,stroke:#3889c7,color:#153d55;
+  classDef deterministic fill:#f2f4f6,stroke:#7d8a94,color:#253642;
+  classDef gate fill:#fff0d4,stroke:#d6a34e,color:#5c4724;
+  classDef safety fill:#e0f4e7,stroke:#66a67b,color:#244c34;
+  class A2,A3,A4,A5 learned;
+  class C0,C1,C2,C3,A1,BE,BP,RP,SS,CLK deterministic;
+  class SG,PG,CG,MG,G gate;
+  class SAFE,EG safety;

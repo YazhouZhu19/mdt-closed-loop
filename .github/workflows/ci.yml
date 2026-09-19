@@ -33,13 +33,13 @@ jobs:
           python -m pip install -e ".[dev]"
 
       - name: Compile sources
-        run: python -m compileall -q mdt_core tests demo.py
+        run: python -m compileall -q mdt_core tests examples demo.py
 
       - name: Lint
-        run: ruff check mdt_core tests demo.py docs/LEARNING_BANDIT_EXAMPLE.py
+        run: ruff check mdt_core tests examples demo.py docs/LEARNING_BANDIT_EXAMPLE.py
 
       - name: Type-check local sources
-        run: mypy --no-site-packages --ignore-missing-imports mdt_core tests demo.py
+        run: mypy --no-site-packages --ignore-missing-imports mdt_core tests examples demo.py
 
       - name: Run isolated synthetic tests
         run: python -W error -m unittest discover -s tests -v
@@ -51,3 +51,13 @@ jobs:
       - name: Run offline learning example
         if: matrix.python-version == '3.12'
         run: python -m docs.LEARNING_BANDIT_EXAMPLE
+
+      - name: Run execution-contract and exact-OPE examples
+        if: matrix.python-version == '3.12'
+        run: |
+          python examples/v21_contract_demo.py
+          python examples/v22_operator_ope_sanity.py
+
+      - name: Run constructed evidence audit
+        if: matrix.python-version == '3.12'
+        run: python -m mdt_core.evidence_cli examples/v22_audit_manifest.json --output "$RUNNER_TEMP/mdt-evidence-audit.json"

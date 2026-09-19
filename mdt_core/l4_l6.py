@@ -40,6 +40,7 @@ class SessionRecorder:
         self.subjective: dict = {}
         self.policy_decisions: list[dict] = []
         self.policy_manifest: dict = {}
+        self.execution_events: list[dict] = []
         self._dir = Path(out_dir)
         self._last_physio_t = -math.inf
         self._last_music_t = -math.inf
@@ -118,6 +119,7 @@ class SessionRecorder:
                     "subjective": self.subjective,
                     "policy_manifest": self.policy_manifest,
                     "policy_decisions": self.policy_decisions,
+                    "execution_events": self.execution_events,
                 },
                 ensure_ascii=False,
                 allow_nan=False,

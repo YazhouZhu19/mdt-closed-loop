@@ -4,7 +4,19 @@
 
 The repository has been validated as an offline research prototype with deterministic synthetic inputs. This validation establishes software behavior under the tested cases; it does not establish clinical efficacy, sensor compatibility, or hard-real-time performance.
 
-## Reference run
+## v2.2 execution and evidence release (2026-09-19)
+
+The current release was checked on macOS arm64 with Python 3.12.14, NumPy 1.26.4, SciPy 1.13.1, Ruff 0.16.7 and mypy 2.3.1. [The machine-readable record](validation/v22_release_validation.json) and [full test output](validation/v22_release_full_tests.txt) distinguish current checks from the historical run below.
+
+- 152 new v2.1/v2.2 tests pass: 76 execution/control/gate/metric checks, 46 evidence-protocol checks, 6 exact OPE checks and 24 CLI checks.
+- Full warnings-as-errors run: 276 test methods, 275 pass. One historical exact-golden method has four failing arm subtests with floating-point differences, maximum absolute difference `6.252776074688882e-13`.
+- A fresh export of the actual pre-learning commit `bbb6682` produces exactly the same four-arm replay as the current legacy path under this environment. It has the same 13 old-fixture differences per arm. The [independent comparison](validation/v22_pre_learning_replay_comparison.json) records this; no fixture or strict assertion was rewritten.
+- Compilation, Ruff and mypy pass; the wheel builds. The execution demo, offline learning demo, exact OPE example and F3 JSON audit run successfully.
+- The complete local suite is **not green**; the historical golden issue remains visible. GitHub matrix results are reported separately after publication, not inferred from a local subset.
+
+The release fixes L3 gate normalization for a nondefault `output_clamp`: it now uses the frozen full action range `2 * output_clamp`. The default range retains its prior behavior. The opt-in runtime remains simulation-only. The M0 audit has no eligible natural logs; neither the software test count nor the mathematical example is a prevalence or efficacy estimate.
+
+## Historical reference run
 
 The learning-module revision was checked on 2026-09-17 with:
 
@@ -19,9 +31,9 @@ The package declares Python 3.10+ and compatible minimum NumPy/SciPy versions. G
 
 ```bash
 python -m pip install -e ".[dev]"
-python -m compileall -q mdt_core tests demo.py docs/LEARNING_BANDIT_EXAMPLE.py
-ruff check mdt_core tests demo.py docs/LEARNING_BANDIT_EXAMPLE.py
-mypy --no-site-packages --ignore-missing-imports mdt_core tests demo.py
+python -m compileall -q mdt_core tests examples demo.py docs/LEARNING_BANDIT_EXAMPLE.py
+ruff check mdt_core tests examples demo.py docs/LEARNING_BANDIT_EXAMPLE.py
+mypy --no-site-packages --ignore-missing-imports mdt_core tests examples demo.py
 python -W error -m unittest discover -s tests -v
 python demo.py
 python -m docs.LEARNING_BANDIT_EXAMPLE

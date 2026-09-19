@@ -1,5 +1,7 @@
 # Usage and Integration Guide
 
+> Current revision: [v2.2 execution-contract and evidence workflow](research/README.md). This page retains the default legacy integration; the opt-in profile has [separate timing and ACK requirements](V21_IMPLEMENTATION.md).
+
 This guide covers local installation, the synthetic demonstration, session integration, research arms, output records, and music-engine adapters.
 
 ## 1. Environment

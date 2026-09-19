@@ -1,0 +1,54 @@
+{
+  "date": "2026-09-19",
+  "scope": "v2.1 execution contracts and v2.2 research evidence release",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "platform": "macOS arm64",
+    "ruff": "0.16.7",
+    "mypy": "2.3.1"
+  },
+  "full_suite": {
+    "methods": 276,
+    "passed_methods": 275,
+    "failed_methods": 1,
+    "failed_subtests": 4,
+    "warnings_as_errors": true,
+    "known_failure": "test_all_arms_match_pre_change_golden_trace",
+    "fixture_preserved": true,
+    "assertion_preserved": true
+  },
+  "new_revision_tests": {
+    "v21": 76,
+    "v22_protocol": 46,
+    "v22_ope": 6,
+    "v22_cli": 24,
+    "passed": 152
+  },
+  "static_checks": {
+    "compile": "passed",
+    "ruff": "passed",
+    "mypy": "passed (48 files)"
+  },
+  "legacy_compatibility": {
+    "pre_learning_commit": "bbb66823d85979848069615ac1e486ab1435362a",
+    "four_arms_exact_current_match": true,
+    "fixture_diff_per_arm": 13,
+    "max_absolute_difference": 6.252776074688882e-13
+  },
+  "artifact_checks": {
+    "wheel_build": "passed",
+    "wheel_import_cli": "passed from isolated wheel installation outside repository",
+    "execution_demo": "passed (19 checks)",
+    "ope_example": "passed (exact rational checks)",
+    "cli_example": "passed; F3 not_assessable"
+  },
+  "github_ci": "not_yet_run_for_this_release",
+  "evidence_limits": [
+    "No natural execution log prevalence estimate.",
+    "No real physiological intervention effect measured.",
+    "Strong B1 independent implementation/review pending.",
+    "No new OPE theorem or estimator claimed."
+  ]
+}

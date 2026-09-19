@@ -152,6 +152,16 @@ class ControlConfig:
     deadband_integral_leak: float = 0.95
     uncertainty_soft_limit: float = 0.25
     uncertainty_hard_limit: float = 0.75
+    # The published legacy recurrence remains the default comparison arm.
+    formulation: str = "legacy"
+    integral_time_s: float = 60.0
+    integral_leak_tau_s: float = 60.0
+    integration_min_reliability: float = 0.35
+    normalized_integral_q_scaling: bool = False
+    max_step_s: float = 300.0
+    ack_backcalculation: bool = False
+    ack_tracking_time_s: float = 60.0
+    ack_timeout_s: float = 10.0
 
     def __post_init__(self) -> None:
         if (
@@ -171,6 +181,22 @@ class ControlConfig:
             raise ValueError("uncertainty limits must be strictly increasing")
         if self.deadband > 1:
             raise ValueError("deadband cannot exceed the normalized arousal range")
+        if self.formulation not in ("legacy", "normalized"):
+            raise ValueError("formulation must be 'legacy' or 'normalized'")
+        for name in (
+            "integral_time_s",
+            "integral_leak_tau_s",
+            "max_step_s",
+            "ack_tracking_time_s",
+            "ack_timeout_s",
+        ):
+            _positive(name, float(getattr(self, name)))
+        _unit_interval("integration_min_reliability", self.integration_min_reliability)
+        for name in ("normalized_integral_q_scaling", "ack_backcalculation"):
+            if not isinstance(getattr(self, name), bool):
+                raise TypeError(f"{name} must be bool")
+        if self.ack_backcalculation and self.formulation != "normalized":
+            raise ValueError("ACK back-calculation requires normalized formulation")
 
 
 @dataclass(frozen=True)
@@ -236,16 +262,26 @@ class LearningConfig:
     disagreement_limit: float = 0.30
     disagreement_confidence: float = 0.80
     restricted_delta: float = 0.10
+    # The legacy profile stays byte-for-byte compatible at its gates. These
+    # controls are frozen with the research profile, not changed by an Agent.
+    v21_gates: bool = False
+    state_fusion: str = "blend"
+    module_cap: float = 1.0
+    domain_cap: float = 1.0
+    session_cap: float = 1.0
+    ramp_up_per_s: float = 0.10
+    distance_epsilon: float = 1e-9
 
     def __post_init__(self) -> None:
         if self.mode not in {"disabled", "shadow", "suggest", "restricted", "autonomous"}:
             raise ValueError("unknown learning deployment mode")
-        for name in ("enable_l1", "enable_l2", "enable_l3", "enable_taste"):
+        for name in ("enable_l1", "enable_l2", "enable_l3", "enable_taste", "v21_gates"):
             if not isinstance(getattr(self, name), bool):
                 raise TypeError(f"{name} must be bool")
         for name in (
             "reliability_exit", "reliability_enter", "reliability_full",
             "confidence_min", "disagreement_confidence",
+            "module_cap", "domain_cap", "session_cap",
         ):
             _unit_interval(name, getattr(self, name))
         if not self.reliability_exit < self.reliability_enter < self.reliability_full:
@@ -254,6 +290,12 @@ class LearningConfig:
             raise ValueError("confidence_min must be < 1")
         for name in ("inference_timeout_ms", "disagreement_limit", "restricted_delta"):
             _positive(name, getattr(self, name))
+        for name in ("ramp_up_per_s", "distance_epsilon"):
+            _positive(name, getattr(self, name))
+        if self.state_fusion not in {"blend", "select"}:
+            raise ValueError("state_fusion must be blend or select")
+        if self.state_fusion == "select" and not self.v21_gates:
+            raise ValueError("state_fusion select requires v21_gates")
         versions = dict(self.policy_versions)
         if len(versions) != len(self.policy_versions):
             raise ValueError("duplicate policy module pin")
@@ -271,6 +313,31 @@ class LearningConfig:
 
 
 @dataclass(frozen=True)
+class ExecutionConfig:
+    """Simulation contract profile. Dynamics limits are NOT calibrated SPL."""
+
+    enabled: bool = False
+    observation_ttl_s: float = 20.0
+    decision_ttl_s: float = 10.0
+    hold_max_s: float = 30.0
+    recovery_observations: int = 2
+    dynamics_max: float = 0.65
+    dynamics_rate_per_s: float = 0.02
+
+    def __post_init__(self) -> None:
+        if not isinstance(self.enabled, bool):
+            raise TypeError("enabled must be bool")
+        for name in ("observation_ttl_s", "decision_ttl_s", "hold_max_s",
+                     "dynamics_rate_per_s"):
+            _positive(name, getattr(self, name))
+        _unit_interval("dynamics_max", self.dynamics_max)
+        if (not isinstance(self.recovery_observations, int)
+                or isinstance(self.recovery_observations, bool)
+                or self.recovery_observations < 1):
+            raise ValueError("recovery_observations must be a positive integer")
+
+
+@dataclass(frozen=True)
 class Config:
     signal: SignalConfig = SignalConfig()
     state: StateConfig = StateConfig()
@@ -279,6 +346,7 @@ class Config:
     grammar: GrammarConfig = GrammarConfig()
     program: ProgramConfig = ProgramConfig()
     learning: LearningConfig = LearningConfig()
+    execution: ExecutionConfig = ExecutionConfig()
 
 
 DEFAULT = Config()

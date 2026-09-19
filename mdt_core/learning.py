@@ -24,9 +24,10 @@ from .policy import (
     Policy,
     PolicyRunner,
     context_hash,
+    finite_scalar,
     stable_hash,
 )
-from .types import Features, PolicyDecision, State
+from .types import Features, MusicParams, PolicyDecision, State
 
 Approval = Callable[[str, PolicyDecision], bool]
 
@@ -55,6 +56,7 @@ class LearningRuntime:
             and getattr(cfg.learning, f"enable_{module}")
         }
         self.states: dict[str, ArbiterState] = {}
+        self.quarantined: dict[str, str] = {}
         self.gain_controller = PIController(cfg.control)
         self.l2_decided = False
         self.last_metadata: dict = {}
@@ -75,6 +77,8 @@ class LearningRuntime:
         self.recorder.policy_manifest = {
             "trial_id": cfg.learning.trial_id,
             "mode": cfg.learning.mode,
+            "v21_gates": cfg.learning.v21_gates,
+            "state_fusion": cfg.learning.state_fusion,
             "versions": versions,
             "probability_semantics": "proposal probability before gate/projection; not executed propensity",
         }
@@ -88,6 +92,32 @@ class LearningRuntime:
                 else None,
                 "process_scale_range": getattr(model, "process_scale_range", None),
             }
+
+    def _quarantine_reason(self, reason: str | None) -> bool:
+        """Transient OOD/quality do not revoke a module for the entire session.
+
+        An unvalidated emission history is different: the filter's calibrated
+        recursion cannot resume after that history without a new session.
+        """
+        if not self.cfg.learning.v21_gates or not reason:
+            return False
+        if reason in {
+            "out_of_distribution", "unreliable_state", "reliability_hysteresis",
+            "low_policy_confidence", "policy_disagreement", "fallback:missing_or_ood",
+            "disabled", "shadow", "awaiting_approval", "branch_permission_cap",
+            "branch_restricted_distance", "invalid_gate_time", "nonmonotonic_gate_time",
+        }:
+            return False
+        return reason not in {"blended", "agent", "agent_selected"}
+
+    def _propose(self, module: str, ctx: Context) -> PolicyDecision:
+        runner = self.runners[module]
+        if self.cfg.learning.v21_gates and module in self.quarantined:
+            return PolicyDecision(
+                0.0, 0.0, 0.0, False, runner.version, context_hash(ctx),
+                "module_quarantined",
+            )
+        return runner.propose(ctx)
 
     def _gate(
         self,
@@ -115,6 +145,8 @@ class LearningRuntime:
             baseline_action, 0.0, 1.0, True, BaselinePolicy.version, context_hash(ctx)
         )
         scalar = replace(decision, action=candidate_action)
+        if self.cfg.learning.v21_gates and module in self.quarantined:
+            scalar = replace(scalar, error="module_quarantined")
         output, trace = resolve(
             scalar,
             baseline,
@@ -124,7 +156,16 @@ class LearningRuntime:
             expected_version=expected_version,
             calibrated=calibrated,
             approved=approved,
+            now_s=ctx.get("time_seconds"),
+            action_scale=(
+                2.0 * self.cfg.control.output_clamp if module == "l3" else 1.0
+            ),
+            select_branch=module == "l1" and self.cfg.learning.state_fusion == "select",
+            # A3 is a one-shot parameter decision, not a time-varying weight.
+            ramp=module != "l2",
         )
+        if self._quarantine_reason(trace.decision):
+            self.quarantined.setdefault(module, trace.decision)
         self.states[module] = trace.state
         self.recorder.log_policy(
             {
@@ -145,6 +186,8 @@ class LearningRuntime:
                 "approved": approved,
                 "calibrated": calibrated,
                 "mode": self.cfg.learning.mode,
+                "quarantine_reason": self.quarantined.get(module),
+                "normalized_distance": self.cfg.learning.v21_gates,
             }
         )
         self.last_metadata = {
@@ -163,8 +206,12 @@ class LearningRuntime:
         if self.emission_estimator is None:
             return baseline_state
         estimator = self.emission_estimator
-        proposed = estimator.update(feats, process_scale)
-        status = estimator.last_emission_status
+        if self.cfg.learning.v21_gates and "l1" in self.quarantined:
+            proposed = baseline_state
+            status = "module_quarantined"
+        else:
+            proposed = estimator.update(feats, process_scale)
+            status = estimator.last_emission_status
         error = None if status == "learned" else status
         version = self.recorder.policy_manifest["versions"]["l1"]
         decision = PolicyDecision(
@@ -177,6 +224,8 @@ class LearningRuntime:
             error,
         )
         q = self.gain_controller.reliability(baseline_state)
+        if self.cfg.learning.v21_gates:
+            q = min(q, self.gain_controller.reliability(proposed))
         arousal, trace = self._gate(
             "l1",
             decision,
@@ -190,6 +239,10 @@ class LearningRuntime:
         mix = trace.lambda_mix
         if mix == 0:
             return baseline_state
+        if self.cfg.learning.state_fusion == "select":
+            # Preserve the selected branch's calibrated variance/confidence;
+            # the legacy conservative fusion belongs only to the blend arm.
+            return proposed
         # Mixing means must not create fictitious certainty. Conservatively
         # retain the larger variance and add the between-estimator spread.
         variance = max(baseline_state.uncertainty, proposed.uncertainty)
@@ -206,7 +259,7 @@ class LearningRuntime:
             return
         self.l2_decided = True
         runner = self.runners["l2"]
-        decision = runner.propose(ctx)
+        decision = self._propose("l2", ctx)
         proposal = None
         base = {
             "anchor_offset": 0.0,
@@ -263,12 +316,19 @@ class LearningRuntime:
     ) -> float:
         if "l3" not in self.runners:
             return baseline_output
+        previous_controller = (
+            copy.deepcopy(self.gain_controller) if self.cfg.learning.v21_gates else None
+        )
         runner = self.runners["l3"]
-        decision = runner.propose(ctx)
+        decision = self._propose("l3", ctx)
         proposed = baseline_output
         try:
             gains = GainParams.from_mapping(decision.action)
-            if decision.error is None:
+            if decision.error is None and (
+                not self.cfg.learning.v21_gates
+                or (decision.in_distribution and runner.calibrated
+                    and finite_scalar(q) and q >= self.cfg.learning.reliability_exit)
+            ):
                 self.gain_controller.cfg = gains.control_config(self.cfg.control)
                 proposed, _ = self.gain_controller.step(target, state, dt)
         except (ValueError, TypeError, KeyError, AttributeError):
@@ -284,22 +344,32 @@ class LearningRuntime:
             expected_version=runner.version,
         )
         if trace.lambda_mix == 0:
-            self.gain_controller.suspend()
+            if previous_controller is not None:
+                # A rejected or zero-authority preview must not integrate error.
+                self.gain_controller = previous_controller
+                self.gain_controller.suspend(dt)
+            else:
+                self.gain_controller.suspend()
         return max(
             -self.cfg.control.output_clamp, min(self.cfg.control.output_clamp, output)
         )
 
     def taste(
         self, grammar: MusicGrammar, control: float, t: float, ctx: Context, q: float
-    ) -> None:
-        if "taste" not in self.runners or abs(control) < 1e-12:
-            return
+    ) -> MusicParams:
+        """Return the selected absolute candidate and retain legacy queuing.
+
+        A v2.1 session can send the returned candidate to its sole execution
+        gateway. This value is a target, never an assertion of engine ACK.
+        """
         from .l35_mapping import LAYER_LEVELS, layer_level, map_control
 
         base = map_control(control, grammar.current, self.cfg.grammar)
+        if "taste" not in self.runners or abs(control) < 1e-12:
+            return base
         taste_ctx = dict(ctx, current_params=grammar.current.as_dict(), control=control)
         runner = self.runners["taste"]
-        decision = runner.propose(taste_ctx)
+        decision = self._propose("taste", taste_ctx)
         distance = 0.0
         candidate = base.as_dict()
         try:
@@ -339,9 +409,18 @@ class LearningRuntime:
                 round(base_level + trace.lambda_mix * (candidate_level - base_level))
             ]
             grammar.request_params(selected, t)
+            # Match request_params' static normalization without prematurely
+            # spending a boundary/rate budget or reporting the target executed.
+            lo, hi = self.cfg.grammar.tempo_range
+            selected["tempo"] = max(lo, min(hi, selected["tempo"]))
+            for key, value in selected.items():
+                if key not in {"tempo", "layer_mask"}:
+                    selected[key] = max(0.0, min(1.0, value))
+            return MusicParams(**selected)
+        return base
 
-    def suspend(self) -> None:
-        self.gain_controller.suspend()
+    def suspend(self, dt: float | None = None) -> None:
+        self.gain_controller.suspend(dt)
         self.states.clear()
         self.last_metadata = {
             "arbiter_decision": "learning_suspended",

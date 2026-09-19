@@ -7,6 +7,8 @@
 > [!IMPORTANT]
 > 本项目是研究软件，**不是医疗器械**，不提供医疗建议，也不能用于无人监督的患者治疗。当前验证全部基于合成信号，不构成临床有效性证据。
 
+v2.2 将**执行契约**作为研究主线，保留生理闭环与层级小型 Agent。显式启用的新执行配置提供绝对目标、双 TTL、ACK 与有限 HOLD/STOP；新增证据工具区分自然日志、外部来源和构造场景。完整说明、两份 PDF 与证据状态见 [v2.2 研究入口](docs/research/README.md)。
+
 ## 已实现功能
 
 - 多速率输入：2 秒 EDA 快速通路和 15 秒 EDA/HRV 慢速通路。
@@ -22,32 +24,32 @@
 
 ## 闭环过程
 
-学习型扩展采用以下结构。完整说明见[修改后的模型描述](docs/LEARNING_MODEL.zh-CN.md)，接入方法见[学习模块指南](docs/LEARNING_MODULES.zh-CN.md)。
+研究架构如下。执行行为与限制见[配置指南](docs/V21_IMPLEMENTATION.md)，完整模型见[v2.2 研究详述](docs/research/MODEL_V22.zh-CN.md)，另附[可编辑英文结构图](docs/figures/execution-contracts-v22.mmd)。图中的目标规范与当前同步仿真实现分别说明，不能将结构图视为真实设备或完整实验已完成的证明。
 
-![学习型闭环模型结构图](docs/figures/learning-architecture.png)
+![学习型闭环模型结构图](docs/figures/execution-contracts-v22.png)
 
 学习开关关闭时保留以下基线流程：
 
 ```mermaid
 flowchart LR
-    P[参与者生理状态] --> S[EDA 与 RR 信号窗口]
-    S --> L0[L0 校验、清洗与特征]
-    L0 --> L1[L1 个体标准化、融合、Kalman]
-    L1 --> L2[L2 治疗目标轨迹]
-    L1 --> C[L3 带约束 PI 控制器]
+    P[Participant physiology] --> S[EDA and RR windows]
+    S --> L0[L0 validation and features]
+    L0 --> L1[L1 personal normalization, fusion, Kalman filter]
+    L1 --> L2[L2 target trajectory]
+    L1 --> C[L3 bounded PI controller]
     L2 --> C
-    C --> G[L3.5 音乐语法]
-    G --> E[音乐引擎]
+    C --> G[L3.5 music grammar]
+    G --> E[Music engine]
     E --> P
-    L0 --> R[L4 同步记录]
+    L0 --> R[L4 synchronized records]
     L1 --> R
     G --> R
-    R --> O[L5 剂量、结局、无效停治、安全]
-    A[L6 研究分臂] --> L2
+    R --> O[L5 dose, outcome, futility, safety]
+    A[L6 research-arm assignment] --> L2
     A --> C
 ```
 
-核心控制律：
+默认 legacy 路径的控制律如下；显式启用的 normalized 变体另见执行配置指南：
 
 ```text
 e(k) = target_arousal(k) - estimated_arousal(k)
@@ -72,7 +74,17 @@ python -m pip install -e .
 python demo.py
 ```
 
-运行测试：
+运行本次实现的执行与证据流程：
+
+```bash
+python examples/v21_contract_demo.py
+python examples/v22_operator_ope_sanity.py
+python -m mdt_core.evidence_cli examples/v22_audit_manifest.json
+```
+
+在 `FULL_LOOP` 仿真中通过 `cfg = v21_config(DEFAULT)` 显式启用执行契约。名称沿用 v2.1 控制语义；v2.2 重构研究证据路线。该配置不自动加载学习模型。适配器须提供原始 `observed_end_t`，并独立调用 `Session.watchdog(t)`；示例使用 NullEngine，不产生真实音频。
+
+运行测试（完整记录与平台限制见[验证说明](docs/VALIDATION.md)）：
 
 ```bash
 python -m unittest discover -s tests -v
@@ -82,8 +94,8 @@ python -m unittest discover -s tests -v
 
 ```bash
 python -m pip install -e ".[dev]"
-ruff check mdt_core tests demo.py
-mypy --no-site-packages --ignore-missing-imports mdt_core tests demo.py
+ruff check mdt_core tests examples demo.py
+mypy --no-site-packages --ignore-missing-imports mdt_core tests examples demo.py
 python -W error -m unittest discover -s tests -v
 ```
 
@@ -143,3 +155,7 @@ python -W error -m unittest discover -s tests -v
 本项目采用 [Apache License 2.0](LICENSE)。在遵守许可证条款的前提下，
 允许使用、修改和再分发，并包含明确的专利授权。开源许可不代表医疗器械批准、
 临床疗效或适用于患者诊疗；上述研究与安全限制仍然适用。
+
+## v2.2 证据协议与研究路线
+
+论文主线调整为执行契约，层级收益仅作探索。新增[证据协议](docs/V22_EVIDENCE_PROTOCOL.md)，区分三态审计、F1/F2/F3 来源和 M0 判断门。[本地盘点](docs/validation/v22_m0_inventory.json)尚未发现合格自然执行日志，真实发生率保持未测。[执行算子 OPE 检查](examples/v22_operator_ope_sanity.py)复现已知恒等式与裁剪支持反例，不是新方法或效果结果。这些研究工具不改变 v2.1 运行控制逻辑。

@@ -1,0 +1,57 @@
+{
+  "schema_version": "mdt.evidence.audit.v1",
+  "event_type": "invalid_execution",
+  "audit_unit": {
+    "definition": "One constructed verification session; not a natural deployment session",
+    "population": "Synthetic examples only; no empirical deployment population",
+    "eligibility_rule": "Include the two constructed sessions in this example; both have an execution opportunity",
+    "event_definition": "At least one invalid execution confirmed by the declared evidence protocol",
+    "protocol_reference": "examples/v22_audit_manifest.json#illustrative-protocol"
+  },
+  "eligible_session_ids": ["constructed-001", "constructed-002"],
+  "inventory": {
+    "all_eligible_session_count": 2,
+    "reference": "examples/v22_audit_manifest.json#constructed-roster"
+  },
+  "records": [
+    {
+      "session_id": "constructed-001",
+      "event_type": "invalid_execution",
+      "source_id": "constructed-example",
+      "verdict": "ruled_out",
+      "evidence_references": ["illustrative-fixture#constructed-001"],
+      "required_fields_complete": true,
+      "requires_execution_ack": true,
+      "execution_ack_id": "illustrative-ack-001"
+    },
+    {
+      "session_id": "constructed-002",
+      "event_type": "invalid_execution",
+      "source_id": "constructed-example",
+      "verdict": "confirmed",
+      "evidence_references": ["illustrative-fixture#constructed-002"],
+      "required_fields_complete": true,
+      "requires_execution_ack": true,
+      "execution_ack_id": null
+    }
+  ],
+  "sources": [
+    {
+      "source_id": "constructed-example",
+      "evidence_class": "F3_constructed_verification",
+      "reference": "examples/v22_audit_manifest.json",
+      "description": "Hand-authored illustrative fixture, not measurements or device logs",
+      "real_execution_logs": false,
+      "natural_uninjected_run": false,
+      "frequency_known": false,
+      "construction_specification": "Declare two synthetic sessions; omit the second execution ACK to demonstrate unknown-outcome handling"
+    }
+  ],
+  "protocol": {
+    "registration_status": "draft",
+    "risk_threshold": 0.05,
+    "registration_reference": "NOT_REGISTERED: illustrative example only",
+    "threshold_rationale": "The value 0.05 demonstrates the interface and is not a chosen or preregistered scientific threshold",
+    "alpha": 0.05
+  }
+}

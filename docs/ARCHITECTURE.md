@@ -1,5 +1,7 @@
 # Architecture and Core Algorithms
 
+> Current revision: [v2.2 execution-contract and evidence workflow](research/README.md). This page retains the default legacy integration; the opt-in profile has [separate timing and ACK requirements](V21_IMPLEMENTATION.md).
+
 ## 1. Scope
 
 The original path below remains the default. The opt-in learning extension is described in [Learning modules](LEARNING_MODULES.zh-CN.md): `PolicyRunner` pins and bounds inference, `arbiter.resolve` uses explicit hysteresis state, and `l35_guard.project` enforces immutable event constraints. Only FULL_LOOP treatment sessions can enter this path; ISO, SHAM, DIRECT and calibration bypass it entirely. L3 currently supports stage 3-A gain scheduling only.
