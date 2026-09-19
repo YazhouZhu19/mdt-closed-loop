@@ -20,6 +20,7 @@ from mdt_core.policy import PolicyRunner, context_hash, stable_hash
 from mdt_core.session import Session
 from mdt_core.trial import TrialPinError
 from mdt_core.types import Arm, MusicParams, PolicyDecision, SessionStatus, State
+from tests.golden_comparison import assert_legacy_trace_equal
 from tests.learning_scenarios import replay
 from tests.synthetic import ready_baseline, synthetic_window
 
@@ -201,7 +202,7 @@ class LearningSessionTests(unittest.TestCase):
         )
         for arm in Arm:
             with self.subTest(arm=arm):
-                self.assertEqual(replay(arm), golden[arm.value])
+                assert_legacy_trace_equal(self, replay(arm), golden[arm.value])
 
     def test_disabled_and_control_arms_do_not_even_load_models(self):
         policies = {

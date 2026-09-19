@@ -1,0 +1,49 @@
+{
+  "date": "2026-09-19",
+  "scope": "Narrow cross-platform tolerance for immutable synthetic physiology fixture; no runtime changes",
+  "environment": {
+    "python": "3.12.14",
+    "numpy": "1.26.4",
+    "scipy": "1.13.1",
+    "platform": "macOS arm64",
+    "ruff": "0.16.7",
+    "mypy": "2.3.1"
+  },
+  "full_suite": {
+    "methods": 283,
+    "passed_methods": 283,
+    "failed_methods": 0,
+    "warnings_as_errors": true
+  },
+  "comparison_contract": {
+    "fixture_sha256": "580609bf96f68cadfd97821bb5c8814363975a9b6298f46c6ae8eaa0cbf41259",
+    "fixture_preserved": true,
+    "rel_tol": 1e-12,
+    "abs_tol": 1e-12,
+    "approximate_fields": [
+      "physio[].{hf_power,rmssd,sd1,scl_slope,scr_rate}",
+      "physio[].z.{hf_power,rmssd,sd1,scl_slope,scr_rate}",
+      "states[].z_scores.{hf_power,rmssd,sd1,scl_slope,scr_rate}"
+    ],
+    "all_other_fields": "exact type, structure and value",
+    "nonfinite_floats": "rejected",
+    "same_environment_replay": "exact equality retained",
+    "comparator_tests": 7
+  },
+  "static_checks": {
+    "compile": "passed",
+    "ruff": "passed",
+    "mypy": "passed (50 files)"
+  },
+  "initial_release_commit": "958f4882ca365564bda65945edce0f58343d9c0f",
+  "initial_github_ci": {
+    "url": "https://github.com/YazhouZhu19/mdt-closed-loop/actions/runs/35450479213",
+    "status": "failed",
+    "cause": "All three Python jobs failed only the exact-golden replay method before this portability correction"
+  },
+  "corrected_github_ci": "pending publication at time of local record; consult Actions for corresponding commit",
+  "evidence_limits": [
+    "Synthetic software tests only.",
+    "No clinical effect or natural execution failure prevalence established."
+  ]
+}

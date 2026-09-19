@@ -6,13 +6,25 @@ The repository has been validated as an offline research prototype with determin
 
 ## v2.2 execution and evidence release (2026-09-19)
 
-The current release was checked on macOS arm64 with Python 3.12.14, NumPy 1.26.4, SciPy 1.13.1, Ruff 0.16.7 and mypy 2.3.1. [The machine-readable record](validation/v22_release_validation.json) and [full test output](validation/v22_release_full_tests.txt) distinguish current checks from the historical run below.
+The release was checked on macOS arm64 with Python 3.12.14, NumPy 1.26.4, SciPy 1.13.1, Ruff 0.16.7 and mypy 2.3.1.
+
+### Portable fixture comparison
+
+The complete warnings-as-errors suite now passes **283/283 test methods**. Compilation, Ruff and mypy (50 source files) also pass. See the [current local validation record](validation/v22_portability_validation.json) and [full output](validation/v22_portability_full_tests.txt).
+
+The immutable pre-learning fixture now uses `rel_tol=1e-12, abs_tol=1e-12` only for five derived physiological features and their Z scores. All clocks, state estimates, decisions, control outputs, engine parameters, structure and types still compare exactly. Seven comparator tests check platform roundoff, detectable feature changes, exact-field changes, schema/type mismatches and nonfinite rejection. Same-environment replay equivalence tests retain exact equality. The [fixture documentation](../tests/fixtures/README.md) defines the full comparison contract.
+
+This is a test-portability correction; runtime code and the fixture were not changed. It addresses the exact-golden failure observed in the initial [GitHub Python 3.10/3.11/3.12 run](https://github.com/YazhouZhu19/mdt-closed-loop/actions/runs/35450479213). Check the [CI page](https://github.com/YazhouZhu19/mdt-closed-loop/actions/workflows/ci.yml) for the result corresponding to the commit being reviewed; the local result does not substitute for that matrix.
+
+### Initial release check, before portability correction
+
+The [initial machine-readable record](validation/v22_release_validation.json) and [initial full test output](validation/v22_release_full_tests.txt) are retained unchanged as historical evidence:
 
 - 152 new v2.1/v2.2 tests pass: 76 execution/control/gate/metric checks, 46 evidence-protocol checks, 6 exact OPE checks and 24 CLI checks.
 - Full warnings-as-errors run: 276 test methods, 275 pass. One historical exact-golden method has four failing arm subtests with floating-point differences, maximum absolute difference `6.252776074688882e-13`.
 - A fresh export of the actual pre-learning commit `bbb6682` produces exactly the same four-arm replay as the current legacy path under this environment. It has the same 13 old-fixture differences per arm. The [independent comparison](validation/v22_pre_learning_replay_comparison.json) records this; no fixture or strict assertion was rewritten.
 - Compilation, Ruff and mypy pass; the wheel builds. The execution demo, offline learning demo, exact OPE example and F3 JSON audit run successfully.
-- The complete local suite is **not green**; the historical golden issue remains visible. GitHub matrix results are reported separately after publication, not inferred from a local subset.
+- The complete local suite at that point was **not green**; the later portability correction above resolves this test failure without rewriting that record.
 
 The release fixes L3 gate normalization for a nondefault `output_clamp`: it now uses the frozen full action range `2 * output_clamp`. The default range retains its prior behavior. The opt-in runtime remains simulation-only. The M0 audit has no eligible natural logs; neither the software test count nor the mathematical example is a prevalence or efficacy estimate.
 
